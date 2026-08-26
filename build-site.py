@@ -63,7 +63,9 @@ def rewrite(html: str) -> str:
     for f, url in LINKS.items():
         html = html.replace(f'href="{f}#', f'href="{url}#')
         html = html.replace(f'href="{f}"',  f'href="{url}"')
-        html = html.replace(f"cs:'{f}'",    f"cs:'{url}'")     # каталог проектов
+        # имя файла в одинарных кавычках: адреса в js-данных каталога
+        # и журнала — cs:'…', url:'…', запасной вариант в функции href()
+        html = html.replace(f"'{f}'", f"'{url}'")
     # локальные картинки — в абсолютные пути, страницы лежат во вложенных папках
     html = re.sub(r'(src|href)="(?!https?:|//|/|#|mailto:|tel:)(img/|og/)',
                   r'\1="/\2', html)

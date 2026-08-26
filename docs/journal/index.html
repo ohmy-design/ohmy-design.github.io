@@ -320,7 +320,7 @@ const POSTS = [
 { id:'swiss-grid', r:'review', d:'2026-07-28', min:9, lead:true,
   t:'Швейцарская сетка в эпоху бесконечного скролла',
   ex:'Модульная сетка придумана для листа бумаги фиксированного размера. Разбираемся, что от неё осталось в вебе, где холст резиновый, а страница не заканчивается.',
-  url:'ohmy-article.html' },
+  url:'/journal/swiss-grid/' },
 
 { id:'forum-identity', r:'case', d:'2026-07-14', min:7,
   t:'Айдентика отраслевого форума: что меняется, когда аудитория — заводы',
@@ -442,7 +442,7 @@ function meta(p){
   return `<div class="meta"><span class="rub">${RUBRICS[p.r]}</span>
     <span>${human(p.d)}</span><span>·</span><span>${p.min} мин</span></div>`;
 }
-function href(p){ return p.url || 'ohmy-article.html'; }
+function href(p){ return p.url || '/journal/swiss-grid/'; }
 
 function render(){
   const items = POSTS.filter(p=>active==='all'||p.r===active);
