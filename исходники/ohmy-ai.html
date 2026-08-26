@@ -351,17 +351,30 @@ footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
   display:block;margin-top:2px}
 
 /* cta-contacts:begin */
-/* Те же плитки, что в подвале, но крупнее: это закрывающий блок страницы.
-   Ширину ограничиваем — во всю страницу они читались бы как второй подвал */
-.cta{padding-inline:var(--pad)}
+/* Блок связи идёт по общей сетке страницы, во всю ширину — как соседние
+   секции, а не узкой полосой по центру. Плитки крупные и вертикальные:
+   это закрывающий экран страницы, а не служебная строка.
+   Медиазапросы держим ниже базовых правил — специфичность одинаковая,
+   и выигрывает то, что стоит позже */
+.cta{padding-inline:var(--pad);padding-block:clamp(80px,9vw,150px)}
 .cta-contacts{display:grid;grid-template-columns:repeat(4,1fr);
-  gap:clamp(10px,1.4vw,18px);max-width:1080px;margin:0 auto;text-align:left}
-@media(max-width:860px){.cta-contacts{grid-template-columns:1fr 1fr}}
-@media(max-width:470px){.cta-contacts{grid-template-columns:1fr}}
-.cta-contacts .fc{padding:18px 20px;border-radius:16px}
+  gap:clamp(12px,1.4vw,20px);text-align:left}
+.cta-contacts .fc{flex-direction:column;align-items:flex-start;
+  justify-content:space-between;gap:clamp(22px,2.6vw,40px);
+  min-height:clamp(150px,15vw,215px);
+  padding:clamp(24px,2.6vw,36px);border-radius:18px}
 .cta-contacts .fc:hover{background:var(--bg-2)}
-.cta-contacts .fc svg{width:22px;height:22px}
-.cta-contacts .fc-txt b{font-size:16px}
+.cta-contacts .fc svg{width:26px;height:26px}
+.cta-contacts .fc-txt span{font-size:13px;margin-bottom:7px}
+.cta-contacts .fc-txt b{font-size:clamp(17px,1.5vw,21px);letter-spacing:-.02em}
+
+@media(max-width:900px){.cta-contacts{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){
+  .cta-contacts{grid-template-columns:1fr}
+  /* в один столбец плитки и так во всю ширину: высоту не задаём,
+     иначе блок растягивается на два экрана прокрутки */
+  .cta-contacts .fc{min-height:0;gap:16px;padding:22px 20px}
+}
 /* cta-contacts:end */
 
 /* foot-contacts:begin */
