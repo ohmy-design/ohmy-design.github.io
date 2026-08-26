@@ -334,7 +334,7 @@ footer{padding:40px var(--pad);border-top:1px solid var(--line);
 footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
   padding:clamp(50px,6vw,86px) var(--pad) clamp(26px,3vw,38px);
   margin-top:clamp(70px,9vw,140px);transition:background .7s var(--ease)}
-.foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.1fr;
+.foot-top{display:grid;grid-template-columns:1.6fr 1fr 1fr;
   gap:clamp(26px,4vw,60px);padding-bottom:clamp(34px,4vw,56px);
   border-bottom:1px solid var(--line)}
 @media(max-width:980px){.foot-top{grid-template-columns:1fr 1fr}}
@@ -349,6 +349,33 @@ footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
 .foot-col a:hover{color:var(--accent);padding-left:5px}
 .foot-col em{font-style:normal;font-size:12.5px;color:var(--muted);
   display:block;margin-top:2px}
+
+/* foot-contacts:begin */
+/* Подвал раскладывается блоками. Общее правило footer{display:flex} осталось
+   от прежнего простого подвала и сжимало все внутренние строки по содержимому,
+   а не по ширине страницы. Перебиваем здесь, чтобы не трогать старое правило:
+   оно ещё может касаться других footer на страницах */
+footer.site-foot{display:block}
+
+/* Четыре равнозначных способа связи отдельной строкой, а не колонкой
+   в навигации: для B2B это главное, ради чего сюда доскроллили */
+.foot-contacts{display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(10px,1.4vw,18px);padding:clamp(26px,3.2vw,44px) 0;
+  border-bottom:1px solid var(--line)}
+@media(max-width:860px){.foot-contacts{grid-template-columns:1fr 1fr}}
+@media(max-width:470px){.foot-contacts{grid-template-columns:1fr}}
+.fc{display:flex;align-items:center;gap:14px;border:1px solid var(--line);
+  border-radius:14px;padding:15px 17px;
+  transition:border-color .45s var(--ease),background .45s var(--ease)}
+.fc:hover{border-color:var(--line-strong);background:var(--bg)}
+.fc svg{width:20px;height:20px;flex-shrink:0;color:var(--muted);
+  transition:color .45s var(--ease)}
+.fc:hover svg{color:var(--accent)}
+.fc-txt{min-width:0}
+.fc-txt span{display:block;font-size:12px;color:var(--muted);margin-bottom:3px}
+.fc-txt b{display:block;font-size:14.5px;font-weight:400;letter-spacing:-.01em;
+  overflow-wrap:anywhere}
+/* foot-contacts:end */
 
 /* реквизиты */
 .foot-req{display:grid;grid-template-columns:repeat(4,1fr);
@@ -755,13 +782,20 @@ footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
       <a href="ohmy-brand.html">Дизайн и айдентика</a>
       <a href="ohmy-care.html">Поддержка и развитие</a>
     </div>
-
-    <div class="foot-col">
-      <b>Связаться</b>
-      <a href="https://t.me/brsemenov" target="_blank" rel="noopener">Телеграм<em>@brsemenov</em></a>
-      <a href="mailto:hi@ohmy.design">Почта<em>hi@ohmy.design</em></a>
-      <a href="tel:+79317069227">Телефон<em>+7 (931) 706-92-27</em></a>
-    </div>
+  </div>
+  <div class="foot-contacts">
+    <a class="fc" href="tel:+79317099307">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.5.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.57 3.5a1 1 0 0 1-.25 1l-2.22 2.3z"/></svg>
+      <span class="fc-txt"><span>телефон</span><b>+7 931 709 9307</b></span></a>
+    <a class="fc" href="https://t.me/ohmy_design" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.94 4.6 18.9 19.2c-.23 1.02-.84 1.27-1.7.79l-4.7-3.46-2.27 2.18c-.25.25-.46.46-.95.46l.34-4.8 8.73-7.89c.38-.34-.08-.53-.59-.19L6.98 13.1l-4.64-1.45c-1.01-.32-1.03-1.01.21-1.5l18.14-6.99c.84-.31 1.57.2 1.25 1.44z"/></svg>
+      <span class="fc-txt"><span>телеграм</span><b>@ohmy_design</b></span></a>
+    <a class="fc" href="https://wa.me/79317099307" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.15h-.01c-1.52 0-3.01-.41-4.31-1.18l-.31-.18-3.2.84.85-3.12-.2-.32a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.23 8.23z"/><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.69.25-1.28.17-1.4-.07-.13-.27-.2-.57-.35z"/></svg>
+      <span class="fc-txt"><span>whatsapp</span><b>+7 931 709 9307</b></span></a>
+    <a class="fc" href="mailto:hi@ohmy.design">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      <span class="fc-txt"><span>почта</span><b>hi@ohmy.design</b></span></a>
   </div>
 
   <div class="foot-req">
