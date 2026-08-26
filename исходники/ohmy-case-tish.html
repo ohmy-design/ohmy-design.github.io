@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="ru" data-theme="dark">
 <head>
+<!-- theme:begin. Тема запоминается между страницами.
+     Скрипт стоит в head и до стилей намеренно: если применять тему ниже,
+     страница успевает моргнуть чужим фоном -->
+<script>
+(function(){
+  var root = document.documentElement, KEY = 'ohmy-theme', saved = null;
+  try { saved = localStorage.getItem(KEY); } catch(e) {}
+  root.dataset.theme = saved ||
+    (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  // тумблеры на страницах просто меняют атрибут — сохраняем сам факт смены,
+  // так их код трогать не нужно
+  new MutationObserver(function(){
+    try { localStorage.setItem(KEY, root.dataset.theme); } catch(e) {}
+  }).observe(root, {attributes:true, attributeFilter:['data-theme']});
+})();
+</script>
+<!-- theme:end -->
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ТИШЬ — кейс ohmy.design</title>
@@ -72,8 +90,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;gap:20px;
    стекло, иначе текст меню наслаивается на то, что под ним. */
 nav{border-bottom:1px solid transparent;
   transition:background .45s var(--ease),border-color .45s var(--ease)}
-nav.stuck{mix-blend-mode:normal;background:var(--glass);
-  backdrop-filter:blur(10px);border-bottom-color:var(--line)}
+nav.stuck{mix-blend-mode:normal;background:var(--bg);
+  border-bottom-color:var(--line)}
 [data-menu="on"] nav{mix-blend-mode:normal}
 
 /* Бургер. Две черты складываются в крест — третья не нужна, читается и так */
@@ -319,7 +337,7 @@ footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
   <div class="nav-links">
     <a href="ohmy-site.html#dir">направления</a>
     <a href="ohmy-site.html#proj">проекты</a>
-    <a href="ohmy-site.html#studio">студия</a>
+    <a href="ohmy-studio.html">студия</a>
     <a href="ohmy-journal.html">журнал</a>
     <a href="ohmy-contacts.html">контакты</a>
   </div>
@@ -529,7 +547,6 @@ footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
 /* тема */
 (function(){
   const root=document.documentElement;
-  if(matchMedia('(prefers-color-scheme: light)').matches) root.dataset.theme='light';
   document.getElementById('themeBtn').addEventListener('click',()=>{
     root.dataset.theme = root.dataset.theme==='light' ? 'dark' : 'light';
   });

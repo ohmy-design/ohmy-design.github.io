@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="ru" data-theme="dark">
 <head>
+<!-- theme:begin. Тема запоминается между страницами.
+     Скрипт стоит в head и до стилей намеренно: если применять тему ниже,
+     страница успевает моргнуть чужим фоном -->
+<script>
+(function(){
+  var root = document.documentElement, KEY = 'ohmy-theme', saved = null;
+  try { saved = localStorage.getItem(KEY); } catch(e) {}
+  root.dataset.theme = saved ||
+    (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  // тумблеры на страницах просто меняют атрибут — сохраняем сам факт смены,
+  // так их код трогать не нужно
+  new MutationObserver(function(){
+    try { localStorage.setItem(KEY, root.dataset.theme); } catch(e) {}
+  }).observe(root, {attributes:true, attributeFilter:['data-theme']});
+})();
+</script>
+<!-- theme:end -->
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Проекты — ohmy.design</title>
@@ -67,8 +85,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;gap:20px;
    стекло, иначе текст меню наслаивается на то, что под ним. */
 nav{border-bottom:1px solid transparent;
   transition:background .45s var(--ease),border-color .45s var(--ease)}
-nav.stuck{mix-blend-mode:normal;background:var(--glass);
-  backdrop-filter:blur(10px);border-bottom-color:var(--line)}
+nav.stuck{mix-blend-mode:normal;background:var(--bg);
+  border-bottom-color:var(--line)}
 [data-menu="on"] nav{mix-blend-mode:normal}
 
 /* Бургер. Две черты складываются в крест — третья не нужна, читается и так */
@@ -135,6 +153,23 @@ html[data-menu="on"]{overflow:hidden}
 .count{white-space:nowrap;margin-left:auto}
 .reset{font-size:13px;color:var(--accent);background:none;border:0;
   cursor:pointer;font-family:inherit;padding:0}
+
+/* На узком экране чипы уезжают в строку с горизонтальной прокруткой.
+   Если их переносить, липкая панель вырастает на пол-экрана — а она липкая
+   и едет вместе со страницей. Подпись и счётчик встают строкой над чипами */
+@media(max-width:760px){
+  /* Грид, а не флекс: чипы выходят за края страницы отрицательными полями,
+     а флекс вычитает их из расчётной ширины — строка перестаёт переноситься.
+     Грид считает колонки и на поля не смотрит */
+  .row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px 12px}
+  .row-label{grid-area:1 / 1;min-width:0}
+  .count,.reset{grid-area:1 / 2;margin-left:0;justify-self:end}
+  .chips{grid-area:2 / 1 / auto / -1;flex-wrap:nowrap;
+    overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;
+    margin:0 calc(-1 * var(--pad));padding:2px var(--pad)}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:0 0 auto}
+}
 
 /* ---------- СЕТКИ ---------- */
 .wrap{padding:clamp(46px,5.5vw,84px) var(--pad) 0}
@@ -258,7 +293,7 @@ footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
   <div class="nav-links">
     <a href="/#dir">направления</a>
     <a href="/projects/" class="on">проекты</a>
-    <a href="/#studio">студия</a>
+    <a href="/studio/">студия</a>
     <a href="/journal/">журнал</a>
     <a href="/contacts/">контакты</a>
   </div>
@@ -585,7 +620,6 @@ render();
 /* ---------- тема ---------- */
 (function(){
   const root=document.documentElement;
-  if(matchMedia('(prefers-color-scheme: light)').matches) root.dataset.theme='light';
   document.getElementById('themeBtn').addEventListener('click',()=>{
     root.dataset.theme = root.dataset.theme==='light' ? 'dark' : 'light';
   });
