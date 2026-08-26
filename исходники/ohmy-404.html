@@ -58,6 +58,50 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;gap:20px;
 .nav-cta:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 @media(max-width:900px){.nav-links{display:none}}
 
+/* nav:begin */
+/* Шапка прозрачная и работает на разнице, пока страница не прокручена: над
+   героем это часть замысла. Как только под неё уезжает контент — проявляется
+   стекло, иначе текст меню наслаивается на то, что под ним. */
+nav{border-bottom:1px solid transparent;
+  transition:background .45s var(--ease),border-color .45s var(--ease)}
+nav.stuck{mix-blend-mode:normal;background:var(--glass);
+  backdrop-filter:blur(10px);border-bottom-color:var(--line)}
+[data-menu="on"] nav{mix-blend-mode:normal}
+
+/* Бургер. Две черты складываются в крест — третья не нужна, читается и так */
+.burger{display:none;width:40px;height:40px;flex-shrink:0;padding:0;border:0;
+  background:none;color:inherit;cursor:pointer;position:relative}
+.burger i{position:absolute;left:9px;width:22px;height:1.5px;background:currentColor;
+  transition:transform .5s var(--ease)}
+.burger i:nth-child(1){top:17px}
+.burger i:nth-child(2){top:23px}
+[data-menu="on"] .burger i:nth-child(1){transform:translateY(3px) rotate(45deg)}
+[data-menu="on"] .burger i:nth-child(2){transform:translateY(-3px) rotate(-45deg)}
+
+/* Мобильное меню. Ссылки клонируются из шапки скриптом, поэтому на каждой
+   странице они свои и активный пункт подхватывается сам */
+.menu{position:fixed;inset:0;z-index:45;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:var(--nav-h,80px) var(--pad) 0;
+  opacity:0;visibility:hidden;
+  transition:opacity .45s var(--ease),visibility .45s var(--ease)}
+[data-menu="on"] .menu{opacity:1;visibility:visible}
+.menu a{font-size:clamp(28px,7.5vw,42px);font-weight:500;letter-spacing:-.03em;
+  line-height:1.45;opacity:0;transform:translateY(12px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease),color .3s var(--ease)}
+[data-menu="on"] .menu a{opacity:1;transform:none;
+  transition-delay:calc(var(--i,0) * .045s + .1s)}
+.menu a.on{color:var(--accent)}
+.menu .menu-cta{margin-top:34px;align-self:flex-start;font-size:15px;font-weight:400;
+  letter-spacing:0;border:1px solid var(--line-strong);border-radius:100px;
+  padding:13px 26px}
+html[data-menu="on"]{overflow:hidden}
+
+@media(max-width:900px){.burger{display:block}}
+@media(max-width:600px){nav .nav-cta{display:none}}
+/* nav:end */
+
+
 /* ---------- ЭКРАН ----------
    Знак собран из тех же примитивов, что и генеративная айдентика:
    404 — не повод выпадать из системы. Курсор рассыпает цифры,
@@ -168,9 +212,13 @@ footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
   </div>
   <div class="nav-right">
     <button class="theme" id="themeBtn" aria-label="переключить тему"><i></i></button>
+    <button class="burger" id="burgerBtn" aria-label="меню" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
+    
+    
     <a class="nav-cta" href="ohmy-contacts.html">обсудить задачу</a>
   </div>
 </nav>
+<div class="menu" id="menu"></div>
 
 <main>
   <div class="wrap">
@@ -290,6 +338,53 @@ footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
     digs.forEach(d=> d.style.transform=''));
 })();
 </script>
+
+<!-- nav:begin. Шапка: высота, подложка при прокрутке, мобильное меню -->
+<script>
+(function(){
+  var nav = document.querySelector('nav'); if(!nav) return;
+  var root = document.documentElement;
+
+  // Высота шапки уезжает в переменную: липкие панели фильтров и оглавление
+  // паркуются под ней, а не за ней
+  function measure(){ root.style.setProperty('--nav-h', nav.offsetHeight + 'px'); }
+  measure(); addEventListener('resize', measure);
+  // Onest догружается после первой отрисовки и меняет высоту шапки на пару
+  // пикселей — без пересчёта под липкой панелью остаётся щель
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+
+  // Подложка появляется, когда под шапку уходит контент
+  function onScroll(){ nav.classList.toggle('stuck', scrollY > nav.offsetHeight); }
+  onScroll(); addEventListener('scroll', onScroll, {passive:true});
+
+  var burger = nav.querySelector('.burger'), menu = document.getElementById('menu');
+  if(!burger || !menu) return;
+
+  // Меню собирается из ссылок самой страницы — активный пункт переносится как есть
+  nav.querySelectorAll('.nav-links a').forEach(function(a, i){
+    var c = a.cloneNode(true);
+    c.className = a.classList.contains('on') ? 'on' : '';
+    c.style.setProperty('--i', i);
+    menu.appendChild(c);
+  });
+  var cta = nav.querySelector('.nav-cta');
+  if(cta){ var c = cta.cloneNode(true); c.className = 'menu-cta'; menu.appendChild(c); }
+
+  function close(){ root.removeAttribute('data-menu');
+                    burger.setAttribute('aria-expanded','false'); }
+  function toggle(){
+    if(root.getAttribute('data-menu') === 'on') return close();
+    root.setAttribute('data-menu','on'); burger.setAttribute('aria-expanded','true');
+  }
+  burger.addEventListener('click', toggle);
+  menu.addEventListener('click', function(e){ if(e.target.closest('a')) close(); });
+  addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+  matchMedia('(min-width:901px)').addEventListener('change', function(e){
+    if(e.matches) close();
+  });
+})();
+</script>
+<!-- nav:end -->
 
 <!-- Яндекс.Метрика. Общий блок на всех страницах, правится скриптом-заменой -->
 <script>
