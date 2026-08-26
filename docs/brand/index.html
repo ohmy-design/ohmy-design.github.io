@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дизайн и айдентика — логотип, фирменный стиль, графика | ohmy.design</title>
+<meta name="description" content="Логотип, фирменный стиль, брендбук и регулярная графика: баннеры, презентации, инфографика. От 2 000 ₽. Студия ohmy.design, Санкт-Петербург.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="dark"]{
+  --bg:#131317; --bg-2:#1A1A20;
+  --ink:#F2F0EC; --muted:#84848E;
+  --line:rgba(242,240,236,.11); --line-strong:rgba(242,240,236,.30);
+  --accent:#FF4A1C;
+  --img-b:.7; --img-b-hover:.95;
+  --blend:difference;
+}
+[data-theme="light"]{
+  --bg:#F3F1ED; --bg-2:#E9E6E0;
+  --ink:#141418; --muted:#71717A;
+  --line:rgba(20,20,24,.12); --line-strong:rgba(20,20,24,.28);
+  --accent:#E5350B;
+  --img-b:.96; --img-b-hover:1.03;
+  --blend:normal;
+}
+:root{--pad:clamp(20px,4vw,64px);--ease:cubic-bezier(.16,1,.3,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Onest',system-ui,sans-serif;font-weight:300;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background .7s var(--ease),color .7s var(--ease)}
+::selection{background:var(--accent);color:var(--bg)}
+a{color:inherit;text-decoration:none}
+.mono{font-weight:400;font-size:13px;letter-spacing:.01em;color:var(--muted)}
+
+/* ---------- NAV ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;gap:20px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px var(--pad);mix-blend-mode:var(--blend)}
+.logo{font-size:16px;font-weight:600;letter-spacing:-.02em}
+.nav-links{display:flex;gap:28px;font-size:14px;opacity:.78}
+.nav-links a{position:relative}
+.nav-links a.on{opacity:1;color:var(--accent)}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;
+  background:currentColor;transition:width .5s var(--ease)}
+.nav-links a:hover::after,.nav-links a.on::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:14px}
+.theme{width:52px;height:26px;border-radius:100px;flex-shrink:0;
+  border:1px solid var(--line-strong);background:transparent;position:relative;
+  cursor:pointer;transition:.5s var(--ease)}
+.theme:hover{border-color:var(--ink)}
+.theme i{position:absolute;top:50%;left:4px;transform:translateY(-50%);
+  width:16px;height:16px;border-radius:50%;background:var(--ink);
+  transition:transform .55s var(--ease)}
+[data-theme="light"] .theme i{transform:translateY(-50%) translateX(26px)}
+.nav-cta{font-size:13px;border:1px solid var(--line-strong);white-space:nowrap;
+  padding:9px 18px;border-radius:100px;transition:.5s var(--ease)}
+.nav-cta:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* ---------- КРОШКИ ---------- */
+.crumbs{padding:calc(22px + 68px) var(--pad) 0;display:flex;gap:10px;
+  align-items:center;font-size:13px;color:var(--muted)}
+.crumbs a{transition:color .4s var(--ease)}
+.crumbs a:hover{color:var(--ink)}
+
+/* ---------- ГЕРОЙ: ЦВЕТОВОЕ ПОЛЕ ----------
+   Не мягкий градиент, а композиция: шум с доменным искажением режется
+   на четыре ступени, поэтому цвета встречаются по резкой границе.
+   Палитры те же, подобранные вручную. В центре — знак из грамматики форм.
+   Каждые семь секунд система меняется целиком. */
+.band{position:relative;margin:clamp(22px,3vw,40px) var(--pad) 0;
+  height:clamp(320px,56vh,540px);border-radius:6px;overflow:hidden;
+  background:#0F1012;cursor:crosshair}
+#field{position:absolute;inset:0;width:100%;height:100%;display:block}
+.band-mark{position:absolute;inset:0;display:grid;place-items:center;
+  pointer-events:none;z-index:2}
+.band-mark svg{width:clamp(84px,11vw,150px);height:auto;display:block;
+  transition:opacity .7s var(--ease),transform .9s var(--ease);
+  filter:drop-shadow(0 6px 34px rgba(0,0,0,.30))}
+.band.swap .band-mark svg{opacity:0;transform:scale(.86) rotate(-8deg)}
+
+.band-tag{position:absolute;right:20px;top:16px;z-index:4;
+  font-size:12.5px;color:rgba(255,255,255,.86);
+  border:1px solid rgba(255,255,255,.34);border-radius:100px;padding:6px 14px;
+  backdrop-filter:blur(6px)}
+.band-foot{position:absolute;left:0;right:0;bottom:0;z-index:4;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:14px 20px}
+.pal-name{display:flex;align-items:center;gap:12px;
+  font-size:13px;color:rgba(255,255,255,.9);
+  background:rgba(0,0,0,.28);backdrop-filter:blur(8px);
+  border-radius:100px;padding:7px 16px 7px 8px}
+.pal-name i{display:flex;gap:3px}
+.pal-name i b{width:13px;height:13px;border-radius:50%;display:block;
+  transition:background .9s var(--ease)}
+.regen{font:inherit;font-size:13px;color:#fff;cursor:pointer;
+  background:rgba(0,0,0,.28);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.34);border-radius:100px;
+  padding:7px 16px;display:inline-flex;align-items:center;gap:9px;
+  transition:.45s var(--ease)}
+.regen:hover{background:#fff;color:#111;border-color:#fff;gap:14px}
+.tick{position:absolute;left:0;bottom:0;height:2px;width:0;
+  background:rgba(255,255,255,.7);z-index:5}
+.tick.run{animation:fill var(--every,7s) linear forwards}
+@keyframes fill{to{width:100%}}
+@media(prefers-reduced-motion:reduce){.tick{display:none}}
+
+.hero-txt{padding:clamp(34px,4.4vw,64px) var(--pad) 0;
+  display:grid;grid-template-columns:1.35fr .85fr;gap:clamp(28px,6vw,90px);align-items:end}
+.hero-txt h1{font-size:clamp(28px,3.6vw,52px);font-weight:200;
+  letter-spacing:-.04em;line-height:1.06;max-width:21ch}
+.hero-txt h1 em{font-style:normal;color:var(--accent)}
+.hero-aside{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.hero-price{font-size:15px;line-height:1.6}
+.hero-price b{font-weight:400;font-size:clamp(24px,2.6vw,34px);
+  display:block;letter-spacing:-.03em}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--ink);color:var(--bg);
+  border-radius:100px;padding:14px 26px;font-size:14px;font-weight:500;transition:.5s var(--ease)}
+.btn:hover{background:var(--accent);color:#fff;transform:translateY(-2px)}
+.btn .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+@media(max-width:900px){.hero-txt{grid-template-columns:1fr;align-items:start}}
+
+/* ---------- ОБЩЕЕ ---------- */
+section{padding:clamp(74px,9vw,140px) var(--pad);position:relative}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+  padding-bottom:30px;border-bottom:1px solid var(--line)}
+.sec-head > div{display:flex;flex-direction:column;gap:12px}
+.sec-idx{font-size:13px;color:var(--accent)}
+.sec-title{font-size:clamp(28px,4vw,58px);font-weight:200;
+  letter-spacing:-.045em;line-height:.96}
+.body{font-size:15px;color:var(--muted);line-height:1.7;max-width:56ch}
+
+/* ---------- БОЛИ ---------- */
+.pains{margin-top:clamp(38px,4.6vw,66px);display:grid;
+  grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line)}
+@media(max-width:820px){.pains{grid-template-columns:1fr}}
+.pain{background:var(--bg);padding:clamp(26px,3vw,40px);
+  display:flex;flex-direction:column;gap:14px;min-height:190px;
+  transition:background .6s var(--ease)}
+.pain:hover{background:var(--bg-2)}
+.pain b{font-size:clamp(17px,1.8vw,21px);font-weight:400;
+  letter-spacing:-.02em;line-height:1.3}
+.pain span{font-size:14px;color:var(--muted);line-height:1.6}
+.pain i{font-style:normal;font-size:13px;color:var(--accent)}
+
+/* ---------- СОСТАВ ---------- */
+.svcs{margin-top:clamp(38px,4.6vw,66px);border-top:1px solid var(--line)}
+.svc{display:grid;grid-template-columns:60px 1.05fr 1.5fr minmax(210px,auto);
+  gap:clamp(16px,2.4vw,34px);align-items:center;
+  padding:clamp(20px,2.4vw,30px) 0;border-bottom:1px solid var(--line);
+  transition:padding-left .5s var(--ease)}
+.svc:hover{padding-left:14px}
+.svc-n{font-size:13px;color:var(--accent)}
+.svc h3{font-size:clamp(16px,1.6vw,20px);font-weight:400;letter-spacing:-.018em;line-height:1.3}
+.svc:hover h3{color:var(--accent)}
+.svc p{font-size:14px;color:var(--muted);line-height:1.55}
+.svc-meta{display:flex;justify-content:flex-end;gap:clamp(14px,2vw,30px);
+  font-size:13.5px;color:var(--muted);white-space:nowrap}
+.svc-meta b{font-weight:400;color:var(--accent)}
+@media(max-width:820px){
+  .svc{grid-template-columns:44px 1fr;gap:8px 14px}
+  .svc p,.svc-meta{grid-column:2}.svc-meta{justify-content:flex-start}}
+
+/* ---------- ЧТО НА ВЫХОДЕ ---------- */
+.sec-out{background:var(--bg-2);transition:background .7s var(--ease)}
+.out{margin-top:clamp(38px,4.6vw,66px);display:grid;
+  grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line)}
+@media(max-width:900px){.out{grid-template-columns:1fr}}
+.ot{background:var(--bg-2);padding:clamp(26px,3vw,38px);
+  display:flex;flex-direction:column;gap:16px;transition:background .6s var(--ease)}
+.ot:hover{background:var(--bg)}
+.ot b{font-size:clamp(17px,1.8vw,22px);font-weight:400;letter-spacing:-.02em}
+.ot ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ot li{font-size:14px;color:var(--muted);line-height:1.5;
+  display:grid;grid-template-columns:15px 1fr;gap:9px}
+.ot li::before{content:'—';color:var(--accent)}
+
+/* ---------- ПАКЕТЫ ---------- */
+.plans{margin-top:clamp(38px,4.6vw,66px);display:grid;
+  grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line)}
+@media(max-width:900px){.plans{grid-template-columns:1fr}}
+.plan{background:var(--bg);padding:clamp(28px,3vw,44px);
+  display:flex;flex-direction:column;gap:26px;position:relative;
+  transition:background .6s var(--ease)}
+.plan:hover{background:var(--bg-2)}
+.plan.hot{background:var(--bg-2)}
+.plan-badge{position:absolute;top:0;left:0;background:var(--accent);color:#fff;
+  font-size:12px;padding:5px 14px;border-bottom-right-radius:4px}
+.plan h3{font-size:clamp(21px,2.2vw,28px);font-weight:300;
+  letter-spacing:-.03em;margin-top:14px}
+.plan .price{font-size:clamp(26px,2.8vw,38px);font-weight:200;letter-spacing:-.04em}
+.plan .price u{text-decoration:none;font-size:14px;color:var(--muted);
+  display:block;margin-top:8px;letter-spacing:0}
+.plan ul{list-style:none;display:flex;flex-direction:column;gap:11px;
+  border-top:1px solid var(--line);padding-top:22px}
+.plan li{font-size:14px;color:var(--muted);line-height:1.5;
+  display:grid;grid-template-columns:16px 1fr;gap:10px}
+.plan li::before{content:'—';color:var(--accent)}
+.plan .btn{align-self:flex-start;margin-top:auto}
+
+.plans-note{margin-top:26px;font-size:14px;color:var(--muted);line-height:1.65;max-width:72ch}
+
+/* ---------- КЕЙСЫ ---------- */
+.cases{margin-top:clamp(38px,4.6vw,66px);display:grid;
+  grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,30px)}
+@media(max-width:900px){.cases{grid-template-columns:1fr}}
+.case-c{display:block}
+.case-img{aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:var(--bg-2)}
+.case-img img{width:100%;height:100%;object-fit:cover;
+  filter:grayscale(1) brightness(var(--img-b)) contrast(1.04);transform:scale(1.03);
+  transition:transform 1.1s var(--ease),filter .8s var(--ease)}
+.case-c:hover .case-img img{transform:scale(1.08);filter:grayscale(0) brightness(var(--img-b-hover))}
+.case-c h3{font-size:clamp(18px,1.8vw,23px);font-weight:400;
+  letter-spacing:-.02em;margin-top:15px;transition:color .4s var(--ease)}
+.case-c:hover h3{color:var(--accent)}
+.case-c p{font-size:13.5px;color:var(--muted);line-height:1.5;margin-top:7px}
+
+/* ---------- ПРОЦЕСС ---------- */
+.steps{margin-top:clamp(38px,4.6vw,66px);border-top:1px solid var(--line)}
+.step{display:grid;grid-template-columns:60px 1fr 1.35fr auto;
+  gap:clamp(16px,2.4vw,40px);padding:clamp(22px,2.6vw,34px) 0;
+  border-bottom:1px solid var(--line);align-items:start;
+  transition:padding-left .5s var(--ease)}
+.step:hover{padding-left:14px}
+.step-n{font-size:13px;color:var(--accent);padding-top:6px}
+.step h3{font-size:clamp(17px,1.8vw,23px);font-weight:300;letter-spacing:-.025em;line-height:1.2}
+.step p{font-size:14.5px;color:var(--muted);line-height:1.6}
+.step .when{font-size:13px;color:var(--muted);white-space:nowrap;padding-top:5px}
+@media(max-width:820px){.step{grid-template-columns:44px 1fr;gap:8px 14px}
+  .step p,.step .when{grid-column:2}}
+
+/* ---------- FAQ ---------- */
+.faq{margin-top:clamp(38px,4.6vw,66px);border-top:1px solid var(--line)}
+.q{display:grid;grid-template-columns:1fr 20px;gap:24px;align-items:center;
+  width:100%;background:none;border:0;border-bottom:1px solid var(--line);
+  color:inherit;font:inherit;text-align:left;cursor:pointer;
+  padding:clamp(20px,2.4vw,30px) 0;transition:padding-left .5s var(--ease)}
+.q:hover{padding-left:12px}
+.q h3{font-size:clamp(16px,1.7vw,21px);font-weight:300;letter-spacing:-.02em;line-height:1.35}
+.q:hover h3,.q[aria-expanded="true"] h3{color:var(--accent)}
+.q-sign{position:relative;width:15px;height:15px;justify-self:end}
+.q-sign::before,.q-sign::after{content:'';position:absolute;background:currentColor;
+  transition:transform .6s var(--ease),opacity .6s var(--ease)}
+.q-sign::before{left:0;top:7px;width:15px;height:1px}
+.q-sign::after{left:7px;top:0;width:1px;height:15px}
+.q[aria-expanded="true"] .q-sign::after{transform:scaleY(0);opacity:0}
+.q[aria-expanded="true"] .q-sign{color:var(--accent)}
+.a{max-height:0;overflow:hidden;border-bottom:1px solid var(--line);
+  transition:max-height .7s var(--ease)}
+.a p{font-size:15px;color:var(--muted);line-height:1.7;max-width:74ch;
+  padding:0 0 clamp(22px,2.6vw,32px)}
+
+/* ---------- CTA + FOOTER ---------- */
+.cta{text-align:center;padding:clamp(90px,12vw,180px) var(--pad)}
+.cta-big{font-size:clamp(34px,7.4vw,116px);font-weight:200;letter-spacing:-.05em;line-height:.92}
+.cta-big a{transition:.6s var(--ease);display:inline-block}
+.cta-big a:hover{color:var(--accent);transform:scale(.985)}
+.cta-sub{margin-top:26px;color:var(--muted);font-size:15px}
+footer{padding:40px var(--pad);border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+.rv{opacity:0;transform:translateY(24px);
+  transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+
+/* ---------- ОБЩИЙ ПОДВАЛ ----------
+   Один блок на всех страницах: навигация, прямая связь, реквизиты.
+   Для B2B подвал — рабочий инструмент: там ищут ИНН и телефон. */
+footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
+  padding:clamp(50px,6vw,86px) var(--pad) clamp(26px,3vw,38px);
+  margin-top:clamp(70px,9vw,140px);transition:background .7s var(--ease)}
+.foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.1fr;
+  gap:clamp(26px,4vw,60px);padding-bottom:clamp(34px,4vw,56px);
+  border-bottom:1px solid var(--line)}
+@media(max-width:980px){.foot-top{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.foot-top{grid-template-columns:1fr}}
+.foot-brand .foot-logo{font-size:19px;font-weight:600;letter-spacing:-.025em;display:inline-block}
+.foot-brand p{margin-top:14px;font-size:14px;color:var(--muted);
+  line-height:1.65;max-width:34ch}
+.foot-col b{display:block;font-size:12.5px;font-weight:400;color:var(--muted);
+  margin-bottom:16px;letter-spacing:.01em}
+.foot-col a,.foot-col span.li{display:block;font-size:14.5px;padding:5px 0;
+  transition:color .35s var(--ease),padding-left .35s var(--ease)}
+.foot-col a:hover{color:var(--accent);padding-left:5px}
+.foot-col em{font-style:normal;font-size:12.5px;color:var(--muted);
+  display:block;margin-top:2px}
+
+/* реквизиты */
+.foot-req{display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(18px,2.4vw,34px);padding:clamp(28px,3.4vw,46px) 0;
+  border-bottom:1px solid var(--line)}
+@media(max-width:980px){.foot-req{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.foot-req{grid-template-columns:1fr}}
+.foot-req div span{display:block;font-size:12.5px;color:var(--muted);margin-bottom:7px}
+.foot-req div b{font-size:14.5px;font-weight:400;line-height:1.4;display:block}
+.foot-req div b.todo{color:var(--accent);border-bottom:1px dashed currentColor;
+  display:inline-block}
+.foot-req div b{overflow-wrap:anywhere}
+.foot-req a.req-link{font-size:13px;color:var(--accent);
+  border-bottom:1px solid rgba(255,74,28,.4);display:inline-block;margin-top:6px}
+
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;
+  gap:18px;flex-wrap:wrap;padding-top:clamp(20px,2.4vw,30px);
+  font-size:13px;color:var(--muted)}
+.foot-bottom a{transition:color .35s var(--ease)}
+.foot-bottom a:hover{color:var(--accent)}
+</style>
+<!-- seo:start -->
+<link rel="canonical" href="https://ohmy.design/brand">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ohmy.design">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Дизайн и айдентика — логотип, фирменный стиль, графика | ohmy.design">
+<meta property="og:description" content="Логотип, фирменный стиль, брендбук и регулярная графика: баннеры, презентации, инфографика. От 2 000 ₽. Студия ohmy.design, Санкт-Петербург.">
+<meta property="og:url" content="https://ohmy.design/brand">
+<meta property="og:image" content="https://ohmy.design/og/brand.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Дизайн и айдентика — логотип, фирменный стиль, графика | ohmy.design">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Дизайн и айдентика — логотип, фирменный стиль, графика | ohmy.design">
+<meta name="twitter:description" content="Логотип, фирменный стиль, брендбук и регулярная графика: баннеры, презентации, инфографика. От 2 000 ₽. Студия ohmy.design, Санкт-Петербург.">
+<meta name="twitter:image" content="https://ohmy.design/og/brand.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#131317">
+<!-- seo:end -->
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">ohmy.design</a>
+  <div class="nav-links">
+    <a href="/#dir" class="on">направления</a>
+    <a href="/projects/">проекты</a>
+    <a href="/studio/">студия</a>
+    <a href="/journal/">журнал</a>
+    <a href="/contacts/">контакты</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme" id="themeBtn" aria-label="переключить тему"><i></i></button>
+    <a class="nav-cta" href="#cta">обсудить задачу</a>
+  </div>
+</nav>
+
+<div class="crumbs">
+  <a href="/">главная</a><span>/</span>
+  <a href="/#dir">направления</a><span>/</span>
+  <span style="color:var(--ink)">дизайн и айдентика</span>
+</div>
+
+<!-- ============ ГЕРОЙ ============ -->
+<div class="band" id="band">
+  <canvas id="field"></canvas>
+  <div class="band-mark" id="cMark"></div>
+  <span class="band-tag">направление 03 · дизайн и айдентика</span>
+  <div class="band-foot">
+    <span class="pal-name"><i id="palDots"></i><span id="palLabel">коралл</span></span>
+    <button class="regen" id="regen">сменить систему <span>↻</span></button>
+  </div>
+  <span class="tick" id="tick"></span>
+</div>
+
+<div class="hero-txt">
+  <h1>Знак, палитра, шрифт и правила — <em>собранные в систему</em>.
+    Плюс регулярная графика для тех, кому она нужна постоянно.</h1>
+  <div class="hero-aside">
+    <div class="hero-price"><b>от 30 000 ₽</b>логотип — 1–2 недели<br>графика — от 2 000 ₽ за макет</div>
+    <a class="btn" href="#cta"><span class="dot"></span>обсудить проект</a>
+  </div>
+</div>
+
+<!-- ============ КОМУ ============ -->
+<section id="who">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">01 — когда обращаются</span>
+      <h2 class="sec-title">кому это нужно</h2></div>
+    <span class="mono">4 типичные ситуации</span>
+  </div>
+
+  <div class="pains">
+    <div class="pain rv"><i>01</i>
+      <b>Логотип есть, системы нет</b>
+      <span>Знак нарисовали когда-то, а дальше каждый делает как умеет: в презентации
+        один шрифт, на сайте другой, на стенде третий. Компания выглядит разной
+        в каждой точке контакта.</span></div>
+    <div class="pain rv"><i>02</i>
+      <b>Запускаете новое направление</b>
+      <span>Продукт, дочерний бренд или мероприятие, которому нужно собственное лицо —
+        отдельное, но родственное основному бренду.</span></div>
+    <div class="pain rv"><i>03</i>
+      <b>Выросли из прежнего образа</b>
+      <span>Компания изменилась, а фирменный стиль остался из времён, когда вас было трое.
+        Он больше не соответствует ни масштабу, ни аудитории.</span></div>
+    <div class="pain rv"><i>04</i>
+      <b>Нечего передать подрядчикам</b>
+      <span>Каждый новый дизайнер, типография или агентство спрашивает файлы и правила,
+        а их нет. Всё держится на памяти одного человека.</span></div>
+  </div>
+</section>
+
+<!-- ============ СОСТАВ ============ -->
+<section id="what">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">02 — состав работ</span>
+      <h2 class="sec-title">что делаем</h2></div>
+    <span class="mono">цена и срок по каждой позиции</span>
+  </div>
+
+  <div class="svcs">
+    <div class="svc rv"><span class="svc-n">01</span>
+      <h3>Логотип</h3>
+      <p>Знак и его версии под разные носители и размеры, файлы во всех форматах.</p>
+      <div class="svc-meta"><span>от 30 000 ₽</span><b>1–2 недели</b></div></div>
+    <div class="svc rv"><span class="svc-n">02</span>
+      <h3>Логотип и базовая айдентика</h3>
+      <p>Знак, палитра, шрифтовая пара и минимальный набор носителей.</p>
+      <div class="svc-meta"><span>от 50 000 ₽</span><b>2–3 недели</b></div></div>
+    <div class="svc rv"><span class="svc-n">03</span>
+      <h3>Фирменный стиль</h3>
+      <p>Полная визуальная система: графика, правила вёрстки, носители, документы, соцсети.</p>
+      <div class="svc-meta"><span>от 70 000 ₽</span><b>3–5 недель</b></div></div>
+    <div class="svc rv"><span class="svc-n">04</span>
+      <h3>Брендбук и гайдлайн</h3>
+      <p>Документ, по которому стиль соберёт любой подрядчик без вашего участия.</p>
+      <div class="svc-meta"><span>от 40 000 ₽</span><b>2–3 недели</b></div></div>
+  </div>
+</section>
+
+
+<!-- ============ ГРАФИЧЕСКИЙ ДИЗАЙН ============ -->
+<section id="graphics">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">03 — регулярная графика</span>
+      <h2 class="sec-title">макеты по задаче</h2></div>
+    <span class="mono">без брендинга, поштучно</span>
+  </div>
+
+  <p class="body rv" style="margin-top:clamp(30px,3.4vw,48px)">Не всем нужен фирменный стиль.
+    Иногда нужен баннер к среде, презентация к четвергу и десяток постов на месяц.
+    Такие задачи считаем поштучно.</p>
+
+  <div class="svcs" style="margin-top:clamp(30px,3.4vw,48px)">
+    <div class="svc rv"><span class="svc-n">01</span>
+      <h3>Баннер или рекламный креатив</h3>
+      <p>Под контекст, таргет, площадки партнёров.</p>
+      <div class="svc-meta"><span>от 2 000 ₽</span></div></div>
+    <div class="svc rv"><span class="svc-n">02</span>
+      <h3>Обложка или превью</h3>
+      <p>Для статьи, видео, канала, мероприятия.</p>
+      <div class="svc-meta"><span>от 2 000 ₽</span></div></div>
+    <div class="svc rv"><span class="svc-n">03</span>
+      <h3>Креатив для социальных сетей</h3>
+      <p>Пост, сторис, оформление профиля.</p>
+      <div class="svc-meta"><span>от 2 000 ₽</span></div></div>
+    <div class="svc rv"><span class="svc-n">04</span>
+      <h3>Презентация</h3>
+      <p>Шаблон или готовая презентация под выступление и продажу.</p>
+      <div class="svc-meta"><span>от 1 000 ₽ / слайд</span><b>от 10 000 ₽ проект</b></div></div>
+    <div class="svc rv"><span class="svc-n">05</span>
+      <h3>Печатные материалы</h3>
+      <p>Полиграфия, стенды, оформление мероприятий.</p>
+      <div class="svc-meta"><span>от 5 000 ₽</span></div></div>
+    <div class="svc rv"><span class="svc-n">06</span>
+      <h3>Инфографика</h3>
+      <p>Схемы, диаграммы, визуализация данных и процессов.</p>
+      <div class="svc-meta"><span>от 3 000 ₽</span></div></div>
+  </div>
+
+  <p class="plans-note rv" style="margin-top:26px">При большом количестве однотипных материалов
+    стоимость рассчитывается отдельно — обычно выходит дешевле поштучной. Другие дизайн-задачи —
+    по запросу.</p>
+</section>
+
+<!-- ============ ЧТО НА ВЫХОДЕ ============ -->
+<section class="sec-out" id="out">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">04 — результат</span>
+      <h2 class="sec-title">что вы получаете</h2></div>
+    <span class="mono">файлы, права и правила</span>
+  </div>
+
+  <p class="body rv" style="margin-top:clamp(30px,3.4vw,48px)">Бренд — это не картинка в почте,
+    а набор материалов, которым сможет пользоваться любой подрядчик. Ниже — что именно
+    остаётся у вас после работы.</p>
+
+  <div class="out">
+    <div class="ot rv"><b>Исходники и файлы</b>
+      <ul>
+        <li>векторные исходники знака</li>
+        <li>версии под печать и экран</li>
+        <li>монохром, инверсия, минимальные размеры</li>
+        <li>шрифтовые файлы с лицензией</li>
+        <li>цвета в RGB, CMYK и Pantone</li>
+      </ul></div>
+    <div class="ot rv"><b>Правила использования</b>
+      <ul>
+        <li>охранное поле и допустимые размеры</li>
+        <li>как можно и как нельзя</li>
+        <li>сочетания цветов и типографика</li>
+        <li>примеры на реальных носителях</li>
+        <li>шаблоны документов и презентаций</li>
+      </ul></div>
+    <div class="ot rv"><b>Права и передача</b>
+      <ul>
+        <li>исключительные права по договору</li>
+        <li>помощь в подаче на товарный знак</li>
+        <li>передача всех рабочих файлов</li>
+        <li>консультации подрядчиков после сдачи</li>
+        <li>никакой привязки к студии</li>
+      </ul></div>
+  </div>
+</section>
+
+<!-- ============ ПАКЕТЫ ============ -->
+<section id="plans">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">05 — форматы</span>
+      <h2 class="sec-title">сколько стоит</h2></div>
+    <span class="mono">вилки до брифа, точная смета после</span>
+  </div>
+
+  <div class="plans">
+    <div class="plan rv">
+      <h3>Логотип</h3>
+      <div class="price">от 30 000 ₽<u>1–2 недели</u></div>
+      <ul>
+        <li>погружение в задачу</li>
+        <li>3 направления на выбор</li>
+        <li>отрисовка выбранного знака</li>
+        <li>версии под носители</li>
+        <li>все форматы файлов</li>
+      </ul>
+      <a class="btn" href="#cta">обсудить</a>
+    </div>
+
+    <div class="plan hot rv">
+      <span class="plan-badge">чаще всего берут</span>
+      <h3>Фирменный стиль</h3>
+      <div class="price">от 70 000 ₽<u>3–5 недель</u></div>
+      <ul>
+        <li>всё из пакета «Логотип»</li>
+        <li>палитра и шрифтовая пара</li>
+        <li>фирменная графика и паттерн</li>
+        <li>носители: документы, презентация, соцсети</li>
+        <li>сопровождение первых применений</li>
+      </ul>
+      <a class="btn" href="#cta">обсудить</a>
+    </div>
+
+    <div class="plan rv">
+      <h3>Брендбук</h3>
+      <div class="price">от 40 000 ₽<u>2–3 недели</u></div>
+      <ul>
+        <li>правила использования знака</li>
+        <li>охранное поле и размеры</li>
+        <li>типографика и цветовые пары</li>
+        <li>примеры на носителях</li>
+        <li>что можно и чего нельзя</li>
+      </ul>
+      <a class="btn" href="#cta">обсудить</a>
+    </div>
+  </div>
+
+  <p class="plans-note rv">Логотип с базовой айдентикой — от 50 000 ₽, срок 2–3 недели.
+    Цены стартовые и не являются публичной офертой: итог зависит от объёма материалов
+    и количества носителей.</p>
+</section>
+
+<!-- ============ КЕЙСЫ ============ -->
+<section id="cases">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">06 — доказательства</span>
+      <h2 class="sec-title">кейсы направления</h2></div>
+    <a class="mono" href="/projects/" style="color:var(--accent)">все проекты ↗</a>
+  </div>
+
+  <div class="cases">
+    <a class="case-c rv" href="/projects/">
+      <div class="case-img"><img loading="lazy" src="/img/lib/43484f614db8f293893f-3731.jpg" alt="IT-TECH HUB"></div>
+      <h3>IT-TECH HUB</h3>
+      <p>Логотип и фирменный стиль B2B-форума для лидеров цифровой трансформации</p></a>
+    <a class="case-c rv" href="/projects/">
+      <div class="case-img"><img loading="lazy" src="/img/lib/cover-slide-1-6333.jpg" alt="ГЦК"></div>
+      <h3>ГЦК</h3>
+      <p>Логотип и фирменный стиль Головного центра компетенций МГТУ «СТАНКИН»</p></a>
+    <a class="case-c rv" href="/projects/">
+      <div class="case-img"><img loading="lazy" src="/img/lib/18217832-6438.jpg" alt="URBEX"></div>
+      <h3>URBEX</h3>
+      <p>Бренд московского архитектурного бюро</p></a>
+  </div>
+</section>
+
+<!-- ============ ПРОЦЕСС ============ -->
+<section id="process">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">07 — процесс</span>
+      <h2 class="sec-title">как идёт работа</h2></div>
+    <span class="mono">по договору, с этапами и приёмкой</span>
+  </div>
+
+  <div class="steps">
+    <div class="step rv"><span class="step-n">01</span>
+      <h3>Бриф</h3>
+      <p>Изучаем задачу, продукт, аудиторию и визуальный контекст.
+        Задача — понять, чем вы отличаетесь на самом деле.</p>
+      <span class="when">1–3 дня</span></div>
+    <div class="step rv"><span class="step-n">02</span>
+      <h3>Концепция</h3>
+      <p>Определяем направление и предлагаем визуальное решение. Показываем
+        три разных подхода, а не три оттенка одного.</p>
+      <span class="when">3–7 дней</span></div>
+    <div class="step rv"><span class="step-n">03</span>
+      <h3>Разработка</h3>
+      <p>Дорабатываем выбранную концепцию и собираем систему. Проверяем
+        на реальных носителях, а не на белом квадрате.</p>
+      <span class="when">1–3 недели</span></div>
+    <div class="step rv"><span class="step-n">04</span>
+      <h3>Передача материалов</h3>
+      <p>Подготавливаем необходимые форматы и исходники, отдаём права
+        и помогаем первым подрядчикам применить стиль правильно.</p>
+      <span class="when">1–2 дня</span></div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">08 — вопросы</span>
+      <h2 class="sec-title">что обычно спрашивают</h2></div>
+    <span class="mono">нажмите, чтобы раскрыть</span>
+  </div>
+
+  <div class="faq">
+    <button class="q" aria-expanded="false"><h3>Сколько вариантов знака вы показываете?</h3><span class="q-sign"></span></button>
+    <div class="a"><p>Три — и это принципиально три разных подхода, а не три оттенка одной идеи.
+      Каждый сопровождается объяснением: какую позицию занимает, кому понравится, чем платит.
+      Показывать двадцать вариантов — способ переложить решение на клиента; наша работа в том,
+      чтобы отсеять слабое до встречи.</p></div>
+
+    <button class="q" aria-expanded="false"><h3>А если ни один вариант не понравится?</h3><span class="q-sign"></span></button>
+    <div class="a"><p>Такое случается, и обычно причина не в отрисовке, а в том, что на этапе погружения
+      мы разошлись в понимании задачи. В договоре заложен круг правок и возможность вернуться
+      к этапу направлений. Если и после этого не сходимся — расстаёмся, не доводя проект
+      до вымученного компромисса, который никому не нужен.</p></div>
+
+    <button class="q" aria-expanded="false"><h3>Кому принадлежат права на знак?</h3><span class="q-sign"></span></button>
+    <div class="a"><p>Вам, исключительные права передаются по договору вместе с исходниками.
+      Мы можем показывать работу в портфолио — если проект под NDA, это отдельно оговаривается.
+      При необходимости помогаем подготовить материалы для подачи на регистрацию товарного знака,
+      но саму регистрацию ведёт патентный поверенный.</p></div>
+
+    <button class="q" aria-expanded="false"><h3>Проверяете ли вы название на занятость?</h3><span class="q-sign"></span></button>
+    <div class="a"><p>Делаем предварительную проверку по открытым реестрам, доменам и поисковой выдаче —
+      это отсеивает очевидно занятые варианты. Юридическую проверку на тождество и сходство
+      проводит патентный поверенный, и мы рекомендуем не пропускать этот шаг до того,
+      как название попадёт на вывеску.</p></div>
+
+    <button class="q" aria-expanded="false"><h3>Можно ли обновить стиль, не меняя логотип?</h3><span class="q-sign"></span></button>
+    <div class="a"><p>Да, и часто это разумнее полного ребрендинга. Знак остаётся узнаваемым,
+      а система вокруг него — палитра, шрифты, графика, тон — обновляется. Компания выглядит
+      современнее, но клиенты не теряют вас из виду. Такой формат дешевле и быстрее.</p></div>
+
+    <button class="q" aria-expanded="false"><h3>Делаете ли вы сайт под новый бренд?</h3><span class="q-sign"></span></button>
+    <div class="a"><p>Да, это соседнее направление, и в связке получается заметно дешевле и быстрее:
+      не нужно передавать айдентику другому подрядчику и объяснять логику решений. Половина наших
+      проектов — именно такая комплексная работа.</p></div>
+
+    <button class="q" aria-expanded="false"><h3>Работаете с государственными организациями?</h3><span class="q-sign"></span></button>
+    <div class="a"><p>Да. Среди работ — айдентика отраслевых форумов, центра компетенций
+      при МГТУ «СТАНКИН» и градостроительных организаций. Понимаем специфику согласований,
+      работаем по договору с этапами и приёмкой, готовим полный пакет закрывающих документов.</p></div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta" id="cta">
+  <div class="mono rv" style="margin-bottom:30px">расскажите о задаче</div>
+  <div class="cta-big rv"><a href="mailto:hi@ohmy.design">hi@ohmy.design</a></div>
+  <p class="cta-sub rv">+7 (931) 706-92-27 · telegram @brsemenov · санкт-петербург</p>
+</section>
+
+<footer class="site-foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <a class="foot-logo" href="/">ohmy.design</a>
+      <p>Студия дизайна и автоматизации для бизнеса.<br>
+        Санкт-Петербург, с 2018 года. 200+ проектов.</p>
+    </div>
+
+    <div class="foot-col">
+      <b>Разделы</b>
+      <a href="/projects/">Проекты</a>
+      <a href="/studio/">Студия</a>
+      <a href="/journal/">Журнал</a>
+      <a href="/contacts/">Контакты</a>
+    </div>
+
+    <div class="foot-col">
+      <b>Направления</b>
+      <a href="/web/">Сайты и digital</a>
+      <a href="/ai/">AI и автоматизации</a>
+      <a href="/brand/">Дизайн и айдентика</a>
+      <a href="/care/">Поддержка и развитие</a>
+    </div>
+
+    <div class="foot-col">
+      <b>Связаться</b>
+      <a href="https://t.me/brsemenov" target="_blank" rel="noopener">Телеграм<em>@brsemenov</em></a>
+      <a href="mailto:hi@ohmy.design">Почта<em>hi@ohmy.design</em></a>
+      <a href="tel:+79317069227">Телефон<em>+7 (931) 706-92-27</em></a>
+    </div>
+  </div>
+
+  <div class="foot-req">
+    <div><span>наименование</span><b>ИП Семёнов Борис Романович</b></div>
+    <div><span>ИНН / ОГРНИП</span><b>783900004042<br>324784700055790</b></div>
+    <div><span>банк</span><b>ООО «Банк Точка»<br>БИК 044525104</b></div>
+    <div><span>расчётный счёт</span><b>40802810120000247972</b>
+      <a class="req-link" href="https://i.tochka.com/bank/myprofile/ohmy.design"
+         target="_blank" rel="noopener">карточка компании ↗</a></div>
+  </div>
+
+  <div class="foot-bottom">
+    <span>© 2018–2026 ohmy.design</span>
+    <a href="/privacy/">Политика конфиденциальности и обработки ПД</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- тема ---------- */
+(function(){
+  const root=document.documentElement;
+  if(matchMedia('(prefers-color-scheme: light)').matches) root.dataset.theme='light';
+  document.getElementById('themeBtn').addEventListener('click',()=>{
+    root.dataset.theme = root.dataset.theme==='light' ? 'dark' : 'light';
+  });
+})();
+
+/* ---------- появление ---------- */
+(function(){
+  const io=new IntersectionObserver(es=>{
+    es.forEach((e,i)=>{ if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('in'),(i%6)*70);
+      io.unobserve(e.target);} });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+})();
+
+/* ---------- FAQ ---------- */
+(function(){
+  const qs=[...document.querySelectorAll('.q')];
+  const close=b=>{b.setAttribute('aria-expanded','false');b.nextElementSibling.style.maxHeight='0px';};
+  const open =b=>{b.setAttribute('aria-expanded','true');
+    b.nextElementSibling.style.maxHeight=b.nextElementSibling.scrollHeight+'px';};
+  qs.forEach(b=>b.addEventListener('click',()=>{
+    const was=b.getAttribute('aria-expanded')==='true';
+    qs.forEach(close); if(!was) open(b);
+  }));
+  addEventListener('resize',()=>qs.forEach(b=>{
+    if(b.getAttribute('aria-expanded')==='true'){
+      const p=b.nextElementSibling; p.style.maxHeight='none';
+      const h=p.scrollHeight; p.style.maxHeight=h+'px';}
+  }));
+})();
+
+/* ================= ЦВЕТОВОЕ ПОЛЕ =================
+   Шум с двойным доменным искажением квантуется на четыре ступени —
+   получаются плоские цветовые области с текучими, но резкими границами.
+   Это композиция, а не градиент: цвет читается как решение, а не как заливка.
+   Палитры подобраны вручную парами, знак берётся из грамматики форм.
+   ================================================= */
+(function(){
+"use strict";
+const EVERY = 7000;
+
+/* [глубокий, средний, яркий, светлый] — порядок задаёт ступени поля */
+const PALETTES = [
+  {n:'коралл',     c:['#1A0F0A','#B3300F','#FF4A1C','#FFD9C2']},
+  {n:'мята',       c:['#07211E','#0E7A66','#23D3B0','#DFF7F0']},
+  {n:'ультрамарин',c:['#0A1330','#2452C9','#4D9DFF','#E2ECFF']},
+  {n:'фуксия',     c:['#21071A','#A31159','#FF3D80','#FFE0EC']},
+  {n:'лайм',       c:['#101E08','#4E8C12','#A8E01F','#F0FBD8']},
+  {n:'лаванда',    c:['#150A28','#6B33C7','#C77DFF','#F0E4FF']},
+  {n:'охра',       c:['#1E1205','#B8720C','#FFB020','#FFEDCC']},
+  {n:'графит',     c:['#0F1012','#3A3A46','#84848E','#F2F0EC']}
+];
+
+/* грамматика знаков: примитивы на сетке 120×120, а не случайные кляксы */
+const MARKS = [
+  (f,a)=>`<circle cx="60" cy="60" r="46" fill="${f}"/><rect x="60" y="14" width="46" height="46" fill="${a}"/>`,
+  (f,a)=>`<circle cx="60" cy="60" r="46" fill="none" stroke="${f}" stroke-width="14"/><circle cx="60" cy="60" r="14" fill="${a}"/>`,
+  (f,a)=>`<path d="M14 60a46 46 0 0 1 92 0z" fill="${f}"/><path d="M14 68a46 46 0 0 0 92 0z" fill="${a}"/>`,
+  (f,a)=>`<path d="M14 106V60a46 46 0 0 1 46-46h46" fill="none" stroke="${f}" stroke-width="15"/><path d="M106 14v46a46 46 0 0 1-46 46H14" fill="none" stroke="${a}" stroke-width="15"/>`,
+  (f,a)=>`<rect x="20" y="20" width="80" height="80" fill="${f}" transform="rotate(45 60 60)"/><circle cx="60" cy="60" r="20" fill="${a}"/>`,
+  (f,a)=>`<rect x="16" y="24" width="88" height="16" fill="${f}"/><rect x="16" y="52" width="60" height="16" fill="${a}"/><rect x="16" y="80" width="88" height="16" fill="${f}"/>`,
+  (f,a)=>`<path d="M60 14l46 92H14z" fill="${f}"/><circle cx="60" cy="76" r="18" fill="${a}"/>`,
+  (f,a)=>`<circle cx="60" cy="60" r="46" fill="none" stroke="${f}" stroke-width="9"/><circle cx="60" cy="60" r="30" fill="none" stroke="${a}" stroke-width="9"/><circle cx="60" cy="60" r="14" fill="none" stroke="${f}" stroke-width="9"/>`,
+  (f,a)=>`<rect x="52" y="14" width="16" height="92" fill="${f}"/><rect x="14" y="52" width="92" height="16" fill="${a}"/>`,
+  (f,a)=>`<circle cx="36" cy="36" r="22" fill="${f}"/><circle cx="84" cy="36" r="22" fill="${a}"/><circle cx="36" cy="84" r="22" fill="${a}"/><circle cx="84" cy="84" r="22" fill="${f}"/>`,
+  (f,a)=>`<path d="M14 14h46a46 46 0 0 1 0 92H14z" fill="${f}"/><circle cx="60" cy="60" r="16" fill="${a}"/>`,
+  (f,a)=>`<path d="M14 106L60 14l46 92z" fill="none" stroke="${f}" stroke-width="14" stroke-linejoin="round"/><rect x="46" y="70" width="28" height="28" fill="${a}"/>`
+];
+
+const band  = document.getElementById('band');
+const canvas= document.getElementById('field');
+const cMark = document.getElementById('cMark');
+const dots  = document.getElementById('palDots');
+const label = document.getElementById('palLabel');
+const tick  = document.getElementById('tick');
+
+const renderer = new THREE.WebGLRenderer({canvas, antialias:false});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+const scene = new THREE.Scene();
+const cam = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+
+const C = h => new THREE.Color(h);
+const uni = {
+  uRes:{value:new THREE.Vector2(1,1)},
+  uTime:{value:0}, uMix:{value:0}, uPulse:{value:0},
+  uMouse:{value:new THREE.Vector2(0,0)},
+  uA0:{value:C('#1A0F0A')},uA1:{value:C('#B3300F')},uA2:{value:C('#FF4A1C')},uA3:{value:C('#FFD9C2')},
+  uB0:{value:C('#1A0F0A')},uB1:{value:C('#B3300F')},uB2:{value:C('#FF4A1C')},uB3:{value:C('#FFD9C2')}
+};
+
+const mat = new THREE.ShaderMaterial({
+  uniforms:uni,
+  vertexShader:`void main(){ gl_Position = vec4(position,1.); }`,
+  fragmentShader:`
+    precision highp float;
+    uniform vec2 uRes, uMouse;
+    uniform float uTime, uMix, uPulse;
+    uniform vec3 uA0,uA1,uA2,uA3,uB0,uB1,uB2,uB3;
+
+    float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
+    float noise(vec2 p){
+      vec2 i=floor(p), f=fract(p);
+      vec2 u=f*f*(3.-2.*f);
+      return mix(mix(hash(i),hash(i+vec2(1,0)),u.x),
+                 mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),u.x),u.y);
+    }
+    float fbm(vec2 p){
+      float v=0., a=.5;
+      for(int i=0;i<5;i++){ v+=a*noise(p); p*=2.03; a*=.5; }
+      return v;
+    }
+    vec3 pick(float t, vec3 c0, vec3 c1, vec3 c2, vec3 c3){
+      if(t<1.) return c0;
+      if(t<2.) return c1;
+      if(t<3.) return c2;
+      return c3;
+    }
+    void main(){
+      vec2 uv=(gl_FragCoord.xy - .5*uRes)/uRes.y;
+      float t=uTime*.075;
+
+      // двойное доменное искажение: поле течёт крупными массами
+      vec2 q = vec2(fbm(uv*1.5 + vec2(0., t)),
+                    fbm(uv*1.5 + vec2(5.2, 1.3) - t*.7));
+      vec2 r = vec2(fbm(uv*1.5 + 3.0*q + vec2(1.7, 9.2) + t*.5),
+                    fbm(uv*1.5 + 3.0*q + vec2(8.3, 2.8) - t*.4));
+      float f = fbm(uv*1.3 + 3.1*r);
+
+      // курсор подтягивает поле, клик даёт волну
+      float d = distance(uv, uMouse);
+      f += exp(-d*d*3.2) * (.15 + uPulse*.55);
+
+      float g = clamp(f, 0., 1.) * 4.0;
+      float band = floor(g);
+
+      vec3 A = pick(band, uA0,uA1,uA2,uA3);
+      vec3 B = pick(band, uB0,uB1,uB2,uB3);
+      vec3 col = mix(A, B, uMix);
+
+      // тонкая светлая линия по стыку ступеней — композиция читается как графика.
+      // ширина задана константой, а не fwidth: производные в WebGL1 —
+      // расширение, и на части драйверов шейдер бы просто не собрался
+      float e = fract(g);
+      const float w = .028;
+      float line = smoothstep(w, 0., e) + smoothstep(1.-w, 1., e);
+      col = mix(col, vec3(1.), clamp(line,0.,1.)*.09);
+
+      float gr=fract(sin(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))*43758.5453);
+      col += (gr-.5)*.022;
+      gl_FragColor=vec4(col,1.);
+    }`
+});
+scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2), mat));
+
+let aspect=1;
+function resize(){
+  const w=band.clientWidth, h=band.clientHeight;
+  renderer.setSize(w,h,false);
+  aspect=w/h;
+  uni.uRes.value.set(w*renderer.getPixelRatio(), h*renderer.getPixelRatio());
+  if(REDUCED) renderer.render(scene,cam);
+}
+addEventListener('resize',resize); resize();
+
+const M={x:0,y:0,tx:0,ty:0};
+band.addEventListener('pointermove',e=>{
+  const r=band.getBoundingClientRect();
+  M.tx=(((e.clientX-r.left)/r.width)*2-1)*.5*aspect;
+  M.ty=-((((e.clientY-r.top)/r.height)*2-1))*.5;
+});
+let pulse=0, pulseV=0;
+band.addEventListener('pointerdown',()=>{ if(!REDUCED) pulseV=.15; });
+
+/* ---- смена системы: палитра + знак ---- */
+let pi=-1, mi=-1, mixing=false, timer=null;
+const pickIdx=(len,prev)=>{ let i; do{ i=Math.floor(Math.random()*len); }
+                            while(len>1 && i===prev); return i; };
+
+function apply(p, markIdx){
+  // знак берёт светлый цвет палитры и яркий как акцент
+  cMark.innerHTML = `<svg viewBox="0 0 120 120" role="img" aria-label="знак системы">
+    ${MARKS[markIdx](p.c[3], p.c[2])}</svg>`;
+  dots.innerHTML = p.c.map(c=>`<b style="background:${c}"></b>`).join('');
+  label.textContent = p.n;
+}
+
+function change(first){
+  pi = pickIdx(PALETTES.length, pi);
+  mi = pickIdx(MARKS.length, mi);
+  const p = PALETTES[pi];
+
+  if(first){
+    ['uA0','uA1','uA2','uA3'].forEach((k,i)=>uni[k].value.set(p.c[i]));
+    ['uB0','uB1','uB2','uB3'].forEach((k,i)=>uni[k].value.set(p.c[i]));
+    apply(p, mi);
+  }else{
+    ['uB0','uB1','uB2','uB3'].forEach((k,i)=>uni[k].value.set(p.c[i]));
+    uni.uMix.value = 0; mixing = true;
+    band.classList.add('swap');
+    setTimeout(()=>{ apply(p, mi); band.classList.remove('swap'); }, 380);
+  }
+  if(!REDUCED){ tick.classList.remove('run'); void tick.offsetWidth; tick.classList.add('run'); }
+}
+
+function schedule(){
+  clearTimeout(timer);
+  if(REDUCED) return;
+  timer=setTimeout(()=>{ change(false); schedule(); }, EVERY);
+}
+
+band.style.setProperty('--every', EVERY+'ms');
+change(true); schedule();
+document.getElementById('regen').addEventListener('click',()=>{ change(false); schedule(); });
+
+let visible=true;
+new IntersectionObserver(es=>{
+  visible=es[0].isIntersecting;
+  if(visible) schedule(); else clearTimeout(timer);
+},{threshold:0}).observe(band);
+
+if(REDUCED){
+  uni.uTime.value=6; renderer.render(scene,cam);
+}else{
+  const clock=new THREE.Clock();
+  (function loop(){
+    requestAnimationFrame(loop);
+    if(!visible) return;
+    M.x+=(M.tx-M.x)*.06; M.y+=(M.ty-M.y)*.06;
+    pulse+=pulseV; pulseV*=.90; pulse*=.93;
+
+    // плавный переход палитры, после него B становится A
+    if(mixing){
+      uni.uMix.value += (1-uni.uMix.value)*.035;
+      if(uni.uMix.value>.995){
+        ['uA0','uA1','uA2','uA3'].forEach((k,i)=>
+          uni[k].value.copy(uni['uB'+i].value));
+        uni.uMix.value=0; mixing=false;
+      }
+    }
+    uni.uTime.value=clock.getElapsedTime();
+    uni.uMouse.value.set(M.x,M.y);
+    uni.uPulse.value=Math.min(pulse,1.2);
+    renderer.render(scene,cam);
+  })();
+}
+})();
+</script>
+
+<!-- Яндекс.Метрика. Общий блок на всех страницах, правится скриптом-заменой -->
+<script>
+if (location.hostname === 'ohmy.design' || location.hostname.endsWith('.ohmy.design')) {
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();
+for (var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,
+a.parentNode.insertBefore(k,a)})
+(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=76559848','ym');
+ym(76559848,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:false});
+}
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/76559848" style="position:absolute;left:-9999px" alt=""></div></noscript>
+<!-- /Яндекс.Метрика -->
+</body>
+</html>

@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /privacy
+Disallow: /*?
+
+User-agent: Yandex
+Allow: /
+Disallow: /privacy
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content
+
+Sitemap: https://ohmy.design/sitemap.xml

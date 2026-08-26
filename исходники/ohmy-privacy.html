@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Политика конфиденциальности — ohmy.design</title>
+<meta name="description" content="Политика в отношении обработки персональных данных студии ohmy.design.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="dark"]{
+  --bg:#131317; --bg-2:#1A1A20;
+  --ink:#F2F0EC; --muted:#84848E;
+  --line:rgba(242,240,236,.11); --line-strong:rgba(242,240,236,.30);
+  --accent:#FF4A1C;
+  --blend:difference;
+}
+[data-theme="light"]{
+  --bg:#F3F1ED; --bg-2:#E9E6E0;
+  --ink:#141418; --muted:#71717A;
+  --line:rgba(20,20,24,.12); --line-strong:rgba(20,20,24,.28);
+  --accent:#E5350B;
+  --blend:normal;
+}
+:root{--pad:clamp(20px,4vw,64px);--ease:cubic-bezier(.16,1,.3,1);
+      --measure:min(100%,66ch);--aside:clamp(170px,16vw,230px);--gap:clamp(24px,3vw,52px)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Onest',system-ui,sans-serif;font-weight:300;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background .7s var(--ease),color .7s var(--ease)}
+::selection{background:var(--accent);color:var(--bg)}
+a{color:inherit;text-decoration:none}
+.mono{font-weight:400;font-size:13px;letter-spacing:.01em;color:var(--muted)}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;gap:20px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px var(--pad);mix-blend-mode:var(--blend)}
+.logo{font-size:16px;font-weight:600;letter-spacing:-.02em}
+.nav-links{display:flex;gap:28px;font-size:14px;opacity:.78}
+.nav-links a{position:relative}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;
+  background:currentColor;transition:width .5s var(--ease)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:14px}
+.theme{width:52px;height:26px;border-radius:100px;flex-shrink:0;
+  border:1px solid var(--line-strong);background:transparent;position:relative;
+  cursor:pointer;transition:.5s var(--ease)}
+.theme:hover{border-color:var(--ink)}
+.theme i{position:absolute;top:50%;left:4px;transform:translateY(-50%);
+  width:16px;height:16px;border-radius:50%;background:var(--ink);
+  transition:transform .55s var(--ease)}
+[data-theme="light"] .theme i{transform:translateY(-50%) translateX(26px)}
+.nav-cta{font-size:13px;border:1px solid var(--line-strong);white-space:nowrap;
+  padding:9px 18px;border-radius:100px;transition:.5s var(--ease)}
+.nav-cta:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media(max-width:900px){.nav-links{display:none}}
+
+.layout{max-width:calc(66ch + var(--aside) + var(--gap));
+  margin:0 auto;padding:0 var(--pad)}
+.top{padding:clamp(120px,13vw,180px) 0 0}
+.crumb{display:inline-flex;align-items:center;gap:10px;font-size:13px;
+  color:var(--muted);transition:.4s var(--ease)}
+.crumb:hover{color:var(--ink);gap:16px}
+h1{font-size:clamp(30px,5vw,60px);font-weight:200;letter-spacing:-.045em;
+  line-height:1.04;margin-top:clamp(22px,2.6vw,36px)}
+.upd{margin-top:20px;font-size:13.5px;color:var(--muted)}
+
+/* оглавление в поле — длинный документ без него не читается */
+.toc{float:right;clear:right;width:var(--aside);
+  margin:.4em calc(-1 * (var(--aside) + var(--gap))) 2em 0;
+  position:sticky;top:96px;
+  border-top:1px solid var(--accent);padding-top:12px}
+.toc b{display:block;font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.toc a{display:block;font-size:13px;line-height:1.4;color:var(--muted);
+  padding:5px 0;transition:color .35s var(--ease)}
+.toc a:hover,.toc a.on{color:var(--accent)}
+
+.doc{width:var(--measure);padding-top:clamp(40px,5vw,68px);counter-reset:sec}
+.doc h2{font-size:clamp(19px,2vw,26px);font-weight:300;letter-spacing:-.028em;
+  line-height:1.22;counter-increment:sec;position:relative;
+  margin:clamp(40px,4.4vw,68px) 0 clamp(14px,1.6vw,20px);scroll-margin-top:96px}
+.doc h2::before{content:counter(sec) '. ';color:var(--accent)}
+.doc p{font-size:15.5px;line-height:1.75;opacity:.92;margin-bottom:1.1em}
+.doc ul,.doc ol{margin:0 0 1.3em;padding-left:1.3em}
+.doc li{font-size:15.5px;line-height:1.7;opacity:.92;margin-bottom:.45em}
+.doc li::marker{color:var(--accent)}
+.doc a.link{color:var(--accent);border-bottom:1px solid rgba(255,74,28,.4)}
+.doc a.link:hover{border-color:var(--accent)}
+.doc strong{font-weight:500}
+
+.fill{color:var(--accent);border-bottom:1px dashed currentColor}
+
+.warn{width:var(--measure);margin-top:clamp(30px,3.4vw,48px);
+  border:1px solid var(--accent);border-radius:5px;
+  padding:clamp(22px,2.6vw,32px)}
+.warn b{display:block;font-size:15px;font-weight:400;color:var(--accent);margin-bottom:10px}
+.warn p{font-size:14.5px;color:var(--muted);line-height:1.65;margin:0}
+
+footer{margin-top:clamp(80px,10vw,150px);padding:40px var(--pad);
+  border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+@media(max-width:1040px){
+  .toc{float:none;position:static;width:auto;
+    margin:0 0 2em;border-top:0;border-left:2px solid var(--accent);
+    padding:4px 0 4px 16px}
+  .toc a{display:inline-block;margin-right:18px}
+}
+
+/* ---------- ОБЩИЙ ПОДВАЛ ----------
+   Один блок на всех страницах: навигация, прямая связь, реквизиты.
+   Для B2B подвал — рабочий инструмент: там ищут ИНН и телефон. */
+footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
+  padding:clamp(50px,6vw,86px) var(--pad) clamp(26px,3vw,38px);
+  margin-top:clamp(70px,9vw,140px);transition:background .7s var(--ease)}
+.foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.1fr;
+  gap:clamp(26px,4vw,60px);padding-bottom:clamp(34px,4vw,56px);
+  border-bottom:1px solid var(--line)}
+@media(max-width:980px){.foot-top{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.foot-top{grid-template-columns:1fr}}
+.foot-brand .foot-logo{font-size:19px;font-weight:600;letter-spacing:-.025em;display:inline-block}
+.foot-brand p{margin-top:14px;font-size:14px;color:var(--muted);
+  line-height:1.65;max-width:34ch}
+.foot-col b{display:block;font-size:12.5px;font-weight:400;color:var(--muted);
+  margin-bottom:16px;letter-spacing:.01em}
+.foot-col a,.foot-col span.li{display:block;font-size:14.5px;padding:5px 0;
+  transition:color .35s var(--ease),padding-left .35s var(--ease)}
+.foot-col a:hover{color:var(--accent);padding-left:5px}
+.foot-col em{font-style:normal;font-size:12.5px;color:var(--muted);
+  display:block;margin-top:2px}
+
+/* реквизиты */
+.foot-req{display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(18px,2.4vw,34px);padding:clamp(28px,3.4vw,46px) 0;
+  border-bottom:1px solid var(--line)}
+@media(max-width:980px){.foot-req{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.foot-req{grid-template-columns:1fr}}
+.foot-req div span{display:block;font-size:12.5px;color:var(--muted);margin-bottom:7px}
+.foot-req div b{font-size:14.5px;font-weight:400;line-height:1.4;display:block}
+.foot-req div b.todo{color:var(--accent);border-bottom:1px dashed currentColor;
+  display:inline-block}
+.foot-req div b{overflow-wrap:anywhere}
+.foot-req a.req-link{font-size:13px;color:var(--accent);
+  border-bottom:1px solid rgba(255,74,28,.4);display:inline-block;margin-top:6px}
+
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;
+  gap:18px;flex-wrap:wrap;padding-top:clamp(20px,2.4vw,30px);
+  font-size:13px;color:var(--muted)}
+.foot-bottom a{transition:color .35s var(--ease)}
+.foot-bottom a:hover{color:var(--accent)}
+</style>
+<!-- seo:start -->
+<link rel="canonical" href="https://ohmy.design/privacy">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ohmy.design">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Политика конфиденциальности — ohmy.design">
+<meta property="og:description" content="Политика в отношении обработки персональных данных студии ohmy.design.">
+<meta property="og:url" content="https://ohmy.design/privacy">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#131317">
+<!-- seo:end -->
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="ohmy-site.html">ohmy.design</a>
+  <div class="nav-links">
+    <a href="ohmy-site.html#dir">направления</a>
+    <a href="ohmy-projects.html">проекты</a>
+    <a href="ohmy-studio.html">студия</a>
+    <a href="ohmy-journal.html">журнал</a>
+    <a href="ohmy-contacts.html">контакты</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme" id="themeBtn" aria-label="переключить тему"><i></i></button>
+    <a class="nav-cta" href="ohmy-contacts.html">контакты</a>
+  </div>
+</nav>
+
+<div class="layout">
+  <div class="top">
+    <a class="crumb" href="ohmy-site.html">← на главную</a>
+    <h1>Политика в отношении обработки персональных данных</h1>
+    <p class="upd">Редакция от <span class="fill">дата</span>.
+      Действует для сайта ohmy.design и всех его разделов.</p>
+  </div>
+
+  <div class="warn">
+    <b>Черновик — требует проверки юристом</b>
+    <p>Текст составлен по типовой структуре, принятой для 152-ФЗ, и содержит места,
+      отмеченные цветом, которые нужно заполнить вашими данными. Перед публикацией его
+      должен вычитать юрист: ответственность за соответствие закону лежит на операторе,
+      а не на шаблоне.</p>
+  </div>
+
+  <div class="doc">
+    <nav class="toc" id="toc" aria-label="Содержание">
+      <b>Содержание</b>
+    </nav>
+
+    <h2 id="s1">Общие положения</h2>
+    <p>Настоящая политика обработки персональных данных составлена в соответствии
+      с требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных»
+      и определяет порядок обработки персональных данных и меры по обеспечению
+      безопасности персональных данных, предпринимаемые
+      <span class="fill">полное наименование оператора</span> (далее — Оператор).</p>
+    <p>Оператор ставит важнейшей целью и условием осуществления своей деятельности
+      соблюдение прав и свобод человека и гражданина при обработке его персональных
+      данных, в том числе защиты прав на неприкосновенность частной жизни, личную
+      и семейную тайну.</p>
+    <p>Настоящая политика применяется ко всей информации, которую Оператор может получить
+      о посетителях сайта <a class="link" href="https://ohmy.design">ohmy.design</a>.</p>
+
+    <h2 id="s2">Основные понятия</h2>
+    <ul>
+      <li><strong>Персональные данные</strong> — любая информация, относящаяся прямо или
+        косвенно к определённому или определяемому физическому лицу.</li>
+      <li><strong>Обработка персональных данных</strong> — любое действие или совокупность
+        действий, совершаемых с персональными данными, включая сбор, запись, хранение,
+        уточнение, использование, передачу, удаление и уничтожение.</li>
+      <li><strong>Оператор</strong> — <span class="fill">наименование</span>, самостоятельно
+        или совместно с другими лицами организующее обработку персональных данных.</li>
+      <li><strong>Пользователь</strong> — посетитель сайта ohmy.design.</li>
+      <li><strong>Cookie</strong> — небольшой фрагмент данных, отправляемый веб-сервером
+        и хранимый на устройстве пользователя.</li>
+    </ul>
+
+    <h2 id="s3">Какие данные обрабатываются</h2>
+    <p>Оператор обрабатывает персональные данные, которые Пользователь предоставляет
+      самостоятельно при заполнении форм на сайте:</p>
+    <ul>
+      <li>имя;</li>
+      <li>контактные данные: адрес электронной почты, номер телефона, никнейм в мессенджере;</li>
+      <li>название компании, если Пользователь указал его добровольно;</li>
+      <li>содержание обращения — сведения о задаче, которые Пользователь сообщает по своей воле.</li>
+    </ul>
+    <p>Также автоматически собираются обезличенные данные о посещениях средствами
+      сервисов интернет-статистики: IP-адрес, сведения о браузере и устройстве,
+      источник перехода, просмотренные страницы и время визита.</p>
+    <p>Оператор не обрабатывает специальные категории персональных данных
+      и биометрические персональные данные.</p>
+
+    <h2 id="s4">Цели обработки</h2>
+    <ul>
+      <li>связь с Пользователем в ответ на его обращение, включая направление
+        коммерческого предложения;</li>
+      <li>заключение и исполнение договора, если стороны к нему придут;</li>
+      <li>улучшение работы сайта и качества услуг на основе обезличенной статистики.</li>
+    </ul>
+    <p>Оператор не использует полученные данные для рассылок, не связанных с обращением
+      Пользователя, и не передаёт их третьим лицам в рекламных целях.</p>
+
+    <h2 id="s5">Правовые основания</h2>
+    <p>Обработка персональных данных осуществляется на основании согласия Пользователя,
+      которое он даёт, проставляя отметку в соответствующем поле формы перед её отправкой,
+      а также на основании договора, стороной которого является субъект персональных
+      данных, если такой договор заключён.</p>
+    <p>Согласие даётся на срок, необходимый для достижения целей обработки, и может быть
+      отозвано в любой момент способом, указанным в разделе о правах Пользователя.</p>
+
+    <h2 id="s6">Порядок и сроки хранения</h2>
+    <p>Персональные данные хранятся в течение срока, необходимого для достижения целей
+      обработки, но не более <span class="fill">срок, например: трёх лет</span> с момента
+      последнего обращения Пользователя, если иной срок не предусмотрен законом
+      или договором.</p>
+    <p>Базы данных, содержащие персональные данные граждан Российской Федерации,
+      находятся на серверах, расположенных на территории Российской Федерации,
+      в соответствии с частью 5 статьи 18 152-ФЗ.</p>
+    <p>По достижении целей обработки или при отзыве согласия персональные данные
+      уничтожаются либо обезличиваются в срок, установленный законом.</p>
+
+    <h2 id="s7">Передача данных</h2>
+    <p>Оператор вправе поручить обработку персональных данных третьим лицам,
+      привлекаемым для обеспечения работы сайта и связи с Пользователем — в частности
+      хостинг-провайдеру и сервисам интернет-статистики. Такие лица обязаны соблюдать
+      конфиденциальность и обеспечивать безопасность данных.</p>
+    <p>Передача персональных данных иным третьим лицам не осуществляется, за исключением
+      случаев, прямо предусмотренных законодательством Российской Федерации.</p>
+    <p>Трансграничная передача персональных данных Оператором не осуществляется.</p>
+
+    <h2 id="s8">Файлы cookie и статистика</h2>
+    <p>Сайт использует файлы cookie для корректной работы интерфейса, в том числе
+      для запоминания выбранной темы оформления. Cookie не содержат персональных данных
+      и не позволяют идентифицировать Пользователя.</p>
+    <p>Для сбора обезличенной статистики посещений используется
+      <span class="fill">перечислить сервисы, например: Яндекс.Метрика</span>.
+      Пользователь может отключить cookie в настройках браузера — часть функций сайта
+      при этом может работать некорректно.</p>
+
+    <h2 id="s9">Меры защиты</h2>
+    <p>Оператор принимает необходимые правовые, организационные и технические меры
+      для защиты персональных данных от неправомерного доступа, уничтожения, изменения,
+      блокирования, копирования и распространения. В частности: передача данных с форм
+      осуществляется по защищённому протоколу, доступ к данным ограничен кругом
+      сотрудников, которым он необходим для работы.</p>
+
+    <h2 id="s10">Права пользователя</h2>
+    <p>Пользователь имеет право:</p>
+    <ul>
+      <li>получить сведения об обработке своих персональных данных;</li>
+      <li>требовать уточнения, блокирования или уничтожения данных, если они неполны,
+        устарели, неточны или получены незаконно;</li>
+      <li>отозвать согласие на обработку персональных данных;</li>
+      <li>обжаловать действия Оператора в уполномоченном органе по защите прав субъектов
+        персональных данных или в судебном порядке.</li>
+    </ul>
+    <p>Для реализации этих прав достаточно направить запрос на адрес
+      <a class="link" href="mailto:hi@ohmy.design">hi@ohmy.design</a>. Оператор отвечает
+      в срок, установленный законодательством.</p>
+
+    <h2 id="s11">Изменение политики</h2>
+    <p>Оператор вправе вносить изменения в настоящую политику. Новая редакция вступает
+      в силу с момента её размещения на сайте, если иное не предусмотрено новой редакцией.
+      Актуальная версия всегда доступна по адресу
+      <a class="link" href="ohmy-privacy.html">ohmy.design/privacy</a>.</p>
+
+    <h2 id="s12">Контакты оператора</h2>
+    <p>Наименование: <span class="fill">полное наименование</span><br>
+      ИНН: <span class="fill">заполнить</span><br>
+      Адрес: <span class="fill">юридический адрес</span><br>
+      Электронная почта: <a class="link" href="mailto:hi@ohmy.design">hi@ohmy.design</a><br>
+      Телефон: <a class="link" href="tel:+79317069227">+7 (931) 706-92-27</a></p>
+  </div>
+</div>
+
+<footer class="site-foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <a class="foot-logo" href="ohmy-site.html">ohmy.design</a>
+      <p>Студия дизайна и автоматизации для бизнеса.<br>
+        Санкт-Петербург, с 2018 года. 200+ проектов.</p>
+    </div>
+
+    <div class="foot-col">
+      <b>Разделы</b>
+      <a href="ohmy-projects.html">Проекты</a>
+      <a href="ohmy-studio.html">Студия</a>
+      <a href="ohmy-journal.html">Журнал</a>
+      <a href="ohmy-contacts.html">Контакты</a>
+    </div>
+
+    <div class="foot-col">
+      <b>Направления</b>
+      <a href="ohmy-web.html">Сайты и digital</a>
+      <a href="ohmy-ai.html">AI и автоматизации</a>
+      <a href="ohmy-brand.html">Дизайн и айдентика</a>
+      <a href="ohmy-care.html">Поддержка и развитие</a>
+    </div>
+
+    <div class="foot-col">
+      <b>Связаться</b>
+      <a href="https://t.me/brsemenov" target="_blank" rel="noopener">Телеграм<em>@brsemenov</em></a>
+      <a href="mailto:hi@ohmy.design">Почта<em>hi@ohmy.design</em></a>
+      <a href="tel:+79317069227">Телефон<em>+7 (931) 706-92-27</em></a>
+    </div>
+  </div>
+
+  <div class="foot-req">
+    <div><span>наименование</span><b>ИП Семёнов Борис Романович</b></div>
+    <div><span>ИНН / ОГРНИП</span><b>783900004042<br>324784700055790</b></div>
+    <div><span>банк</span><b>ООО «Банк Точка»<br>БИК 044525104</b></div>
+    <div><span>расчётный счёт</span><b>40802810120000247972</b>
+      <a class="req-link" href="https://i.tochka.com/bank/myprofile/ohmy.design"
+         target="_blank" rel="noopener">карточка компании ↗</a></div>
+  </div>
+
+  <div class="foot-bottom">
+    <span>© 2018–2026 ohmy.design</span>
+    <a href="ohmy-privacy.html">Политика конфиденциальности и обработки ПД</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const root=document.documentElement;
+  if(matchMedia('(prefers-color-scheme: light)').matches) root.dataset.theme='light';
+  document.getElementById('themeBtn').addEventListener('click',()=>{
+    root.dataset.theme = root.dataset.theme==='light' ? 'dark' : 'light';
+  });
+})();
+
+/* оглавление собирается из заголовков — при правке текста не разъедется */
+(function(){
+  const toc=document.getElementById('toc');
+  const hs=[...document.querySelectorAll('.doc h2')];
+  toc.insertAdjacentHTML('beforeend',
+    hs.map((h,i)=>`<a href="#${h.id}">${i+1}. ${h.textContent}</a>`).join(''));
+
+  const links=[...toc.querySelectorAll('a')];
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const i=hs.indexOf(e.target);
+      links.forEach((a,j)=>a.classList.toggle('on', j===i));
+    });
+  },{rootMargin:'-90px 0px -70% 0px'});
+  hs.forEach(h=>io.observe(h));
+})();
+</script>
+
+<!-- Яндекс.Метрика. Общий блок на всех страницах, правится скриптом-заменой -->
+<script>
+if (location.hostname === 'ohmy.design' || location.hostname.endsWith('.ohmy.design')) {
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();
+for (var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,
+a.parentNode.insertBefore(k,a)})
+(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=76559848','ym');
+ym(76559848,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:false});
+}
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/76559848" style="position:absolute;left:-9999px" alt=""></div></noscript>
+<!-- /Яндекс.Метрика -->
+</body>
+</html>

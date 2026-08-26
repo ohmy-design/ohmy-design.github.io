@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Проекты — ohmy.design</title>
+<meta name="description" content="Проекты студии ohmy.design: сайты, бренд и айдентика, сопровождение. Промышленность, события, медицина и технологичные компании. Санкт-Петербург, с 2018 года.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="dark"]{
+  --bg:#131317; --bg-2:#1A1A20;
+  --ink:#F2F0EC; --muted:#84848E;
+  --line:rgba(242,240,236,.11); --line-strong:rgba(242,240,236,.30);
+  --accent:#FF4A1C;
+  --img-b:.72; --img-b-hover:.95;
+  --blend:difference;
+}
+[data-theme="light"]{
+  --bg:#F3F1ED; --bg-2:#E9E6E0;
+  --ink:#141418; --muted:#71717A;
+  --line:rgba(20,20,24,.12); --line-strong:rgba(20,20,24,.28);
+  --accent:#E5350B;
+  --img-b:.96; --img-b-hover:1.03;
+  --blend:normal;
+}
+:root{--pad:clamp(20px,4vw,64px);--ease:cubic-bezier(.16,1,.3,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Onest',system-ui,sans-serif;font-weight:300;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background .7s var(--ease),color .7s var(--ease)}
+::selection{background:var(--accent);color:var(--bg)}
+a{color:inherit;text-decoration:none}
+.mono{font-weight:400;font-size:13px;letter-spacing:.01em;color:var(--muted)}
+
+/* ---------- NAV ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;gap:20px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px var(--pad);mix-blend-mode:var(--blend)}
+.logo{font-size:16px;font-weight:600;letter-spacing:-.02em}
+.nav-links{display:flex;gap:28px;font-size:14px;opacity:.78}
+.nav-links a{position:relative}
+.nav-links a.on{opacity:1;color:var(--accent)}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;
+  background:currentColor;transition:width .5s var(--ease)}
+.nav-links a:hover::after,.nav-links a.on::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:14px}
+.theme{width:52px;height:26px;border-radius:100px;flex-shrink:0;
+  border:1px solid var(--line-strong);background:transparent;position:relative;
+  cursor:pointer;transition:.5s var(--ease)}
+.theme:hover{border-color:var(--ink)}
+.theme i{position:absolute;top:50%;left:4px;transform:translateY(-50%);
+  width:16px;height:16px;border-radius:50%;background:var(--ink);
+  transition:transform .55s var(--ease)}
+[data-theme="light"] .theme i{transform:translateY(-50%) translateX(26px)}
+.nav-cta{font-size:13px;border:1px solid var(--line-strong);white-space:nowrap;
+  padding:9px 18px;border-radius:100px;transition:.5s var(--ease)}
+.nav-cta:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* ---------- ШАПКА ---------- */
+.head{padding:clamp(130px,15vw,200px) var(--pad) 0}
+.head h1{font-size:clamp(46px,10vw,150px);font-weight:200;
+  letter-spacing:-.055em;line-height:.88}
+.head-sub{display:flex;justify-content:space-between;align-items:flex-end;
+  gap:24px;margin-top:clamp(26px,3vw,44px);flex-wrap:wrap}
+.head-sub p{max-width:46ch;font-size:clamp(15px,1.5vw,19px);
+  color:var(--muted);line-height:1.6}
+
+/* ---------- ФИЛЬТРЫ ---------- */
+.bar{position:sticky;top:0;z-index:40;margin-top:clamp(40px,5vw,70px);
+  padding:16px var(--pad);border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);background:var(--bg);
+  transition:background .7s var(--ease)}
+.row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.row + .row{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.row-label{font-size:12.5px;color:var(--muted);min-width:78px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;flex:1}
+.chip{font:inherit;font-size:14px;color:var(--muted);cursor:pointer;
+  background:none;border:1px solid var(--line-strong);border-radius:100px;
+  padding:8px 18px;transition:.45s var(--ease);white-space:nowrap}
+.chip:hover:not(:disabled){color:var(--ink);border-color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip:disabled{opacity:.28;cursor:default}
+.chip u{text-decoration:none;opacity:.5;margin-left:5px}
+.chip.on u{opacity:.6}
+.row.sub .chip{font-size:13px;padding:6px 14px;border-color:var(--line)}
+.count{white-space:nowrap;margin-left:auto}
+.reset{font-size:13px;color:var(--accent);background:none;border:0;
+  cursor:pointer;font-family:inherit;padding:0}
+
+/* ---------- СЕТКИ ---------- */
+.wrap{padding:clamp(46px,5.5vw,84px) var(--pad) 0}
+.block-head{display:flex;align-items:baseline;gap:18px;
+  padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:clamp(26px,3vw,44px)}
+.block-head b{font-size:clamp(20px,2.2vw,30px);font-weight:200;letter-spacing:-.03em}
+
+.grid{display:grid;gap:clamp(24px,3vw,52px) clamp(16px,2vw,30px)}
+.grid.big{grid-template-columns:repeat(2,1fr)}
+.grid.all{grid-template-columns:repeat(3,1fr)}
+@media(max-width:1000px){.grid.all{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.grid.big,.grid.all{grid-template-columns:1fr}}
+
+.card{display:block;opacity:0;transform:translateY(22px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.card.in{opacity:1;transform:none}
+.card-img{position:relative;overflow:hidden;border-radius:4px;
+  background:var(--bg-2);aspect-ratio:16/9}
+.card-img img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:grayscale(1) brightness(var(--img-b)) contrast(1.04);
+  transform:scale(1.03);transition:transform 1.1s var(--ease),filter .8s var(--ease)}
+.card:hover .card-img img{transform:scale(1.08);filter:grayscale(0) brightness(var(--img-b-hover))}
+.card-go{position:absolute;right:14px;bottom:14px;z-index:2;
+  width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+  background:var(--ink);color:var(--bg);font-size:14px;
+  opacity:0;transform:translateY(8px) scale(.9);transition:.55s var(--ease)}
+.card:hover .card-go{opacity:1;transform:none}
+.card-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:15px}
+.t{font-size:12.5px;color:var(--muted);border:1px solid var(--line);
+  border-radius:100px;padding:4px 11px;transition:.4s var(--ease)}
+.card:hover .t{border-color:var(--line-strong)}
+.t.case{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.t.yr{border:0;padding-left:2px}
+.card h3{font-weight:400;letter-spacing:-.022em;margin-top:11px;
+  transition:color .4s var(--ease)}
+.grid.big h3{font-size:clamp(23px,2.4vw,33px)}
+.grid.all h3{font-size:clamp(18px,1.7vw,22px)}
+.card:hover h3{color:var(--accent)}
+.card p{font-size:13.5px;color:var(--muted);line-height:1.5;margin-top:8px;max-width:46ch}
+.grid.big p{font-size:15px;max-width:52ch}
+
+.empty{padding:clamp(60px,8vw,120px) var(--pad);text-align:center;color:var(--muted)}
+
+/* ---------- CTA + FOOTER ---------- */
+.cta{text-align:center;padding:clamp(100px,13vw,190px) var(--pad)}
+.cta-big{font-size:clamp(34px,7.4vw,116px);font-weight:200;letter-spacing:-.05em;line-height:.92}
+.cta-big a{transition:.6s var(--ease);display:inline-block}
+.cta-big a:hover{color:var(--accent);transform:scale(.985)}
+.cta-sub{margin-top:26px;color:var(--muted);font-size:15px}
+footer{padding:40px var(--pad);border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+@media(prefers-reduced-motion:reduce){.card{opacity:1;transform:none}}
+
+/* ---------- ОБЩИЙ ПОДВАЛ ----------
+   Один блок на всех страницах: навигация, прямая связь, реквизиты.
+   Для B2B подвал — рабочий инструмент: там ищут ИНН и телефон. */
+footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
+  padding:clamp(50px,6vw,86px) var(--pad) clamp(26px,3vw,38px);
+  margin-top:clamp(70px,9vw,140px);transition:background .7s var(--ease)}
+.foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.1fr;
+  gap:clamp(26px,4vw,60px);padding-bottom:clamp(34px,4vw,56px);
+  border-bottom:1px solid var(--line)}
+@media(max-width:980px){.foot-top{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.foot-top{grid-template-columns:1fr}}
+.foot-brand .foot-logo{font-size:19px;font-weight:600;letter-spacing:-.025em;display:inline-block}
+.foot-brand p{margin-top:14px;font-size:14px;color:var(--muted);
+  line-height:1.65;max-width:34ch}
+.foot-col b{display:block;font-size:12.5px;font-weight:400;color:var(--muted);
+  margin-bottom:16px;letter-spacing:.01em}
+.foot-col a,.foot-col span.li{display:block;font-size:14.5px;padding:5px 0;
+  transition:color .35s var(--ease),padding-left .35s var(--ease)}
+.foot-col a:hover{color:var(--accent);padding-left:5px}
+.foot-col em{font-style:normal;font-size:12.5px;color:var(--muted);
+  display:block;margin-top:2px}
+
+/* реквизиты */
+.foot-req{display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(18px,2.4vw,34px);padding:clamp(28px,3.4vw,46px) 0;
+  border-bottom:1px solid var(--line)}
+@media(max-width:980px){.foot-req{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.foot-req{grid-template-columns:1fr}}
+.foot-req div span{display:block;font-size:12.5px;color:var(--muted);margin-bottom:7px}
+.foot-req div b{font-size:14.5px;font-weight:400;line-height:1.4;display:block}
+.foot-req div b.todo{color:var(--accent);border-bottom:1px dashed currentColor;
+  display:inline-block}
+.foot-req div b{overflow-wrap:anywhere}
+.foot-req a.req-link{font-size:13px;color:var(--accent);
+  border-bottom:1px solid rgba(255,74,28,.4);display:inline-block;margin-top:6px}
+
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;
+  gap:18px;flex-wrap:wrap;padding-top:clamp(20px,2.4vw,30px);
+  font-size:13px;color:var(--muted)}
+.foot-bottom a{transition:color .35s var(--ease)}
+.foot-bottom a:hover{color:var(--accent)}
+</style>
+<!-- seo:start -->
+<link rel="canonical" href="https://ohmy.design/projects">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ohmy.design">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Проекты — ohmy.design">
+<meta property="og:description" content="Проекты студии ohmy.design: сайты, бренд и айдентика, сопровождение. Промышленность, события, медицина и технологичные компании. Санкт-Петербург, с 2018 года.">
+<meta property="og:url" content="https://ohmy.design/projects">
+<meta property="og:image" content="https://ohmy.design/og/projects.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Проекты — ohmy.design">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Проекты — ohmy.design">
+<meta name="twitter:description" content="Проекты студии ohmy.design: сайты, бренд и айдентика, сопровождение. Промышленность, события, медицина и технологичные компании. Санкт-Петербург, с 2018 года.">
+<meta name="twitter:image" content="https://ohmy.design/og/projects.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#131317">
+<!-- seo:end -->
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="ohmy-site.html">ohmy.design</a>
+  <div class="nav-links">
+    <a href="ohmy-site.html#dir">направления</a>
+    <a href="ohmy-projects.html" class="on">проекты</a>
+    <a href="ohmy-site.html#studio">студия</a>
+    <a href="ohmy-journal.html">журнал</a>
+    <a href="ohmy-contacts.html">контакты</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme" id="themeBtn" aria-label="переключить тему"><i></i></button>
+    <a class="nav-cta" href="#cta">обсудить задачу</a>
+  </div>
+</nav>
+
+<header class="head">
+  <h1>проекты</h1>
+  <div class="head-sub">
+    <p>Сайты, бренд и сопровождение для промышленности, событий, медицины
+      и технологичных компаний. С 2018 года — более 200 запущенных проектов,
+      здесь избранное.</p>
+    <span class="mono">санкт-петербург · 2018—2026</span>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="row">
+    <span class="row-label">направление</span>
+    <div class="chips" id="chipsT"></div>
+    <span class="count mono" id="count"></span>
+  </div>
+  <div class="row sub">
+    <span class="row-label">отрасль</span>
+    <div class="chips" id="chipsS"></div>
+    <button class="reset" id="reset" hidden>сбросить</button>
+  </div>
+</div>
+
+<main id="list"></main>
+
+<section class="cta" id="cta">
+  <div class="mono" style="margin-bottom:30px">похожая задача?</div>
+  <div class="cta-big"><a href="mailto:hi@ohmy.design">hi@ohmy.design</a></div>
+  <p class="cta-sub">санкт-петербург · telegram @brsemenov · whatsapp</p>
+</section>
+
+<footer class="site-foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <a class="foot-logo" href="ohmy-site.html">ohmy.design</a>
+      <p>Студия дизайна и автоматизации для бизнеса.<br>
+        Санкт-Петербург, с 2018 года. 200+ проектов.</p>
+    </div>
+
+    <div class="foot-col">
+      <b>Разделы</b>
+      <a href="ohmy-projects.html">Проекты</a>
+      <a href="ohmy-studio.html">Студия</a>
+      <a href="ohmy-journal.html">Журнал</a>
+      <a href="ohmy-contacts.html">Контакты</a>
+    </div>
+
+    <div class="foot-col">
+      <b>Направления</b>
+      <a href="ohmy-web.html">Сайты и digital</a>
+      <a href="ohmy-ai.html">AI и автоматизации</a>
+      <a href="ohmy-brand.html">Дизайн и айдентика</a>
+      <a href="ohmy-care.html">Поддержка и развитие</a>
+    </div>
+
+    <div class="foot-col">
+      <b>Связаться</b>
+      <a href="https://t.me/brsemenov" target="_blank" rel="noopener">Телеграм<em>@brsemenov</em></a>
+      <a href="mailto:hi@ohmy.design">Почта<em>hi@ohmy.design</em></a>
+      <a href="tel:+79317069227">Телефон<em>+7 (931) 706-92-27</em></a>
+    </div>
+  </div>
+
+  <div class="foot-req">
+    <div><span>наименование</span><b>ИП Семёнов Борис Романович</b></div>
+    <div><span>ИНН / ОГРНИП</span><b>783900004042<br>324784700055790</b></div>
+    <div><span>банк</span><b>ООО «Банк Точка»<br>БИК 044525104</b></div>
+    <div><span>расчётный счёт</span><b>40802810120000247972</b>
+      <a class="req-link" href="https://i.tochka.com/bank/myprofile/ohmy.design"
+         target="_blank" rel="noopener">карточка компании ↗</a></div>
+  </div>
+
+  <div class="foot-bottom">
+    <span>© 2018–2026 ohmy.design</span>
+    <a href="ohmy-privacy.html">Политика конфиденциальности и обработки ПД</a>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   ДАННЫЕ
+   t  — направление: web · brand · care   (может быть несколько)
+   s  — отрасль: одна из SECTORS
+   f  — избранное (крупная карточка сверху)
+   cs — ссылка на страницу кейса, если она собрана
+   Порядок массива = порядок вывода. Хронологии нет: сверху то,
+   что сильнее продаёт, а не то, что новее.
+   ============================================================ */
+const T = {web:'сайты', brand:'дизайн', care:'поддержка'};
+const SECTORS = {
+  industry:'промышленность и наука',
+  event:'события и форумы',
+  it:'ит и технологии',
+  city:'город и архитектура',
+  med:'медицина и здоровье',
+  service:'ритейл и услуги'
+};
+
+const PROJECTS = [
+{f:1,y:2025,n:'День Заказчика',s:'event',t:['web','care'],
+ d:'Разработка сайта и сопровождение форума, посвящённого развитию станкоинструментальной промышленности России',
+ img:'img/lib/cover-slide-2-6664.jpg',
+ url:'https://xn-----dlcdmbaydghgtidfebcgwr9bh3gn.xn--p1ai/den-zakazchika',cs:'ohmy-case.html'},
+{f:1,y:2025,n:'АБП2Б',s:'it',t:['web','care'],
+ d:'Редизайн и сопровождение сайтов компании в области кибербезопасности — пятый год работы',
+ img:'img/lib/13176813-3032.png',url:'https://abp2b.com/',cs:'ohmy-case-abp2b.html'},
+{f:1,y:2025,n:'ГЦК',s:'industry',t:['web','brand'],
+ d:'Сайт, логотип и фирменный стиль Головного центра компетенций МГТУ «СТАНКИН»',
+ img:'img/lib/cover-slide-1-6333.jpg',
+ url:'https://xn-----dlcdmbaydghgtidfebcgwr9bh3gn.xn--p1ai/'},
+{f:1,y:2026,n:'ЕвроМед',s:'med',t:['web','brand'],
+ d:'Редизайн сайта, логотип и фирменный стиль сети многопрофильных медицинских центров',
+ img:'img/lib/421009901-6139.jpg',url:'https://evro-med.ru/'},
+
+{y:2025,n:'IT-TECH HUB',s:'event',t:['brand'],
+ d:'Логотип и фирменный стиль B2B-форума для лидеров цифровой трансформации',
+ img:'img/lib/43484f614db8f293893f-3731.jpg',url:'https://cdk.expoforum.ru/ithub'},
+{y:2025,n:'URBEX',s:'city',t:['web','brand'],
+ d:'Сайт и бренд московского архитектурного бюро',
+ img:'img/lib/18217832-6438.jpg',url:'https://urbex-architects.com/'},
+{y:2025,n:'ТИШЬ',s:'service',t:['web'],
+ d:'Первый в России интернет-магазин товаров для здорового сна',
+ img:'img/lib/49060229-3435.jpg',url:'https://tish.su',cs:'ohmy-case-tish.html'},
+{y:2025,n:'ОдинКлюч',s:'it',t:['web','care'],
+ d:'Редизайн и сопровождение сайта российского корпоративного менеджера паролей',
+ img:'img/lib/86982290-6230.jpg',url:'https://xn--d1aigeid2etc.xn--p1ai/'},
+{y:2025,n:'МС22',s:'it',t:['web','care'],
+ d:'Редизайн и сопровождение сайта менеджера соединений от АБП2Б',
+ img:'img/lib/cover-slide-6633.jpg',url:'https://xn--22-7lcu.xn--p1ai/'},
+{y:2025,n:'ОдинХаб',s:'it',t:['web','care'],
+ d:'Редизайн и сопровождение сайта платформы инвентаризации ИТ-активов',
+ img:'img/lib/cover-slide-6630.jpg',url:'https://xn--80achqzd6c.xn--p1ai/'},
+{y:2025,n:'ELSTAR',s:'service',t:['brand'],
+ d:'Логотип и фирменный стиль премиального автосервиса по диагностике и дооснащению BMW',
+ img:'img/lib/0f7feef4efdf4f1061ca-6465.jpg',url:'https://disk.yandex.ru/i/G6MxiPV3tFqPfQ'},
+{y:2025,n:'Бастион',s:'service',t:['web'],
+ d:'Сайт консалтинговой компании',
+ img:'img/lib/cover-slide-6334.jpg',url:'https://bastionconsulting.ru/'},
+{y:2025,n:'iOStrade',s:'service',t:['web'],
+ d:'Редизайн сайта магазина цифровой техники в Санкт-Петербурге',
+ img:'img/lib/68294126-6238.png',url:'https://iostrade.com'},
+{y:2025,n:'НОТКИ',s:'service',t:['web'],
+ d:'Редизайн сайта магазина женского белья',
+ img:'img/lib/44055042-3533.jpg',url:'https://notki.shop/'},
+{y:2024,n:'WEAREVR',s:'it',t:['web','brand'],
+ d:'Сайт и бренд развлекательного VR-центра',
+ img:'img/lib/97131825-3032.png',url:'https://wearevr.io/'},
+{y:2024,n:'Гипрогор',s:'city',t:['web','care'],
+ d:'Редизайн и сопровождение сайта одной из старейших градостроительных организаций России',
+ img:'img/lib/94120872-6331.jpg',url:'https://www.giprogor.ru/'},
+{y:2024,n:'Студия Плюс',s:'service',t:['web','brand'],
+ d:'Сайт и фирменный стиль компании по санитарной обработке',
+ img:'img/lib/18097428-6465.jpg',url:'https://st-plus.ru/'},
+{y:2024,n:'IEAE',s:'event',t:['web'],
+ d:'Сайт международной выставки потребительской электроники',
+ img:'img/lib/57091778-3838.jpg',url:'http://ieae.com.ru'},
+{y:2024,n:'АзимутКом',s:'industry',t:['web'],
+ d:'Сайт производителя модульных систем герметизации кабелей и труб',
+ img:'img/lib/89399457-3435.jpg',url:'https://azimutcom.ru'},
+{y:2024,n:'Эпиляшка',s:'med',t:['web'],
+ d:'Сайт сети салонов лазерной эпиляции',
+ img:'img/lib/17344355-3637.jpg',url:'https://www.epilyashka.pro/'},
+{y:2024,n:'Estettika',s:'med',t:['web'],
+ d:'Сайт студии коррекции фигуры во Внуково',
+ img:'img/lib/81571474-1-3635.jpg',url:'https://estettika-vnukovo.ru/'},
+{y:2023,n:'Север-Юг: Комфортная среда',s:'event',t:['web','care'],
+ d:'Сайт и сопровождение первого всероссийского форума о качестве городской среды',
+ img:'img/lib/63365296-3261.jpg',url:'https://ohmy.design/back-to-projects'},
+{y:2023,n:'ECO/ON',s:'event',t:['brand','care'],
+ d:'Бренд и сопровождение первой международной экологической биеннале в России',
+ img:'img/lib/81619714-3561.jpg',url:'https://ohmy.design/back-to-projects'},
+{y:2023,n:'MOST Petersburg',s:'service',t:['web','brand','care'],
+ d:'Бренд, разработка и продвижение туристического портала',
+ img:'img/lib/49588136-3738.png',url:'https://ohmy.design/back-to-projects'},
+{y:2023,n:'Градсовет Югры',s:'city',t:['web'],
+ d:'Сайт Градостроительного совета Ханты-Мансийского автономного округа — Югры',
+ img:'img/lib/69051933-3439.jpg',url:'https://ohmy.design/back-to-projects'},
+{y:2023,n:'Рекламный Хаб',s:'event',t:['web'],
+ d:'Редизайн сайта крупнейшего мероприятия Северо-Запада в области рекламы',
+ img:'img/lib/47782719-3730.jpg',url:'https://cdk.expoforum.ru/trends'},
+{y:2023,n:'UNITREE',s:'industry',t:['web'],
+ d:'Сайт универсального мобильного тренажёра от Acrosport',
+ img:'img/lib/20368226-3931.jpg',url:'https://unitree-pump.ru'},
+{y:2023,n:'Тари Тур',s:'service',t:['web'],
+ d:'Сайт для продвижения туров в Москву от ведущего туроператора России',
+ img:'img/lib/84716128-6666.jpg',url:'https://tarimsk.ru/msk'},
+{y:2023,n:'EuroSkills',s:'event',t:['brand'],
+ d:'Серия баннеров для EuroSkills 2023',
+ img:'img/lib/60710607-3034.jpg',url:'https://ohmy.design/back-to-projects'}
+];
+
+/* ============================================================
+   ФИЛЬТРЫ — две независимые оси, объединяются по И
+   ============================================================ */
+let fT = 'all', fS = 'all';
+
+const $T = document.getElementById('chipsT');
+const $S = document.getElementById('chipsS');
+const $count = document.getElementById('count');
+const $reset = document.getElementById('reset');
+const $list  = document.getElementById('list');
+
+const matchT = (p,k) => k==='all' || p.t.includes(k);
+const matchS = (p,k) => k==='all' || p.s===k;
+
+function plural(n){
+  const a=n%100, b=n%10;
+  if(a>10&&a<20) return 'проектов';
+  if(b===1) return 'проект';
+  if(b>=2&&b<=4) return 'проекта';
+  return 'проектов';
+}
+
+function chip(k,label,n,on){
+  return `<button class="chip${on?' on':''}" data-k="${k}"${n?'':' disabled'}>`
+       + `${label}<u>${n}</u></button>`;
+}
+
+function drawChips(){
+  // счётчики каждой оси считаются с учётом второй — видно, что даст клик
+  $T.innerHTML = [['all','все'],...Object.entries(T)].map(([k,label])=>{
+    const n = PROJECTS.filter(p=>matchT(p,k) && matchS(p,fS)).length;
+    return chip(k,label,n,k===fT);
+  }).join('');
+
+  $S.innerHTML = [['all','все отрасли'],...Object.entries(SECTORS)].map(([k,label])=>{
+    const n = PROJECTS.filter(p=>matchS(p,k) && matchT(p,fT)).length;
+    return chip(k,label,n,k===fS);
+  }).join('');
+
+  $reset.hidden = (fT==='all' && fS==='all');
+}
+
+function card(p,big){
+  const tags = p.t.map(t=>`<span class="t">${T[t]}</span>`).join('');
+  const href = p.cs || p.url;
+  const ext  = p.cs ? '' : ' target="_blank" rel="noopener"';
+  return `<a class="card" href="${href}"${ext}>
+    <div class="card-img">
+      <img loading="lazy" src="${p.img}" alt="${p.n}">
+      <span class="card-go">${p.cs?'→':'↗'}</span>
+    </div>
+    <div class="card-meta">
+      ${p.cs?'<span class="t case">кейс</span>':''}${tags}
+      <span class="t yr">${p.y}</span>
+    </div>
+    <h3>${p.n}</h3>
+    <p>${p.d}</p>
+  </a>`;
+}
+
+function render(){
+  const items = PROJECTS.filter(p=>matchT(p,fT) && matchS(p,fS));
+  $count.textContent = `${items.length} ${plural(items.length)}`;
+  drawChips();
+
+  if(!items.length){
+    $list.innerHTML = `<p class="empty">В этом сочетании пока нет проектов.<br>
+      Попробуйте снять один из фильтров.</p>`;
+    return;
+  }
+
+  const filtered = !(fT==='all' && fS==='all');
+  let html = '';
+
+  if(filtered){
+    // при активном фильтре иерархия не нужна — один ровный список
+    html = `<div class="wrap"><div class="grid all">${items.map(p=>card(p)).join('')}</div></div>`;
+  } else {
+    const top  = items.filter(p=>p.f);
+    const rest = items.filter(p=>!p.f);
+    html = `<div class="wrap">
+        <div class="block-head"><b>избранное</b>
+          <span class="mono">${top.length} ${plural(top.length)}</span></div>
+        <div class="grid big">${top.map(p=>card(p,true)).join('')}</div>
+      </div>
+      <div class="wrap">
+        <div class="block-head"><b>все проекты</b>
+          <span class="mono">${rest.length} ${plural(rest.length)}</span></div>
+        <div class="grid all">${rest.map(p=>card(p)).join('')}</div>
+      </div>`;
+  }
+
+  $list.innerHTML = html;
+  observe();
+}
+
+let io;
+function observe(){
+  if(io) io.disconnect();
+  io = new IntersectionObserver(es=>{
+    es.forEach((e,i)=>{ if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('in'),(i%9)*55);
+      io.unobserve(e.target);} });
+  },{threshold:.08,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.card').forEach(el=>io.observe(el));
+}
+
+$T.addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b||b.disabled) return;
+  fT=b.dataset.k; render();
+});
+$S.addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b||b.disabled) return;
+  fS=b.dataset.k; render();
+});
+$reset.addEventListener('click',()=>{ fT='all'; fS='all'; render(); });
+
+render();
+
+/* ---------- тема ---------- */
+(function(){
+  const root=document.documentElement;
+  if(matchMedia('(prefers-color-scheme: light)').matches) root.dataset.theme='light';
+  document.getElementById('themeBtn').addEventListener('click',()=>{
+    root.dataset.theme = root.dataset.theme==='light' ? 'dark' : 'light';
+  });
+})();
+</script>
+
+<!-- Яндекс.Метрика. Общий блок на всех страницах, правится скриптом-заменой -->
+<script>
+if (location.hostname === 'ohmy.design' || location.hostname.endsWith('.ohmy.design')) {
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();
+for (var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,
+a.parentNode.insertBefore(k,a)})
+(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=76559848','ym');
+ym(76559848,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:false});
+}
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/76559848" style="position:absolute;left:-9999px" alt=""></div></noscript>
+<!-- /Яндекс.Метрика -->
+</body>
+</html>

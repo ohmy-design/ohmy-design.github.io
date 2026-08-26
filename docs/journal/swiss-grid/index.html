@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Швейцарская сетка в эпоху бесконечного скролла — ohmy.journal</title>
+<meta name="description" content="Модульная сетка придумана для листа бумаги фиксированного размера. Что от неё осталось в вебе, где холст резиновый, а страница не заканчивается.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="dark"]{
+  --bg:#131317; --bg-2:#1A1A20;
+  --ink:#F2F0EC; --muted:#84848E;
+  --line:rgba(242,240,236,.11); --line-strong:rgba(242,240,236,.30);
+  --accent:#FF4A1C;
+  --blend:difference;
+}
+[data-theme="light"]{
+  --bg:#F3F1ED; --bg-2:#E9E6E0;
+  --ink:#141418; --muted:#71717A;
+  --line:rgba(20,20,24,.12); --line-strong:rgba(20,20,24,.28);
+  --accent:#E5350B;
+  --blend:normal;
+}
+:root{--pad:clamp(20px,4vw,64px);--ease:cubic-bezier(.16,1,.3,1);
+      --measure:min(100%,62ch);          /* мера строки — ограничение чтения, не платформы */
+      --aside:clamp(180px,17vw,260px);   /* поле выносок справа */
+      --gap:clamp(24px,3vw,56px)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Onest',system-ui,sans-serif;font-weight:300;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background .7s var(--ease),color .7s var(--ease)}
+::selection{background:var(--accent);color:var(--bg)}
+a{color:inherit;text-decoration:none}
+.mono{font-weight:400;font-size:13px;letter-spacing:.01em;color:var(--muted)}
+
+.progress{position:fixed;top:0;left:0;height:2px;width:0;
+  background:var(--accent);z-index:60;transition:width .1s linear}
+
+/* ---------- NAV ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;gap:20px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px var(--pad);mix-blend-mode:var(--blend)}
+.logo{font-size:16px;font-weight:600;letter-spacing:-.02em}
+.nav-links{display:flex;gap:28px;font-size:14px;opacity:.78}
+.nav-links a{position:relative}
+.nav-links a.on{opacity:1;color:var(--accent)}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;
+  background:currentColor;transition:width .5s var(--ease)}
+.nav-links a:hover::after,.nav-links a.on::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:14px}
+.theme{width:52px;height:26px;border-radius:100px;flex-shrink:0;
+  border:1px solid var(--line-strong);background:transparent;position:relative;
+  cursor:pointer;transition:.5s var(--ease)}
+.theme:hover{border-color:var(--ink)}
+.theme i{position:absolute;top:50%;left:4px;transform:translateY(-50%);
+  width:16px;height:16px;border-radius:50%;background:var(--ink);
+  transition:transform .55s var(--ease)}
+[data-theme="light"] .theme i{transform:translateY(-50%) translateX(26px)}
+.nav-cta{font-size:13px;border:1px solid var(--line-strong);white-space:nowrap;
+  padding:9px 18px;border-radius:100px;transition:.5s var(--ease)}
+.nav-cta:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* ---------- АСИММЕТРИЧНАЯ СЕТКА ----------
+   Колонка текста узкая по требованию читаемости, но прижата влево.
+   Освободившееся поле справа работает: выноски, номера разделов,
+   подписи. Статья про сетки — логично, что она сама на сетке. */
+.layout{max-width:calc(62ch + var(--aside) + var(--gap));
+  margin:0 auto;padding:0 var(--pad)}
+.col{width:var(--measure)}
+
+/* ---------- ШАПКА СТАТЬИ ---------- */
+.top{padding:clamp(120px,13vw,180px) 0 0}
+.crumb{display:inline-flex;align-items:center;gap:10px;font-size:13px;
+  color:var(--muted);transition:.4s var(--ease)}
+.crumb:hover{color:var(--ink);gap:16px}
+.a-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font-size:13px;color:var(--muted);margin-top:clamp(24px,3vw,40px)}
+.rub{border:1px solid var(--line-strong);border-radius:100px;
+  padding:4px 12px;color:var(--accent)}
+/* заголовок выходит в поле выносок — единственный элемент, которому это можно */
+h1{font-size:clamp(30px,5.4vw,68px);font-weight:200;letter-spacing:-.045em;
+  line-height:1.02;margin-top:20px;width:100%}
+.dek{margin-top:clamp(20px,2.4vw,32px);font-size:clamp(17px,1.9vw,24px);
+  font-weight:300;line-height:1.5;color:var(--muted);max-width:54ch}
+
+.hero-cover{margin-top:clamp(36px,4.4vw,64px)}
+.hero-cover .in{aspect-ratio:16/8;border-radius:5px;overflow:hidden;background:var(--bg-2)}
+.hero-cover svg{width:100%;height:100%;display:block}
+
+/* ---------- ТЕЛО СТАТЬИ ---------- */
+article{width:var(--measure);padding-top:clamp(44px,5.4vw,80px);
+  counter-reset:sec}
+article p{font-size:clamp(16px,1.15vw,18.5px);line-height:1.75;
+  color:var(--ink);opacity:.92;margin-bottom:1.35em}
+article p.first::first-letter{float:left;font-size:3.4em;line-height:.82;
+  font-weight:200;padding:.06em .12em 0 0;color:var(--accent)}
+article h2{font-size:clamp(22px,2.6vw,34px);font-weight:300;
+  letter-spacing:-.035em;line-height:1.18;position:relative;
+  counter-increment:sec;margin:clamp(46px,5vw,80px) 0 clamp(18px,2vw,26px)}
+/* номер раздела висит в поле выносок, а не съедает колонку */
+article h2::after{content:counter(sec,decimal-leading-zero);
+  position:absolute;top:.5em;left:calc(100% + var(--gap));
+  font-size:13px;font-weight:400;color:var(--accent);letter-spacing:.02em}
+article h3{font-size:clamp(18px,1.8vw,23px);font-weight:400;
+  letter-spacing:-.02em;margin:clamp(32px,3.4vw,48px) 0 clamp(12px,1.4vw,18px)}
+article ul,article ol{margin:0 0 1.35em;padding-left:1.2em}
+article li{font-size:clamp(16px,1.15vw,18.5px);line-height:1.7;
+  opacity:.92;margin-bottom:.5em}
+article li::marker{color:var(--accent)}
+article a.link{color:var(--accent);border-bottom:1px solid rgba(255,74,28,.4);
+  transition:border-color .4s var(--ease)}
+article a.link:hover{border-color:var(--accent)}
+article strong{font-weight:500}
+
+/* ---------- ВЫНОСКИ ----------
+   Приём старый, книжный: заметка стоит рядом со своим местом в тексте,
+   а не в конце страницы. Плавающий блок с отрицательным полем уходит
+   вправо целиком, поэтому строку он не укорачивает. */
+.side{float:right;clear:right;width:var(--aside);
+  margin:.45em calc(-1 * (var(--aside) + var(--gap))) 1.6em 0;
+  font-size:13.5px;line-height:1.6;color:var(--muted);
+  border-top:1px solid var(--accent);padding-top:12px}
+.side b{display:block;color:var(--ink);font-weight:400;margin-bottom:5px}
+
+blockquote{width:calc(var(--measure) + var(--gap));
+  margin:clamp(40px,4.6vw,70px) 0;padding:0 0 0 clamp(20px,3vw,44px);
+  border-left:2px solid var(--accent)}
+blockquote p{font-size:clamp(20px,2.2vw,30px);font-weight:200;
+  line-height:1.35;letter-spacing:-.028em;opacity:1;margin:0}
+blockquote cite{display:block;margin-top:16px;font-style:normal;
+  font-size:14px;color:var(--muted)}
+
+/* иллюстрация занимает всю ширину композиции, включая поле выносок */
+figure{width:calc(var(--measure) + var(--aside) + var(--gap));
+  margin:clamp(40px,4.6vw,72px) 0}
+figure .in{border-radius:5px;overflow:hidden;background:var(--bg-2);aspect-ratio:16/9}
+figure svg{width:100%;height:100%;display:block}
+figcaption{margin-top:14px;font-size:13.5px;color:var(--muted);
+  line-height:1.5;max-width:var(--measure)}
+
+.note{margin:clamp(36px,4vw,60px) 0;
+  border:1px solid var(--line);border-radius:5px;
+  padding:clamp(22px,2.6vw,32px);background:var(--bg-2);
+  transition:background .7s var(--ease)}
+.note b{display:block;font-size:15px;font-weight:400;margin-bottom:10px}
+.note p{font-size:15px;margin:0;color:var(--muted);opacity:1}
+
+/* на узких экранах поле выносок исчезает: заметки встают в поток,
+   номера разделов прячутся, иллюстрации сжимаются до колонки */
+@media(max-width:1080px){
+  .side{float:none;width:auto;margin:0 0 1.5em;
+    border-top:0;border-left:2px solid var(--accent);
+    padding:2px 0 2px 16px}
+  article h2::after{display:none}
+  figure,blockquote{width:100%}
+}
+
+/* ---------- ПОДПИСЬ АВТОРА ---------- */
+.author{width:var(--measure);margin:clamp(56px,6vw,96px) 0 0;
+  padding-top:clamp(26px,3vw,40px);border-top:1px solid var(--line);
+  display:flex;gap:16px;align-items:center}
+.author img{width:56px;height:56px;border-radius:50%;object-fit:cover;
+  filter:grayscale(1)}
+.author b{display:block;font-size:16px;font-weight:400}
+.author span{font-size:13.5px;color:var(--muted)}
+
+/* ---------- ДАЛЬШЕ ---------- */
+.more{padding:clamp(70px,9vw,140px) 0 0}
+.more-head{display:flex;justify-content:space-between;align-items:baseline;
+  gap:20px;padding-bottom:26px;border-bottom:1px solid var(--line)}
+.more-head b{font-size:clamp(20px,2.2vw,30px);font-weight:200;letter-spacing:-.03em}
+.more-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(16px,2vw,30px);margin-top:clamp(28px,3vw,48px)}
+@media(max-width:900px){.more-grid{grid-template-columns:1fr}}
+.card{display:block}
+.card .cov{aspect-ratio:16/10;border-radius:5px;overflow:hidden;background:var(--bg-2)}
+.card .cov svg{width:100%;height:100%;display:block;transition:transform 1.2s var(--ease)}
+.card:hover .cov svg{transform:scale(1.05)}
+.card h3{font-size:clamp(17px,1.7vw,22px);font-weight:300;letter-spacing:-.025em;
+  line-height:1.22;margin-top:15px;transition:color .4s var(--ease)}
+.card:hover h3{color:var(--accent)}
+.card .m{margin-top:11px;font-size:13px;color:var(--muted);
+  display:flex;gap:9px;flex-wrap:wrap}
+
+footer{margin-top:clamp(80px,10vw,150px);padding:40px var(--pad);
+  border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+.rv{opacity:0;transform:translateY(22px);
+  transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+
+/* ---------- ОБЩИЙ ПОДВАЛ ----------
+   Один блок на всех страницах: навигация, прямая связь, реквизиты.
+   Для B2B подвал — рабочий инструмент: там ищут ИНН и телефон. */
+footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
+  padding:clamp(50px,6vw,86px) var(--pad) clamp(26px,3vw,38px);
+  margin-top:clamp(70px,9vw,140px);transition:background .7s var(--ease)}
+.foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.1fr;
+  gap:clamp(26px,4vw,60px);padding-bottom:clamp(34px,4vw,56px);
+  border-bottom:1px solid var(--line)}
+@media(max-width:980px){.foot-top{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.foot-top{grid-template-columns:1fr}}
+.foot-brand .foot-logo{font-size:19px;font-weight:600;letter-spacing:-.025em;display:inline-block}
+.foot-brand p{margin-top:14px;font-size:14px;color:var(--muted);
+  line-height:1.65;max-width:34ch}
+.foot-col b{display:block;font-size:12.5px;font-weight:400;color:var(--muted);
+  margin-bottom:16px;letter-spacing:.01em}
+.foot-col a,.foot-col span.li{display:block;font-size:14.5px;padding:5px 0;
+  transition:color .35s var(--ease),padding-left .35s var(--ease)}
+.foot-col a:hover{color:var(--accent);padding-left:5px}
+.foot-col em{font-style:normal;font-size:12.5px;color:var(--muted);
+  display:block;margin-top:2px}
+
+/* реквизиты */
+.foot-req{display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(18px,2.4vw,34px);padding:clamp(28px,3.4vw,46px) 0;
+  border-bottom:1px solid var(--line)}
+@media(max-width:980px){.foot-req{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.foot-req{grid-template-columns:1fr}}
+.foot-req div span{display:block;font-size:12.5px;color:var(--muted);margin-bottom:7px}
+.foot-req div b{font-size:14.5px;font-weight:400;line-height:1.4;display:block}
+.foot-req div b.todo{color:var(--accent);border-bottom:1px dashed currentColor;
+  display:inline-block}
+.foot-req div b{overflow-wrap:anywhere}
+.foot-req a.req-link{font-size:13px;color:var(--accent);
+  border-bottom:1px solid rgba(255,74,28,.4);display:inline-block;margin-top:6px}
+
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;
+  gap:18px;flex-wrap:wrap;padding-top:clamp(20px,2.4vw,30px);
+  font-size:13px;color:var(--muted)}
+.foot-bottom a{transition:color .35s var(--ease)}
+.foot-bottom a:hover{color:var(--accent)}
+</style>
+<!-- seo:start -->
+<link rel="canonical" href="https://ohmy.design/journal/swiss-grid">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ohmy.design">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Швейцарская сетка в эпоху бесконечного скролла — ohmy.journal">
+<meta property="og:description" content="Модульная сетка придумана для листа бумаги фиксированного размера. Что от неё осталось в вебе, где холст резиновый, а страница не заканчивается.">
+<meta property="og:url" content="https://ohmy.design/journal/swiss-grid">
+<meta property="og:image" content="https://ohmy.design/og/journal-swiss-grid.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Швейцарская сетка в эпоху бесконечного скролла — ohmy.journal">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Швейцарская сетка в эпоху бесконечного скролла — ohmy.journal">
+<meta name="twitter:description" content="Модульная сетка придумана для листа бумаги фиксированного размера. Что от неё осталось в вебе, где холст резиновый, а страница не заканчивается.">
+<meta name="twitter:image" content="https://ohmy.design/og/journal-swiss-grid.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#131317">
+<!-- seo:end -->
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+
+<nav>
+  <a class="logo" href="/">ohmy.design</a>
+  <div class="nav-links">
+    <a href="/#dir">направления</a>
+    <a href="/projects/">проекты</a>
+    <a href="/studio/">студия</a>
+    <a href="/journal/" class="on">журнал</a>
+    <a href="/contacts/">контакты</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme" id="themeBtn" aria-label="переключить тему"><i></i></button>
+    <a class="nav-cta" href="/#cta">обсудить задачу</a>
+  </div>
+</nav>
+
+<div class="layout">
+<div class="top">
+  <a class="crumb" href="/journal/">← ohmy.journal</a>
+  <div class="a-meta">
+    <span class="rub">обзоры и статьи</span>
+    <span>28 июля 2026</span><span>·</span><span>9 мин чтения</span>
+  </div>
+  <h1>Швейцарская сетка в эпоху бесконечного скролла</h1>
+  <p class="dek">Модульная сетка придумана для листа бумаги фиксированного размера.
+    Разбираемся, что от неё осталось в вебе, где холст резиновый,
+    а страница не заканчивается.</p>
+</div>
+
+<div class="hero-cover"><div class="in" id="cover"></div></div>
+
+<article>
+  <p class="first">В 1961 году Йозеф Мюллер-Брокманн выпустил «Gestaltungsprobleme des
+    Grafikers» — книгу, из которой выросло представление о сетке как об инструменте
+    мышления, а не разлиновке. Логика была простой и жёсткой: лист имеет известные
+    размеры, значит его можно разделить на равные модули, и всякий элемент занимает
+    целое число модулей. Дисциплина вместо вкуса, воспроизводимость вместо озарения.</p>
+  <aside class="side"><b>Josef Müller-Brockmann</b>
+    «Gestaltungsprobleme des Grafikers», 1961. На русском выходила как
+    «Проблемы дизайна графика» — до сих пор основной источник по теме.</aside>
+
+  <p>Шестьдесят лет спустя мы верстаем на холсте, у которого нет ни фиксированной ширины,
+    ни высоты, ни даже гарантии, что читатель увидит страницу целиком. Сетка при этом
+    никуда не делась — она в каждом фреймворке, в каждом дизайн-редакторе, в двенадцати
+    колонках по умолчанию. Вопрос в том, осталось ли за этими двенадцатью колонками
+    хоть что-то от исходной идеи.</p>
+
+  <h2>Что именно решала модульная сетка</h2>
+
+  <p>Стоит отделить приём от задачи. Сетка в швейцарской школе решала три разные проблемы,
+    и только одна из них была про красоту.</p>
+
+  <p><strong>Первая — производственная.</strong> Журнал верстают несколько человек,
+    номер выходит регулярно, макеты передаются в типографию. Общая модульная система
+    делает работу воспроизводимой: любой верстальщик соберёт полосу так же, как коллега,
+    и результат сойдётся с обложкой.</p>
+
+  <p><strong>Вторая — навигационная.</strong> Читатель бумажного разворота видит всё
+    сразу. Сетка задаёт устойчивые позиции: колонтитул всегда там, подпись всегда здесь.
+    Глаз перестаёт искать и начинает читать.</p>
+
+  <p><strong>И только третья — эстетическая.</strong> Пропорциональные отношения между
+    модулями дают то ощущение порядка, ради которого сетку обычно и вспоминают.</p>
+
+  <blockquote>
+    <p>Сетка — это не про то, где стоят элементы. Это про то, что решение
+      можно объяснить словами и повторить завтра.</p>
+  </blockquote>
+
+  <p>В вебе первая задача решается совсем иначе — компонентами и токенами, а не колонками.
+    Третья решается по-прежнему. А вот со второй начинаются проблемы.</p>
+
+  <h2>Почему двенадцать колонок перестали работать</h2>
+
+  <p>Двенадцать колонок появились по арифметической причине: число делится на 2, 3, 4 и 6,
+    значит одна сетка обслуживает почти любое дробление. Это удобно и до сих пор разумно.
+    Проблема не в числе, а в том, что колонки описывают только горизонталь.</p>
+  <aside class="side"><b>Почему не шестнадцать</b>
+    У шестнадцати делителей больше, но при типичной ширине макета колонка
+    становится уже 60 пикселей — работать с ней неудобно.</aside>
+
+  <p>На бумаге вертикальный ритм задаётся высотой полосы: базовая линия, интерлиньяж,
+    известное число строк. В вебе высота непредсказуема — текст переносится по-разному,
+    изображения приходят разного формата, блоки появляются и исчезают. В результате
+    типичный современный макет строго выровнен по горизонтали и совершенно произволен
+    по вертикали. Половина сетки просто отсутствует.</p>
+
+  <figure>
+    <div class="in" id="fig1"></div>
+    <figcaption>Слева — модульная сетка бумажного разворота: горизонталь и вертикаль
+      равноправны. Справа — типичная веб-сетка: колонки заданы, вертикальный ритм
+      отдан на откуп отступам компонентов.</figcaption>
+  </figure>
+
+  <p>Отсюда знакомое ощущение: страница вроде бы аккуратная, но при скролле рассыпается.
+    Каждый блок внутри себя выверен, а между блоками — случайные интервалы,
+    унаследованные от разных компонентов.</p>
+
+  <h2>Что работает вместо неё</h2>
+
+  <p>Практика последних лет вырастила три приёма, которые закрывают ту же задачу,
+    не притворяясь бумажной сеткой.</p>
+
+  <h3>Шкала интервалов вместо колонок</h3>
+  <p>Вертикальный ритм задаётся не сеткой, а ограниченным набором значений отступа —
+    скажем, восемь величин от 4 до 160 пикселей. Правило простое: любой вертикальный
+    интервал берётся из шкалы. Это не даёт математической строгости бумаги,
+    но убирает произвол, а именно произвол и читается как неряшливость.</p>
+  <aside class="side"><b>Рабочая шкала</b>
+    4, 8, 12, 16, 24, 32, 48, 64, 96, 160. Десять значений закрывают любой макет;
+    одиннадцатое почти всегда означает, что где-то ошибка.</aside>
+
+  <h3>Мера строки как главный модуль</h3>
+  <p>На бумаге ширину колонки задаёт формат. В вебе разумнее идти от обратного:
+    сначала определить комфортную длину строки — 55–75 знаков для основного текста, —
+    и уже от неё строить всё остальное. Тогда контейнер перестаёт быть числом
+    в пикселях и становится следствием читаемости.</p>
+  <aside class="side"><b>Кириллица шире</b>
+    Норма в 55–75 знаков выведена для латиницы. Кириллический текст при том же
+    кегле занимает больше места, поэтому берут нижнюю границу диапазона.</aside>
+
+  <h3>Опорные линии вместо ячеек</h3>
+  <p>Вместо того чтобы вписывать элементы в ячейки, полезнее назначить несколько
+    вертикальных линий, к которым всё привязывается: край текстового блока, край
+    иллюстрации, край выносного элемента. Три-четыре такие линии дают ощущение системы
+    надёжнее, чем двенадцать колонок, которые в реальности используются как четыре.</p>
+
+  <div class="note">
+    <b>Как это проверить на своём макете</b>
+    <p>Уменьшите страницу до 25% и посмотрите на неё как на серое пятно. Если видны
+      случайные вертикальные интервалы разной величины — сетки нет, есть только колонки.
+      Приём старый, бумажный, и работает лучше любого плагина.</p>
+  </div>
+
+  <h2>Что осталось от швейцарцев</h2>
+
+  <p>Осталось главное — требование объяснимости. Модульная сетка ценна не пропорциями,
+    а тем, что превращает вкусовое решение в правило, которое можно передать другому
+    человеку. Это ровно та задача, которая в вебе стала острее: макет живёт годами,
+    его правят разные люди, и без явных правил он расползается за пару кварталов.</p>
+
+  <p>Двенадцать колонок при этом всё чаще оказываются ритуалом. Их ставят, потому что
+    так принято, а потом верстают половину страницы «на глаз» — и это хуже, чем
+    честно отказаться от сетки и работать шкалой интервалов и мерой строки.</p>
+
+  <p>Мюллер-Брокманн, кажется, был бы не против. Он защищал метод, а не разлиновку.</p>
+
+  <div class="author">
+    <img src="/img/boris.jpg" alt="">
+    <div><b>Борис Семёнов</b><span>основатель студии ohmy.design</span></div>
+  </div>
+</article>
+
+<section class="more">
+  <div class="more-head rv">
+    <b>читать дальше</b>
+    <a class="mono" href="/journal/" style="color:var(--accent)">все материалы ↗</a>
+  </div>
+  <div class="more-grid" id="more"></div>
+</section>
+</div><!-- /layout -->
+
+<footer class="site-foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <a class="foot-logo" href="/">ohmy.design</a>
+      <p>Студия дизайна и автоматизации для бизнеса.<br>
+        Санкт-Петербург, с 2018 года. 200+ проектов.</p>
+    </div>
+
+    <div class="foot-col">
+      <b>Разделы</b>
+      <a href="/projects/">Проекты</a>
+      <a href="/studio/">Студия</a>
+      <a href="/journal/">Журнал</a>
+      <a href="/contacts/">Контакты</a>
+    </div>
+
+    <div class="foot-col">
+      <b>Направления</b>
+      <a href="/web/">Сайты и digital</a>
+      <a href="/ai/">AI и автоматизации</a>
+      <a href="/brand/">Дизайн и айдентика</a>
+      <a href="/care/">Поддержка и развитие</a>
+    </div>
+
+    <div class="foot-col">
+      <b>Связаться</b>
+      <a href="https://t.me/brsemenov" target="_blank" rel="noopener">Телеграм<em>@brsemenov</em></a>
+      <a href="mailto:hi@ohmy.design">Почта<em>hi@ohmy.design</em></a>
+      <a href="tel:+79317069227">Телефон<em>+7 (931) 706-92-27</em></a>
+    </div>
+  </div>
+
+  <div class="foot-req">
+    <div><span>наименование</span><b>ИП Семёнов Борис Романович</b></div>
+    <div><span>ИНН / ОГРНИП</span><b>783900004042<br>324784700055790</b></div>
+    <div><span>банк</span><b>ООО «Банк Точка»<br>БИК 044525104</b></div>
+    <div><span>расчётный счёт</span><b>40802810120000247972</b>
+      <a class="req-link" href="https://i.tochka.com/bank/myprofile/ohmy.design"
+         target="_blank" rel="noopener">карточка компании ↗</a></div>
+  </div>
+
+  <div class="foot-bottom">
+    <span>© 2018–2026 ohmy.design</span>
+    <a href="/privacy/">Политика конфиденциальности и обработки ПД</a>
+  </div>
+</footer>
+
+<script>
+/* ---------- тема ---------- */
+(function(){
+  const root=document.documentElement;
+  if(matchMedia('(prefers-color-scheme: light)').matches) root.dataset.theme='light';
+  document.getElementById('themeBtn').addEventListener('click',()=>{
+    root.dataset.theme = root.dataset.theme==='light' ? 'dark' : 'light';
+  });
+})();
+
+/* ---------- прогресс чтения: считается по телу статьи, а не по странице ---------- */
+(function(){
+  const bar=document.getElementById('prog');
+  const art=document.querySelector('article');
+  function upd(){
+    const r=art.getBoundingClientRect();
+    const total=r.height - innerHeight*.4;
+    const done=Math.min(Math.max(-r.top + innerHeight*.4, 0), total);
+    bar.style.width=(total>0 ? done/total*100 : 0)+'%';
+  }
+  addEventListener('scroll',upd,{passive:true});
+  addEventListener('resize',upd); upd();
+})();
+
+/* ---------- появление ---------- */
+(function(){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+})();
+
+/* ---------- генерация обложек: тот же алгоритм, что в ленте ---------- */
+const PALETTES = [
+  ['#1A0F0A','#B3300F','#FF4A1C','#FFD9C2'],
+  ['#07211E','#0E7A66','#23D3B0','#DFF7F0'],
+  ['#0A1330','#2452C9','#4D9DFF','#E2ECFF'],
+  ['#21071A','#A31159','#FF3D80','#FFE0EC'],
+  ['#101E08','#4E8C12','#A8E01F','#F0FBD8'],
+  ['#150A28','#6B33C7','#C77DFF','#F0E4FF'],
+  ['#1E1205','#B8720C','#FFB020','#FFEDCC'],
+  ['#0F1012','#3A3A46','#84848E','#F2F0EC']
+];
+const MARKS = [
+  (f,a)=>`<circle cx="60" cy="60" r="44" fill="${f}"/><rect x="60" y="16" width="44" height="44" fill="${a}"/>`,
+  (f,a)=>`<circle cx="60" cy="60" r="44" fill="none" stroke="${f}" stroke-width="13"/><circle cx="60" cy="60" r="13" fill="${a}"/>`,
+  (f,a)=>`<path d="M16 60a44 44 0 0 1 88 0z" fill="${f}"/><path d="M16 68a44 44 0 0 0 88 0z" fill="${a}"/>`,
+  (f,a)=>`<path d="M16 104V60a44 44 0 0 1 44-44h44" fill="none" stroke="${f}" stroke-width="14"/><path d="M104 16v44a44 44 0 0 1-44 44H16" fill="none" stroke="${a}" stroke-width="14"/>`,
+  (f,a)=>`<rect x="22" y="22" width="76" height="76" fill="${f}" transform="rotate(45 60 60)"/><circle cx="60" cy="60" r="19" fill="${a}"/>`,
+  (f,a)=>`<rect x="18" y="26" width="84" height="15" fill="${f}"/><rect x="18" y="53" width="58" height="15" fill="${a}"/><rect x="18" y="80" width="84" height="15" fill="${f}"/>`,
+  (f,a)=>`<path d="M60 16l44 88H16z" fill="${f}"/><circle cx="60" cy="74" r="17" fill="${a}"/>`,
+  (f,a)=>`<circle cx="60" cy="60" r="44" fill="none" stroke="${f}" stroke-width="9"/><circle cx="60" cy="60" r="29" fill="none" stroke="${a}" stroke-width="9"/><circle cx="60" cy="60" r="13" fill="none" stroke="${f}" stroke-width="9"/>`,
+  (f,a)=>`<rect x="52" y="16" width="16" height="88" fill="${f}"/><rect x="16" y="52" width="88" height="16" fill="${a}"/>`,
+  (f,a)=>`<circle cx="37" cy="37" r="21" fill="${f}"/><circle cx="83" cy="37" r="21" fill="${a}"/><circle cx="37" cy="83" r="21" fill="${a}"/><circle cx="83" cy="83" r="21" fill="${f}"/>`
+];
+/* стабильный хеш строки — обложка не «прыгает» между перезагрузками.
+   Финальное перемешивание обязательно: без него суффиксы '#p'/'#m'/'#r'
+   меняют лишь последний символ, лавины не хватает, и четыре «независимых»
+   хеша оказываются связанными — обложки начинают повторяться. */
+function hash(str){
+  let h = 2166136261;
+  for(let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+  h ^= h >>> 15; h = Math.imul(h, 2246822507);
+  h ^= h >>> 13; h = Math.imul(h, 3266489909);
+  h ^= h >>> 16;
+  return h >>> 0;
+}
+function cover(id, w, hgt){
+  // четыре независимых хеша: срезы одного значения коррелируют,
+  // и разные материалы получали одинаковые обложки
+  const p   = PALETTES[hash(id+'#p') % PALETTES.length];
+  const mi  = hash(id+'#m') % MARKS.length;
+  const rot = hash(id+'#r') % 4 * 90;
+  const lay = hash(id+'#l') % 3;          // композиция подложки
+  const S   = hgt/120*1.25;
+
+  const bands = lay===0
+    ? `<rect x="0" y="0" width="${w/3}" height="${hgt}" fill="${p[1]}"/>
+       <rect x="${w*2/3}" y="0" width="${w/3}" height="${hgt}" fill="${p[1]}"/>`
+    : lay===1
+    ? `<rect x="0" y="${hgt*0.28}" width="${w}" height="${hgt*0.44}" fill="${p[1]}"/>`
+    : `<rect x="0" y="0" width="${w/2}" height="${hgt/2}" fill="${p[1]}"/>
+       <rect x="${w/2}" y="${hgt/2}" width="${w/2}" height="${hgt/2}" fill="${p[1]}"/>`;
+
+  return `<svg viewBox="0 0 ${w} ${hgt}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="${w}" height="${hgt}" fill="${p[0]}"/>
+    <g opacity=".5">${bands}</g>
+    <g transform="translate(${w/2} ${hgt/2}) rotate(${rot}) scale(${S}) translate(-60 -60)">
+      ${MARKS[mi](p[3], p[2])}
+    </g>
+  </svg>`;
+}
+document.getElementById('cover').innerHTML = cover('swiss-grid', 800, 400);
+
+/* ---------- иллюстрация: сравнение двух сеток ---------- */
+(function(){
+  const rows = n => Array.from({length:n},(_,i)=>
+    `<line x1="0" y1="${(i+1)*22}" x2="360" y2="${(i+1)*22}"
+       stroke="var(--line-strong)" stroke-width="1"/>`).join('');
+  const cols = (n,x0,w) => Array.from({length:n},(_,i)=>
+    `<rect x="${x0 + i*(w/n)+2}" y="0" width="${w/n-4}" height="200"
+       fill="var(--accent)" opacity=".14"/>`).join('');
+  document.getElementById('fig1').innerHTML =
+   `<svg viewBox="0 0 800 200" preserveAspectRatio="xMidYMid meet">
+      <g transform="translate(30 0)">
+        ${cols(6,0,340)}
+        <g opacity=".55">${rows(8)}</g>
+        <text x="0" y="196" fill="var(--muted)" font-size="12"
+          font-family="Onest, sans-serif">модульная: горизонталь и вертикаль</text>
+      </g>
+      <g transform="translate(430 0)">
+        ${cols(12,0,340)}
+        <text x="0" y="196" fill="var(--muted)" font-size="12"
+          font-family="Onest, sans-serif">колоночная: только горизонталь</text>
+      </g>
+    </svg>`;
+})();
+
+/* ---------- «читать дальше» ---------- */
+const MORE = [
+  {id:'ai-drafts',    r:'обзоры и статьи', d:'30 июня 2026', min:11,
+   t:'Черновик, написанный машиной: где проходит граница редактуры'},
+  {id:'type-cyrillic',r:'обзоры и статьи', d:'12 мая 2026',  min:10,
+   t:'Кириллица в интерфейсах: почему западные шрифты подводят'},
+  {id:'forum-identity',r:'кейсы',          d:'14 июля 2026', min:7,
+   t:'Айдентика отраслевого форума: что меняется, когда аудитория — заводы'}
+];
+document.getElementById('more').innerHTML = MORE.map(p=>
+  `<a class="card" href="/journal/">
+     <div class="cov">${cover(p.id, 400, 250)}</div>
+     <h3>${p.t}</h3>
+     <div class="m"><span style="color:var(--accent)">${p.r}</span>
+       <span>·</span><span>${p.d}</span><span>·</span><span>${p.min} мин</span></div>
+   </a>`).join('');
+</script>
+
+<!-- Яндекс.Метрика. Общий блок на всех страницах, правится скриптом-заменой -->
+<script>
+if (location.hostname === 'ohmy.design' || location.hostname.endsWith('.ohmy.design')) {
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();
+for (var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,
+a.parentNode.insertBefore(k,a)})
+(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=76559848','ym');
+ym(76559848,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:false});
+}
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/76559848" style="position:absolute;left:-9999px" alt=""></div></noscript>
+<!-- /Яндекс.Метрика -->
+</body>
+</html>

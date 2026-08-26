@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ohmy.journal — медиа о дизайне, UX и визуальной культуре</title>
+<meta name="description" content="Аналитический журнал о дизайне, UX и визуальной культуре. История и теория дизайна, исследования, данные, технологии и эволюция профессии.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="dark"]{
+  --bg:#131317; --bg-2:#1A1A20;
+  --ink:#F2F0EC; --muted:#84848E;
+  --line:rgba(242,240,236,.11); --line-strong:rgba(242,240,236,.30);
+  --accent:#FF4A1C;
+  --blend:difference;
+}
+[data-theme="light"]{
+  --bg:#F3F1ED; --bg-2:#E9E6E0;
+  --ink:#141418; --muted:#71717A;
+  --line:rgba(20,20,24,.12); --line-strong:rgba(20,20,24,.28);
+  --accent:#E5350B;
+  --blend:normal;
+}
+:root{--pad:clamp(20px,4vw,64px);--ease:cubic-bezier(.16,1,.3,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Onest',system-ui,sans-serif;font-weight:300;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background .7s var(--ease),color .7s var(--ease)}
+::selection{background:var(--accent);color:var(--bg)}
+a{color:inherit;text-decoration:none}
+.mono{font-weight:400;font-size:13px;letter-spacing:.01em;color:var(--muted)}
+
+/* ---------- NAV ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;gap:20px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px var(--pad);mix-blend-mode:var(--blend)}
+.logo{font-size:16px;font-weight:600;letter-spacing:-.02em}
+.nav-links{display:flex;gap:28px;font-size:14px;opacity:.78}
+.nav-links a{position:relative}
+.nav-links a.on{opacity:1;color:var(--accent)}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;
+  background:currentColor;transition:width .5s var(--ease)}
+.nav-links a:hover::after,.nav-links a.on::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:14px}
+.theme{width:52px;height:26px;border-radius:100px;flex-shrink:0;
+  border:1px solid var(--line-strong);background:transparent;position:relative;
+  cursor:pointer;transition:.5s var(--ease)}
+.theme:hover{border-color:var(--ink)}
+.theme i{position:absolute;top:50%;left:4px;transform:translateY(-50%);
+  width:16px;height:16px;border-radius:50%;background:var(--ink);
+  transition:transform .55s var(--ease)}
+[data-theme="light"] .theme i{transform:translateY(-50%) translateX(26px)}
+.nav-cta{font-size:13px;border:1px solid var(--line-strong);white-space:nowrap;
+  padding:9px 18px;border-radius:100px;transition:.5s var(--ease)}
+.nav-cta:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* ---------- ШАПКА ---------- */
+.head{padding:clamp(130px,15vw,200px) var(--pad) 0}
+.head h1{font-size:clamp(42px,9vw,132px);font-weight:200;
+  letter-spacing:-.055em;line-height:.88}
+.head h1 em{font-style:normal;color:var(--accent)}
+.head-sub{display:flex;justify-content:space-between;align-items:flex-end;
+  gap:24px;margin-top:clamp(26px,3vw,44px);flex-wrap:wrap}
+.head-sub p{max-width:52ch;font-size:clamp(15px,1.6vw,21px);
+  color:var(--muted);line-height:1.6}
+
+/* ---------- ФИЛЬТР ---------- */
+.bar{position:sticky;top:0;z-index:40;margin-top:clamp(40px,5vw,70px);
+  padding:16px var(--pad);border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);background:var(--bg);
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  flex-wrap:wrap;transition:background .7s var(--ease)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:inherit;font-size:14px;color:var(--muted);cursor:pointer;
+  background:none;border:1px solid var(--line-strong);border-radius:100px;
+  padding:8px 18px;transition:.45s var(--ease);white-space:nowrap}
+.chip:hover:not(:disabled){color:var(--ink);border-color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip:disabled{opacity:.28;cursor:default}
+.chip u{text-decoration:none;opacity:.5;margin-left:5px}
+
+/* ---------- ЛЕНТА ---------- */
+.wrap{padding:clamp(44px,5.4vw,80px) var(--pad) 0}
+.lead-post{display:grid;grid-template-columns:1.15fr 1fr;
+  gap:clamp(24px,4vw,60px);align-items:center;
+  padding-bottom:clamp(44px,5.4vw,76px);border-bottom:1px solid var(--line)}
+@media(max-width:860px){.lead-post{grid-template-columns:1fr}}
+.cover{aspect-ratio:16/10;border-radius:5px;overflow:hidden;background:var(--bg-2);
+  position:relative}
+.cover svg{width:100%;height:100%;display:block;
+  transition:transform 1.2s var(--ease)}
+a:hover .cover svg{transform:scale(1.05)}
+.lead-post .meta,.card .meta{display:flex;align-items:center;gap:10px;
+  flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.rub{border:1px solid var(--line);border-radius:100px;padding:4px 12px;
+  color:var(--accent);transition:border-color .4s var(--ease)}
+a:hover .rub{border-color:var(--accent)}
+.lead-post h2{font-size:clamp(26px,3.6vw,50px);font-weight:200;
+  letter-spacing:-.04em;line-height:1.08;margin-top:18px;
+  transition:color .4s var(--ease)}
+a:hover h2{color:var(--accent)}
+.lead-post p.ex{margin-top:18px;font-size:clamp(15px,1.5vw,18px);
+  color:var(--muted);line-height:1.6;max-width:52ch}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(26px,3vw,52px) clamp(16px,2vw,30px);
+  padding:clamp(44px,5.4vw,76px) 0 0}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+.card{display:block;opacity:0;transform:translateY(22px);
+  transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.card.in{opacity:1;transform:none}
+.card h3{font-size:clamp(19px,1.9vw,25px);font-weight:300;
+  letter-spacing:-.028em;line-height:1.2;margin-top:16px;
+  transition:color .4s var(--ease)}
+.card:hover h3{color:var(--accent)}
+.card p.ex{margin-top:10px;font-size:14px;color:var(--muted);
+  line-height:1.55;max-width:44ch}
+.card .meta{margin-top:14px}
+
+/* ---------- ПОДПИСКА ---------- */
+.sub{margin:clamp(70px,9vw,140px) var(--pad) 0;
+  border:1px solid var(--line-strong);border-radius:6px;
+  padding:clamp(30px,4vw,64px);display:grid;
+  grid-template-columns:1.2fr .9fr;gap:clamp(26px,5vw,80px);align-items:center}
+@media(max-width:860px){.sub{grid-template-columns:1fr}}
+.sub h2{font-size:clamp(23px,2.8vw,40px);font-weight:200;
+  letter-spacing:-.035em;line-height:1.14}
+.sub h2 em{font-style:normal;color:var(--accent)}
+.sub p{margin-top:16px;font-size:15px;color:var(--muted);line-height:1.7;max-width:50ch}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--ink);color:var(--bg);
+  border-radius:100px;padding:14px 26px;font-size:14px;font-weight:500;
+  transition:.5s var(--ease);align-self:flex-start}
+.btn:hover{background:var(--accent);color:#fff;transform:translateY(-2px)}
+.btn .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+footer{margin-top:clamp(80px,10vw,160px);padding:40px var(--pad);
+  border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+@media(prefers-reduced-motion:reduce){.card{opacity:1;transform:none}}
+
+/* ---------- ОБЩИЙ ПОДВАЛ ----------
+   Один блок на всех страницах: навигация, прямая связь, реквизиты.
+   Для B2B подвал — рабочий инструмент: там ищут ИНН и телефон. */
+footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
+  padding:clamp(50px,6vw,86px) var(--pad) clamp(26px,3vw,38px);
+  margin-top:clamp(70px,9vw,140px);transition:background .7s var(--ease)}
+.foot-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.1fr;
+  gap:clamp(26px,4vw,60px);padding-bottom:clamp(34px,4vw,56px);
+  border-bottom:1px solid var(--line)}
+@media(max-width:980px){.foot-top{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.foot-top{grid-template-columns:1fr}}
+.foot-brand .foot-logo{font-size:19px;font-weight:600;letter-spacing:-.025em;display:inline-block}
+.foot-brand p{margin-top:14px;font-size:14px;color:var(--muted);
+  line-height:1.65;max-width:34ch}
+.foot-col b{display:block;font-size:12.5px;font-weight:400;color:var(--muted);
+  margin-bottom:16px;letter-spacing:.01em}
+.foot-col a,.foot-col span.li{display:block;font-size:14.5px;padding:5px 0;
+  transition:color .35s var(--ease),padding-left .35s var(--ease)}
+.foot-col a:hover{color:var(--accent);padding-left:5px}
+.foot-col em{font-style:normal;font-size:12.5px;color:var(--muted);
+  display:block;margin-top:2px}
+
+/* реквизиты */
+.foot-req{display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(18px,2.4vw,34px);padding:clamp(28px,3.4vw,46px) 0;
+  border-bottom:1px solid var(--line)}
+@media(max-width:980px){.foot-req{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.foot-req{grid-template-columns:1fr}}
+.foot-req div span{display:block;font-size:12.5px;color:var(--muted);margin-bottom:7px}
+.foot-req div b{font-size:14.5px;font-weight:400;line-height:1.4;display:block}
+.foot-req div b.todo{color:var(--accent);border-bottom:1px dashed currentColor;
+  display:inline-block}
+.foot-req div b{overflow-wrap:anywhere}
+.foot-req a.req-link{font-size:13px;color:var(--accent);
+  border-bottom:1px solid rgba(255,74,28,.4);display:inline-block;margin-top:6px}
+
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;
+  gap:18px;flex-wrap:wrap;padding-top:clamp(20px,2.4vw,30px);
+  font-size:13px;color:var(--muted)}
+.foot-bottom a{transition:color .35s var(--ease)}
+.foot-bottom a:hover{color:var(--accent)}
+</style>
+<!-- seo:start -->
+<link rel="canonical" href="https://ohmy.design/journal">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ohmy.design">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="ohmy.journal — медиа о дизайне, UX и визуальной культуре">
+<meta property="og:description" content="Аналитический журнал о дизайне, UX и визуальной культуре. История и теория дизайна, исследования, данные, технологии и эволюция профессии.">
+<meta property="og:url" content="https://ohmy.design/journal">
+<meta property="og:image" content="https://ohmy.design/og/journal.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ohmy.journal — медиа о дизайне, UX и визуальной культуре">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ohmy.journal — медиа о дизайне, UX и визуальной культуре">
+<meta name="twitter:description" content="Аналитический журнал о дизайне, UX и визуальной культуре. История и теория дизайна, исследования, данные, технологии и эволюция профессии.">
+<meta name="twitter:image" content="https://ohmy.design/og/journal.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#131317">
+<!-- seo:end -->
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">ohmy.design</a>
+  <div class="nav-links">
+    <a href="/#dir">направления</a>
+    <a href="/projects/">проекты</a>
+    <a href="/studio/">студия</a>
+    <a href="/journal/" class="on">журнал</a>
+    <a href="/contacts/">контакты</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme" id="themeBtn" aria-label="переключить тему"><i></i></button>
+    <a class="nav-cta" href="/#cta">обсудить задачу</a>
+  </div>
+</nav>
+
+<header class="head">
+  <h1>ohmy<em>.</em>journal</h1>
+  <div class="head-sub">
+    <p>Медиа о дизайне, UX и визуальной культуре. История и теория дизайна,
+      исследования, данные, технологии и эволюция профессии.</p>
+    <span class="mono">издаётся студией ohmy.design</span>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="chips" id="chips"></div>
+  <span class="mono" id="count"></span>
+</div>
+
+<main id="list"></main>
+
+<section class="sub">
+  <div>
+    <h2>Новые материалы выходят <em>в телеграме</em> раньше, чем здесь</h2>
+    <p>Канал студии: разборы, находки и заметки о профессии — без рассылок,
+      дайджестов и просьб поставить лайк.</p>
+  </div>
+  <a class="btn" href="https://t.me/brsemenov" target="_blank" rel="noopener">
+    <span class="dot"></span>читать в телеграме</a>
+</section>
+
+<footer class="site-foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <a class="foot-logo" href="/">ohmy.design</a>
+      <p>Студия дизайна и автоматизации для бизнеса.<br>
+        Санкт-Петербург, с 2018 года. 200+ проектов.</p>
+    </div>
+
+    <div class="foot-col">
+      <b>Разделы</b>
+      <a href="/projects/">Проекты</a>
+      <a href="/studio/">Студия</a>
+      <a href="/journal/">Журнал</a>
+      <a href="/contacts/">Контакты</a>
+    </div>
+
+    <div class="foot-col">
+      <b>Направления</b>
+      <a href="/web/">Сайты и digital</a>
+      <a href="/ai/">AI и автоматизации</a>
+      <a href="/brand/">Дизайн и айдентика</a>
+      <a href="/care/">Поддержка и развитие</a>
+    </div>
+
+    <div class="foot-col">
+      <b>Связаться</b>
+      <a href="https://t.me/brsemenov" target="_blank" rel="noopener">Телеграм<em>@brsemenov</em></a>
+      <a href="mailto:hi@ohmy.design">Почта<em>hi@ohmy.design</em></a>
+      <a href="tel:+79317069227">Телефон<em>+7 (931) 706-92-27</em></a>
+    </div>
+  </div>
+
+  <div class="foot-req">
+    <div><span>наименование</span><b>ИП Семёнов Борис Романович</b></div>
+    <div><span>ИНН / ОГРНИП</span><b>783900004042<br>324784700055790</b></div>
+    <div><span>банк</span><b>ООО «Банк Точка»<br>БИК 044525104</b></div>
+    <div><span>расчётный счёт</span><b>40802810120000247972</b>
+      <a class="req-link" href="https://i.tochka.com/bank/myprofile/ohmy.design"
+         target="_blank" rel="noopener">карточка компании ↗</a></div>
+  </div>
+
+  <div class="foot-bottom">
+    <span>© 2018–2026 ohmy.design</span>
+    <a href="/privacy/">Политика конфиденциальности и обработки ПД</a>
+  </div>
+</footer>
+
+<script>
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- тема ---------- */
+(function(){
+  const root=document.documentElement;
+  if(matchMedia('(prefers-color-scheme: light)').matches) root.dataset.theme='light';
+  document.getElementById('themeBtn').addEventListener('click',()=>{
+    root.dataset.theme = root.dataset.theme==='light' ? 'dark' : 'light';
+  });
+})();
+
+/* =========================================================
+   ДАННЫЕ ЛЕНТЫ
+   Рубрики те же, что на нынешнем сайте: «кейсы» и «обзоры и статьи».
+   Массив — временная форма: при переезде на статику его заменит
+   генерация из markdown-файлов, поля останутся теми же.
+   ========================================================= */
+const RUBRICS = {review:'обзоры и статьи', case:'кейсы'};
+
+const POSTS = [
+{ id:'swiss-grid', r:'review', d:'2026-07-28', min:9, lead:true,
+  t:'Швейцарская сетка в эпоху бесконечного скролла',
+  ex:'Модульная сетка придумана для листа бумаги фиксированного размера. Разбираемся, что от неё осталось в вебе, где холст резиновый, а страница не заканчивается.',
+  url:'ohmy-article.html' },
+
+{ id:'forum-identity', r:'case', d:'2026-07-14', min:7,
+  t:'Айдентика отраслевого форума: что меняется, когда аудитория — заводы',
+  ex:'Заголовок материала — заглушка. Замените на реальный текст.' },
+{ id:'ai-drafts', r:'review', d:'2026-06-30', min:11,
+  t:'Черновик, написанный машиной: где проходит граница редактуры',
+  ex:'Заголовок материала — заглушка. Замените на реальный текст.' },
+{ id:'gost-design', r:'review', d:'2026-06-16', min:6,
+  t:'ГОСТ как источник вдохновения: промышленная графика СССР',
+  ex:'Заголовок материала — заглушка. Замените на реальный текст.' },
+{ id:'medcenter', r:'case', d:'2026-05-29', min:8,
+  t:'Редизайн сети медицинских центров: доверие вместо стерильности',
+  ex:'Заголовок материала — заглушка. Замените на реальный текст.' },
+{ id:'type-cyrillic', r:'review', d:'2026-05-12', min:10,
+  t:'Кириллица в интерфейсах: почему западные шрифты подводят',
+  ex:'Заголовок материала — заглушка. Замените на реальный текст.' },
+{ id:'bots-ux', r:'review', d:'2026-04-27', min:7,
+  t:'UX телеграм-бота: интерфейс, у которого нет экрана',
+  ex:'Заголовок материала — заглушка. Замените на реальный текст.' },
+{ id:'expo-nav', r:'case', d:'2026-04-08', min:5,
+  t:'Навигация на выставке: дизайн, который читают на бегу',
+  ex:'Заголовок материала — заглушка. Замените на реальный текст.' }
+];
+
+/* =========================================================
+   ОБЛОЖКИ БЕЗ ФОТОГРАФИЙ
+   Обложка выводится из id материала: палитра и знак берутся
+   детерминированно, поэтому у статьи всегда одна и та же картинка,
+   а редакции не нужно искать иллюстрацию к каждому тексту.
+   Для автопостинга это снимает главное узкое место.
+   ========================================================= */
+const PALETTES = [
+  ['#1A0F0A','#B3300F','#FF4A1C','#FFD9C2'],
+  ['#07211E','#0E7A66','#23D3B0','#DFF7F0'],
+  ['#0A1330','#2452C9','#4D9DFF','#E2ECFF'],
+  ['#21071A','#A31159','#FF3D80','#FFE0EC'],
+  ['#101E08','#4E8C12','#A8E01F','#F0FBD8'],
+  ['#150A28','#6B33C7','#C77DFF','#F0E4FF'],
+  ['#1E1205','#B8720C','#FFB020','#FFEDCC'],
+  ['#0F1012','#3A3A46','#84848E','#F2F0EC']
+];
+const MARKS = [
+  (f,a)=>`<circle cx="60" cy="60" r="44" fill="${f}"/><rect x="60" y="16" width="44" height="44" fill="${a}"/>`,
+  (f,a)=>`<circle cx="60" cy="60" r="44" fill="none" stroke="${f}" stroke-width="13"/><circle cx="60" cy="60" r="13" fill="${a}"/>`,
+  (f,a)=>`<path d="M16 60a44 44 0 0 1 88 0z" fill="${f}"/><path d="M16 68a44 44 0 0 0 88 0z" fill="${a}"/>`,
+  (f,a)=>`<path d="M16 104V60a44 44 0 0 1 44-44h44" fill="none" stroke="${f}" stroke-width="14"/><path d="M104 16v44a44 44 0 0 1-44 44H16" fill="none" stroke="${a}" stroke-width="14"/>`,
+  (f,a)=>`<rect x="22" y="22" width="76" height="76" fill="${f}" transform="rotate(45 60 60)"/><circle cx="60" cy="60" r="19" fill="${a}"/>`,
+  (f,a)=>`<rect x="18" y="26" width="84" height="15" fill="${f}"/><rect x="18" y="53" width="58" height="15" fill="${a}"/><rect x="18" y="80" width="84" height="15" fill="${f}"/>`,
+  (f,a)=>`<path d="M60 16l44 88H16z" fill="${f}"/><circle cx="60" cy="74" r="17" fill="${a}"/>`,
+  (f,a)=>`<circle cx="60" cy="60" r="44" fill="none" stroke="${f}" stroke-width="9"/><circle cx="60" cy="60" r="29" fill="none" stroke="${a}" stroke-width="9"/><circle cx="60" cy="60" r="13" fill="none" stroke="${f}" stroke-width="9"/>`,
+  (f,a)=>`<rect x="52" y="16" width="16" height="88" fill="${f}"/><rect x="16" y="52" width="88" height="16" fill="${a}"/>`,
+  (f,a)=>`<circle cx="37" cy="37" r="21" fill="${f}"/><circle cx="83" cy="37" r="21" fill="${a}"/><circle cx="37" cy="83" r="21" fill="${a}"/><circle cx="83" cy="83" r="21" fill="${f}"/>`
+];
+
+/* стабильный хеш строки — обложка не «прыгает» между перезагрузками.
+   Финальное перемешивание обязательно: без него суффиксы '#p'/'#m'/'#r'
+   меняют лишь последний символ, лавины не хватает, и четыре «независимых»
+   хеша оказываются связанными — обложки начинают повторяться. */
+function hash(str){
+  let h = 2166136261;
+  for(let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+  h ^= h >>> 15; h = Math.imul(h, 2246822507);
+  h ^= h >>> 13; h = Math.imul(h, 3266489909);
+  h ^= h >>> 16;
+  return h >>> 0;
+}
+function cover(id, w, hgt){
+  // четыре независимых хеша: срезы одного значения коррелируют,
+  // и разные материалы получали одинаковые обложки
+  const p   = PALETTES[hash(id+'#p') % PALETTES.length];
+  const mi  = hash(id+'#m') % MARKS.length;
+  const rot = hash(id+'#r') % 4 * 90;
+  const lay = hash(id+'#l') % 3;          // композиция подложки
+  const S   = hgt/120*1.25;
+
+  const bands = lay===0
+    ? `<rect x="0" y="0" width="${w/3}" height="${hgt}" fill="${p[1]}"/>
+       <rect x="${w*2/3}" y="0" width="${w/3}" height="${hgt}" fill="${p[1]}"/>`
+    : lay===1
+    ? `<rect x="0" y="${hgt*0.28}" width="${w}" height="${hgt*0.44}" fill="${p[1]}"/>`
+    : `<rect x="0" y="0" width="${w/2}" height="${hgt/2}" fill="${p[1]}"/>
+       <rect x="${w/2}" y="${hgt/2}" width="${w/2}" height="${hgt/2}" fill="${p[1]}"/>`;
+
+  return `<svg viewBox="0 0 ${w} ${hgt}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="${w}" height="${hgt}" fill="${p[0]}"/>
+    <g opacity=".5">${bands}</g>
+    <g transform="translate(${w/2} ${hgt/2}) rotate(${rot}) scale(${S}) translate(-60 -60)">
+      ${MARKS[mi](p[3], p[2])}
+    </g>
+  </svg>`;
+}
+
+/* ---------- вывод ---------- */
+const MONTHS = ['января','февраля','марта','апреля','мая','июня',
+                'июля','августа','сентября','октября','ноября','декабря'];
+const human = iso => { const d=new Date(iso);
+  return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`; };
+const plural = n => { const a=n%100,b=n%10;
+  if(a>10&&a<20) return 'материалов';
+  if(b===1) return 'материал';
+  if(b>=2&&b<=4) return 'материала';
+  return 'материалов'; };
+
+let active='all';
+const $chips=document.getElementById('chips');
+const $count=document.getElementById('count');
+const $list =document.getElementById('list');
+
+function drawChips(){
+  const items=[['all','все'],...Object.entries(RUBRICS)];
+  $chips.innerHTML = items.map(([k,label])=>{
+    const n = k==='all' ? POSTS.length : POSTS.filter(p=>p.r===k).length;
+    return `<button class="chip${k===active?' on':''}" data-k="${k}"${n?'':' disabled'}>`
+         + `${label}<u>${n}</u></button>`;
+  }).join('');
+}
+
+function meta(p){
+  return `<div class="meta"><span class="rub">${RUBRICS[p.r]}</span>
+    <span>${human(p.d)}</span><span>·</span><span>${p.min} мин</span></div>`;
+}
+function href(p){ return p.url || 'ohmy-article.html'; }
+
+function render(){
+  const items = POSTS.filter(p=>active==='all'||p.r===active);
+  $count.textContent = `${items.length} ${plural(items.length)}`;
+  drawChips();
+
+  const first = items.find(p=>p.lead) || items[0];
+  const rest  = items.filter(p=>p!==first);
+
+  $list.innerHTML = `<div class="wrap">
+    <a class="lead-post" href="${href(first)}">
+      <div class="cover">${cover(first.id,400,250)}</div>
+      <div>${meta(first)}<h2>${first.t}</h2><p class="ex">${first.ex}</p></div>
+    </a>
+    <div class="grid">
+      ${rest.map(p=>`<a class="card" href="${href(p)}">
+        <div class="cover">${cover(p.id,400,250)}</div>
+        <h3>${p.t}</h3><p class="ex">${p.ex}</p>${meta(p)}
+      </a>`).join('')}
+    </div>
+  </div>`;
+  observe();
+}
+
+let io;
+function observe(){
+  if(io) io.disconnect();
+  io=new IntersectionObserver(es=>{
+    es.forEach((e,i)=>{ if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('in'),(i%6)*60);
+      io.unobserve(e.target);} });
+  },{threshold:.08,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.card').forEach(el=>io.observe(el));
+}
+
+$chips.addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b||b.disabled) return;
+  active=b.dataset.k; render();
+});
+render();
+</script>
+
+<!-- Яндекс.Метрика. Общий блок на всех страницах, правится скриптом-заменой -->
+<script>
+if (location.hostname === 'ohmy.design' || location.hostname.endsWith('.ohmy.design')) {
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();
+for (var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,
+a.parentNode.insertBefore(k,a)})
+(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=76559848','ym');
+ym(76559848,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:false});
+}
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/76559848" style="position:absolute;left:-9999px" alt=""></div></noscript>
+<!-- /Яндекс.Метрика -->
+</body>
+</html>
