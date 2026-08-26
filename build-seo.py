@@ -186,9 +186,9 @@ BLOCK = re.compile(r'\n?<!-- seo:start -->.*?<!-- seo:end -->', re.S)
 ORG = f'''{{"@context":"https://schema.org","@type":"Organization",
 "name":"ohmy.design","url":"{SITE}/",
 "description":"Студия дизайна и автоматизации для бизнеса",
-"email":"hi@ohmy.design","telephone":"+7-931-706-92-27",
+"email":"hi@ohmy.design","telephone":"+7-931-709-93-07",
 "address":{{"@type":"PostalAddress","addressLocality":"Санкт-Петербург","addressCountry":"RU"}},
-"foundingDate":"2018","sameAs":["https://t.me/brsemenov"]}}'''
+"foundingDate":"2018","sameAs":["https://t.me/ohmy_design"]}}'''
 
 def inject(fname, url, og_name):
     s = open(fname, encoding='utf-8').read()
