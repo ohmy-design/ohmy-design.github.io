@@ -130,8 +130,9 @@ html[data-menu="on"]{overflow:hidden}
 .sub-wrap{position:relative}
 .sub{position:absolute;top:100%;left:-20px;padding-top:15px;min-width:238px;
   opacity:0;visibility:hidden;transform:translateY(-6px);
-  transition:opacity .3s var(--ease),transform .3s var(--ease),visibility .3s}
-.sub-in{background:var(--bg);border:1px solid var(--line);padding:7px 0}
+  transition:opacity .16s var(--ease),transform .22s var(--ease),visibility .16s}
+.sub-in{background:var(--bg);border:1px solid var(--line-strong);padding:7px 0;
+  box-shadow:0 22px 44px -16px rgba(0,0,0,.55)}
 .sub a{display:block;padding:9px 20px;font-size:14px;white-space:nowrap;
   transition:background .3s var(--ease),color .3s var(--ease)}
 .sub a::after{display:none}
@@ -140,14 +141,19 @@ html[data-menu="on"]{overflow:hidden}
 .sub-wrap:hover .sub,.sub-wrap:focus-within .sub{opacity:1;visibility:visible;transform:none}
 /* Пока панель открыта, шапке нужен плотный фон: на разнице панель
    просвечивала бы содержимым страницы */
+/* Фон переключается мгновенно: с плавным переходом панель первые доли
+   секунды всплывала над ещё прозрачной шапкой и выглядела просвечивающей */
 nav:has(.sub-wrap:hover),nav:has(.sub-wrap:focus-within){
-  mix-blend-mode:normal;background:var(--bg);border-bottom-color:var(--line)}
+  mix-blend-mode:normal;background:var(--bg);border-bottom-color:var(--line);
+  transition:none}
 
 /* в мобильном меню второй уровень — просто вложенная группа */
-.menu-sub{display:flex;flex-direction:column;margin:-2px 0 14px 18px;
-  border-left:1px solid var(--line);padding-left:18px}
-.menu-sub a{font-size:clamp(16px,4vw,20px);font-weight:400;line-height:1.9;
+/* Вложенная группа: без линейки и отступа — они читались как посторонний
+   элемент. Просто мельче и приглушённее, прижата к своему пункту */
+.menu-sub{display:flex;flex-direction:column;gap:2px;margin:6px 0 18px}
+.menu-sub a{font-size:clamp(15px,3.6vw,18px);font-weight:400;line-height:1.5;
   letter-spacing:-.01em;color:var(--muted)}
+.menu-sub a:hover{color:var(--ink)}
 [data-menu="on"] .menu-sub a{opacity:1;transform:none}
 /* subnav:end */
 /* nav:end */

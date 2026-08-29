@@ -127,8 +127,9 @@ html[data-menu="on"]{overflow:hidden}
 .sub-wrap{position:relative}
 .sub{position:absolute;top:100%;left:-20px;padding-top:15px;min-width:238px;
   opacity:0;visibility:hidden;transform:translateY(-6px);
-  transition:opacity .3s var(--ease),transform .3s var(--ease),visibility .3s}
-.sub-in{background:var(--bg);border:1px solid var(--line);padding:7px 0}
+  transition:opacity .16s var(--ease),transform .22s var(--ease),visibility .16s}
+.sub-in{background:var(--bg);border:1px solid var(--line-strong);padding:7px 0;
+  box-shadow:0 22px 44px -16px rgba(0,0,0,.55)}
 .sub a{display:block;padding:9px 20px;font-size:14px;white-space:nowrap;
   transition:background .3s var(--ease),color .3s var(--ease)}
 .sub a::after{display:none}
@@ -137,14 +138,19 @@ html[data-menu="on"]{overflow:hidden}
 .sub-wrap:hover .sub,.sub-wrap:focus-within .sub{opacity:1;visibility:visible;transform:none}
 /* Пока панель открыта, шапке нужен плотный фон: на разнице панель
    просвечивала бы содержимым страницы */
+/* Фон переключается мгновенно: с плавным переходом панель первые доли
+   секунды всплывала над ещё прозрачной шапкой и выглядела просвечивающей */
 nav:has(.sub-wrap:hover),nav:has(.sub-wrap:focus-within){
-  mix-blend-mode:normal;background:var(--bg);border-bottom-color:var(--line)}
+  mix-blend-mode:normal;background:var(--bg);border-bottom-color:var(--line);
+  transition:none}
 
 /* в мобильном меню второй уровень — просто вложенная группа */
-.menu-sub{display:flex;flex-direction:column;margin:-2px 0 14px 18px;
-  border-left:1px solid var(--line);padding-left:18px}
-.menu-sub a{font-size:clamp(16px,4vw,20px);font-weight:400;line-height:1.9;
+/* Вложенная группа: без линейки и отступа — они читались как посторонний
+   элемент. Просто мельче и приглушённее, прижата к своему пункту */
+.menu-sub{display:flex;flex-direction:column;gap:2px;margin:6px 0 18px}
+.menu-sub a{font-size:clamp(15px,3.6vw,18px);font-weight:400;line-height:1.5;
   letter-spacing:-.01em;color:var(--muted)}
+.menu-sub a:hover{color:var(--ink)}
 [data-menu="on"] .menu-sub a{opacity:1;transform:none}
 /* subnav:end */
 /* nav:end */
@@ -167,6 +173,86 @@ section{position:relative;background:var(--bg);
 .sec-idx{font-size:13px;color:var(--accent);letter-spacing:.02em}
 .sec-title{font-size:clamp(32px,4.6vw,68px);font-weight:200;
   letter-spacing:-.045em;line-height:.94}
+
+/* dgrid:begin */
+/* Плитки направлений. У каждой своя анимация — та же тема, что в герое
+   соответствующей посадочной: ленты у веба, потоки слов у ai, квантованное
+   цветовое поле у креатива, живой график у сопровождения. Всё на transform
+   и opacity, без канваса и библиотек. */
+.dgrid{display:grid;grid-template-columns:repeat(2,1fr);
+  gap:clamp(12px,1.4vw,20px);padding:clamp(28px,3.6vw,52px) var(--pad) 0}
+.dcard{display:flex;flex-direction:column;border:1px solid var(--line);
+  background:var(--bg);overflow:hidden;
+  transition:border-color .55s var(--ease),background .55s var(--ease)}
+.dcard:hover{border-color:var(--line-strong);background:var(--bg-2)}
+.dcard-art{position:relative;overflow:hidden;background:var(--bg-2);
+  height:clamp(148px,16vw,206px);border-bottom:1px solid var(--line);
+  transition:background .55s var(--ease)}
+.dcard:hover .dcard-art{background:var(--bg)}
+.dcard-body{flex:1;display:flex;flex-direction:column;
+  padding:clamp(22px,2.4vw,34px);gap:13px}
+.dcard-idx{font-size:12.5px;color:var(--accent);letter-spacing:.02em}
+.dcard h3{margin:0;font-size:clamp(24px,2.8vw,38px);font-weight:300;
+  letter-spacing:-.03em;line-height:1.05;transition:color .45s var(--ease)}
+.dcard:hover h3{color:var(--accent)}
+.dcard p{margin:0;font-size:14.5px;color:var(--muted);line-height:1.6;max-width:42ch}
+.dcard-list{margin:2px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:7px}
+.dcard-list li{font-size:12.5px;color:var(--muted);
+  border:1px solid var(--line);padding:5px 11px;white-space:nowrap}
+.dcard-foot{margin-top:auto;padding-top:16px;border-top:1px solid var(--line);
+  display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.dcard-foot span{font-size:14px;color:var(--muted)}
+.dcard-foot b{font-weight:400;font-size:14px;color:var(--ink)}
+.dcard-foot b em{font-style:normal;color:var(--accent);margin-left:7px;
+  display:inline-block;transition:transform .45s var(--ease)}
+.dcard:hover .dcard-foot b em{transform:translate(4px,-4px)}
+@media(max-width:820px){.dgrid{grid-template-columns:1fr}}
+
+/* 01 · ленты текста навстречу друг другу */
+.art-web{display:flex;flex-direction:column;justify-content:center;
+  gap:clamp(5px,.9vw,11px)}
+.art-web i{display:block;white-space:nowrap;font-style:normal;
+  font-size:clamp(13px,1.6vw,20px);letter-spacing:-.02em;color:var(--ink);
+  opacity:.14;animation:ribbon 30s linear infinite;animation-delay:var(--d,0s)}
+.art-web i:nth-child(even){opacity:.08;animation-direction:reverse}
+@keyframes ribbon{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* 02 · вертикальные потоки слов */
+.art-ai{display:grid;grid-template-columns:repeat(6,1fr);align-items:start}
+.art-ai i{writing-mode:vertical-rl;white-space:nowrap;font-style:normal;
+  font-size:12px;letter-spacing:.04em;color:var(--ink);opacity:.18;
+  animation:stream 26s linear infinite;animation-delay:var(--d,0s)}
+.art-ai i:nth-child(3n){opacity:.1}
+@keyframes stream{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+
+/* 03 · цветовое поле с квантованием по ступеням */
+.art-brand{display:grid;grid-template-columns:repeat(9,1fr);
+  grid-template-rows:repeat(5,1fr)}
+.art-brand u{display:block;background:var(--ink);opacity:.05;
+  animation:quant 8s steps(1,end) infinite;animation-delay:var(--d,0s)}
+@keyframes quant{
+  0%,100%{background:var(--ink);opacity:.05}
+  22%{background:var(--ink);opacity:.13}
+  44%{background:var(--accent);opacity:.38}
+  66%{background:var(--ink);opacity:.09}
+  84%{background:var(--accent);opacity:.13}
+}
+
+/* 04 · живой график и бегущая метка проверки */
+.art-care{display:flex;align-items:flex-end;gap:clamp(3px,.5vw,7px);
+  padding:clamp(20px,2.4vw,34px)}
+.art-care u{flex:1;display:block;background:var(--ink);opacity:.17;
+  height:100%;transform-origin:bottom;
+  animation:pulse 3.6s var(--ease) infinite;animation-delay:var(--d,0s)}
+@keyframes pulse{0%,100%{transform:scaleY(.16)}50%{transform:scaleY(.92)}}
+.art-care::after{content:'';position:absolute;top:0;bottom:0;width:1px;
+  background:var(--accent);opacity:.45;animation:scan 6s linear infinite}
+@keyframes scan{from{left:0}to{left:100%}}
+
+@media(prefers-reduced-motion:reduce){
+  .dcard-art *,.art-care::after{animation:none!important}
+}
+/* dgrid:end */
 
 /* ---------- НАПРАВЛЕНИЯ (аккордеон) ---------- */
 .dir{display:grid;grid-template-columns:70px 1.15fr 1fr auto 40px;gap:24px;align-items:center;
@@ -387,13 +473,73 @@ footer.site-foot{display:block}
   <h1>направления</h1>
   <div class="head-sub">
     <p>Четыре направления, которыми студия закрывает задачу целиком: от структуры сайта
-      до сопровождения после запуска. Ниже — состав работ и стартовые цены по каждому.
-      Нажмите на направление, чтобы раскрыть.</p>
+      до сопровождения после запуска. Ниже — что входит в каждое и сколько стоит.</p>
     <span class="mono">санкт-петербург · с 2018 года</span>
   </div>
 </header>
 
-<section id="dir" style="padding-top:0">
+<div class="dgrid">
+  <a class="dcard rv" href="ohmy-web.html">
+    <div class="dcard-art art-web" aria-hidden="true">
+      <i style="--d:-0.0s">лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · </i>
+      <i style="--d:-3.4s">лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · </i>
+      <i style="--d:-6.8s">лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · </i>
+      <i style="--d:-10.2s">лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · </i>
+      <i style="--d:-13.6s">лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · лендинг · магазин · портал · каталог · веб-сервис · прототип · редизайн · интеграции · </i>
+    </div>
+    <div class="dcard-body">
+      <span class="dcard-idx">01</span>
+      <h3>сайты и digital</h3>
+      <p>лендинги, корпоративные сайты, магазины и веб-сервисы. платформа подбирается под задачу, а не наоборот.</p>
+      <ul class="dcard-list"><li>лендинг</li><li>многостраничный</li><li>магазин</li><li>веб-сервис</li><li>редизайн</li></ul>
+      <div class="dcard-foot"><span>от 70 000 ₽</span><b>подробнее<em>↗</em></b></div>
+    </div>
+  </a>
+  <a class="dcard rv" href="ohmy-ai.html">
+    <div class="dcard-art art-ai" aria-hidden="true">
+      <i style="--d:-0.0s">telegram-бот · telegram-бот · telegram-бот · telegram-бот · telegram-бот · telegram-бот</i>
+      <i style="--d:-2.7s">ассистент · ассистент · ассистент · ассистент · ассистент · ассистент</i>
+      <i style="--d:-5.4s">интеграция · интеграция · интеграция · интеграция · интеграция · интеграция</i>
+      <i style="--d:-8.1s">api · api · api · api · api · api</i>
+      <i style="--d:-10.8s">база знаний · база знаний · база знаний · база знаний · база знаний · база знаний</i>
+      <i style="--d:-13.5s">автоматизация · автоматизация · автоматизация · автоматизация · автоматизация · автоматизация</i>
+    </div>
+    <div class="dcard-body">
+      <span class="dcard-idx">02</span>
+      <h3>ai и автоматизации</h3>
+      <p>не продаём автоматизацию ради автоматизации: сначала находим процесс, который стоит упростить.</p>
+      <ul class="dcard-list"><li>telegram-бот</li><li>ai-ассистент</li><li>интеграции</li><li>база знаний</li></ul>
+      <div class="dcard-foot"><span>от 20 000 ₽</span><b>подробнее<em>↗</em></b></div>
+    </div>
+  </a>
+  <a class="dcard rv" href="ohmy-brand.html">
+    <div class="dcard-art art-brand" aria-hidden="true"><u style="--d:-2.59s"></u><u style="--d:-1.21s"></u><u style="--d:-5.21s"></u><u style="--d:-0.58s"></u><u style="--d:-4.29s"></u><u style="--d:-2.93s"></u><u style="--d:-0.46s"></u><u style="--d:-4.06s"></u><u style="--d:-0.30s"></u><u style="--d:-3.47s"></u><u style="--d:-0.56s"></u><u style="--d:-0.73s"></u><u style="--d:-3.40s"></u><u style="--d:-6.61s"></u><u style="--d:-0.99s"></u><u style="--d:-1.79s"></u><u style="--d:-5.02s"></u><u style="--d:-7.58s"></u><u style="--d:-4.62s"></u><u style="--d:-3.17s"></u><u style="--d:-7.81s"></u><u style="--d:-0.37s"></u><u style="--d:-6.87s"></u><u style="--d:-2.32s"></u><u style="--d:-1.15s"></u><u style="--d:-0.94s"></u><u style="--d:-2.47s"></u><u style="--d:-6.53s"></u><u style="--d:-1.45s"></u><u style="--d:-4.65s"></u><u style="--d:-5.11s"></u><u style="--d:-2.98s"></u><u style="--d:-4.38s"></u><u style="--d:-0.50s"></u><u style="--d:-0.48s"></u><u style="--d:-1.65s"></u><u style="--d:-5.44s"></u><u style="--d:-3.42s"></u><u style="--d:-2.51s"></u><u style="--d:-4.68s"></u><u style="--d:-3.63s"></u><u style="--d:-2.40s"></u><u style="--d:-6.36s"></u><u style="--d:-5.59s"></u><u style="--d:-1.95s"></u></div>
+    <div class="dcard-body">
+      <span class="dcard-idx">03</span>
+      <h3>дизайн и айдентика</h3>
+      <p>от логотипа до фирменного стиля, плюс регулярная графика: баннеры, презентации, соцсети.</p>
+      <ul class="dcard-list"><li>логотип</li><li>фирменный стиль</li><li>брендбук</li><li>графика</li><li>презентации</li></ul>
+      <div class="dcard-foot"><span>от 2 000 ₽</span><b>подробнее<em>↗</em></b></div>
+    </div>
+  </a>
+  <a class="dcard rv" href="ohmy-care.html">
+    <div class="dcard-art art-care" aria-hidden="true"><u style="--d:-0.00s"></u><u style="--d:-0.21s"></u><u style="--d:-0.42s"></u><u style="--d:-0.63s"></u><u style="--d:-0.84s"></u><u style="--d:-1.05s"></u><u style="--d:-1.26s"></u><u style="--d:-1.47s"></u><u style="--d:-1.68s"></u><u style="--d:-1.89s"></u><u style="--d:-2.10s"></u><u style="--d:-2.31s"></u><u style="--d:-2.52s"></u><u style="--d:-2.73s"></u><u style="--d:-2.94s"></u><u style="--d:-3.15s"></u><u style="--d:-3.36s"></u><u style="--d:-3.57s"></u><u style="--d:-3.78s"></u><u style="--d:-3.99s"></u><u style="--d:-4.20s"></u><u style="--d:-4.41s"></u></div>
+    <div class="dcard-body">
+      <span class="dcard-idx">04</span>
+      <h3>поддержка и развитие</h3>
+      <p>обновления, доработки и присмотр за тем, что уже работает. чтобы проект не замирал после запуска.</p>
+      <ul class="dcard-list"><li>доработки</li><li>поддержка сайта</li><li>сопровождение</li><li>присмотр за ботами</li></ul>
+      <div class="dcard-foot"><span>от 3 000 ₽ / час</span><b>подробнее<em>↗</em></b></div>
+    </div>
+  </a>
+</div>
+
+<section id="dir" style="padding-top:clamp(56px,7vw,110px)">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">состав работ</span><h2 class="sec-title">что входит</h2></div>
+    <span class="mono">нажмите на направление, чтобы раскрыть</span>
+  </div>
+
   <div class="rv">
     <button class="dir" aria-expanded="false">
       <span class="mono">01</span>
