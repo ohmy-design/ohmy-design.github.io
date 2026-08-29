@@ -222,11 +222,7 @@ nav:has(.sub-wrap:hover),nav:has(.sub-wrap:focus-within){
 .grid{display:grid;grid-template-columns:repeat(2,1fr);
   gap:clamp(24px,3vw,52px) clamp(16px,2vw,30px)}
 .card.wide{grid-column:1 / -1}
-.card.wide .card-img{aspect-ratio:21/9}
-@media(max-width:680px){
-  .grid{grid-template-columns:1fr}
-  .card.wide .card-img{aspect-ratio:16/9}
-}
+@media(max-width:680px){.grid{grid-template-columns:1fr}}
 
 .card{display:block;opacity:0;transform:translateY(22px);
   transition:opacity .8s var(--ease),transform .8s var(--ease)}
@@ -514,6 +510,10 @@ const SECTORS = {
 };
 
 const PROJECTS = [
+{f:1,y:2025,n:'ГЦК',s:'industry',t:['web','brand'],
+ d:'Сайт, логотип и фирменный стиль Головного центра компетенций МГТУ «СТАНКИН»',
+ img:'/img/lib/cover-slide-1-6333.jpg',
+ cs:'/projects/gck/'},
 {f:1,y:2025,n:'День Заказчика',s:'event',t:['web','care'],
  d:'Разработка сайта и сопровождение форума, посвящённого развитию станкоинструментальной промышленности России',
  img:'/img/lib/cover-slide-2-6664.jpg',
@@ -522,10 +522,6 @@ const PROJECTS = [
  d:'Редизайн и сопровождение сайтов компании в области кибербезопасности — пятый год работы',
  img:'/img/lib/13176813-3032.png',
  cs:'/projects/abp2b/'},
-{f:1,y:2025,n:'ГЦК',s:'industry',t:['web','brand'],
- d:'Сайт, логотип и фирменный стиль Головного центра компетенций МГТУ «СТАНКИН»',
- img:'/img/lib/cover-slide-1-6333.jpg',
- cs:'/projects/gck/'},
 {f:1,y:2026,n:'ЕвроМед',s:'med',t:['web','brand'],
  d:'Редизайн сайта, логотип и фирменный стиль сети многопрофильных медицинских центров',
  img:'/img/lib/421009901-6139.jpg',

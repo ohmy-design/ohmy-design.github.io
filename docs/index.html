@@ -322,19 +322,15 @@ section{position:relative;z-index:4;background:var(--bg);
   gap:clamp(14px,1.6vw,26px);margin-top:56px}
 .proj{position:relative;overflow:hidden;border-radius:4px;background:var(--bg-2);
   aspect-ratio:16/9;display:block}
-/* Первый проект открывает блок во всю ширину. Пропорция шире обычной:
-   при 16/9 плитка занимала бы экран целиком и отрезала остальные */
-.proj.lead{grid-column:1 / -1;aspect-ratio:21/9}
+/* Первый проект открывает блок во всю ширину */
+.proj.lead{grid-column:1 / -1}
 /* Плитка шире, а под подписью — плотная графика обложки: короткой
    растяжки градиента не хватает, чтобы имя читалось */
 .proj.lead .proj-info{padding:clamp(70px,8vw,130px) clamp(26px,3vw,40px)
   clamp(26px,3vw,40px);
   background:linear-gradient(transparent,rgba(10,10,12,.55) 45%,rgba(10,10,12,.94))}
 .proj.lead h3{font-size:clamp(26px,3vw,42px);font-weight:300;letter-spacing:-.03em}
-@media(max-width:720px){
-  .proj-grid{grid-template-columns:1fr}
-  .proj.lead{aspect-ratio:16/9}
-}
+@media(max-width:720px){.proj-grid{grid-template-columns:1fr}}
 .proj img{width:100%;height:100%;object-fit:cover;
   filter:brightness(var(--img-b)) contrast(1.05);
   transform:scale(1.03);transition:transform 1.1s var(--ease),filter .8s var(--ease)}
@@ -646,10 +642,14 @@ footer.site-foot{display:block}
     <a class="jrn-all" href="/projects/" style="margin-top:0">все проекты <span class="jrn-arrow">↗</span></a>
   </div>
   <div class="proj-grid">
-    <a class="proj lead rv" href="/projects/den-zakazchika/"><img src="/img/lib/cover-slide-2-6664.jpg" alt="День Заказчика">
+    <a class="proj lead rv" href="/projects/gck/"><img src="/img/lib/cover-slide-1-6333.jpg" alt="ГЦК">
+      <div class="proj-info"><h3>ГЦК</h3><span class="proj-tag">веб + айдентика</span></div></a>
+    <a class="proj rv" href="/projects/den-zakazchika/"><img src="/img/lib/cover-slide-2-6664.jpg" alt="День Заказчика">
       <div class="proj-info"><h3>День Заказчика</h3><span class="proj-tag">веб + сопровождение</span></div></a>
     <a class="proj rv" href="/projects/abp2b/"><img src="/img/lib/13176813-3464.png" alt="АБП2Б">
       <div class="proj-info"><h3>АБП2Б</h3><span class="proj-tag">креатив + веб</span></div></a>
+    <a class="proj rv" href="/projects/evromed/"><img src="/img/lib/421009901-6139.jpg" alt="ЕвроМед">
+      <div class="proj-info"><h3>ЕвроМед</h3><span class="proj-tag">веб + айдентика</span></div></a>
     <a class="proj rv" href="/projects/it-tech-hub/"><img src="/img/lib/43484f614db8f293893f-3731.jpg" alt="IT Hub">
       <div class="proj-info"><h3>ЦДК · IT Hub</h3><span class="proj-tag">веб</span></div></a>
     <a class="proj rv" href="/projects/tish/"><img src="/img/lib/49060229-3435.jpg" alt="TISH">
