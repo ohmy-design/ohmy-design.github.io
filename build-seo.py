@@ -18,6 +18,8 @@
 import os, re, glob, math
 from datetime import date
 
+from cases import CASES
+
 SITE   = 'https://ohmy.design'
 TODAY  = date.today().isoformat()
 ROOT   = os.path.dirname(os.path.abspath(__file__))
@@ -41,12 +43,6 @@ PAGES = {
     'сопровождение',                                'чтобы запущенное работало'),
  'ohmy-projects.html':   ('/projects',              '0.9','weekly',
     'проекты',                                      '29 работ с 2018 года'),
- 'ohmy-case.html':       ('/projects/den-zakazchika','0.7','yearly',
-    'День Заказчика',                               'кейс · сайт и сопровождение форума'),
- 'ohmy-case-abp2b.html': ('/projects/abp2b',        '0.7','yearly',
-    'АБП2Б',                                        'кейс · экосистема из четырёх сайтов'),
- 'ohmy-case-tish.html':  ('/projects/tish',         '0.7','yearly',
-    'ТИШЬ',                                         'кейс · интернет-магазин'),
  'ohmy-studio.html':     ('/studio',                '0.8','monthly',
     'студия',                                       'команда, метод, процесс'),
  'ohmy-journal.html':    ('/journal',               '0.8','weekly',
@@ -58,6 +54,15 @@ PAGES = {
  'ohmy-privacy.html':    ('/privacy',               '0.2','yearly', None, None),
  'ohmy-404.html':        (None,                     None, None,     None, None),
 }
+
+# Страницы проектов — из cases.py. Подпись под картинкой для соцсетей
+# собирается из направлений работы, чтобы не держать её в двух местах.
+_T = {'web':'сайт', 'brand':'айдентика', 'care':'сопровождение'}
+for _c in CASES:
+    _title, _sub = _c.get('seo', (None, None))
+    PAGES[_c['file']] = (f"/projects/{_c['slug']}", '0.7', 'yearly',
+                         _title or _c['n'],
+                         _sub or 'кейс · ' + ' + '.join(_T[t] for t in _c['t']))
 
 # ------------------------------------------------- палитры и знаки (как в журнале)
 PALETTES = [

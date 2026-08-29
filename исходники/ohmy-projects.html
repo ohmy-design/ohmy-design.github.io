@@ -493,7 +493,7 @@ footer.site-foot{display:block}
    t  — направление: web · brand · care   (может быть несколько)
    s  — отрасль: одна из SECTORS
    f  — избранное (крупная карточка сверху)
-   cs — ссылка на страницу кейса, если она собрана
+   cs — страница проекта на сайте; внешний адрес живёт на ней
    Порядок массива = порядок вывода. Хронологии нет: сверху то,
    что сильнее продаёт, а не то, что новее.
    ============================================================ */
@@ -511,93 +511,119 @@ const PROJECTS = [
 {f:1,y:2025,n:'День Заказчика',s:'event',t:['web','care'],
  d:'Разработка сайта и сопровождение форума, посвящённого развитию станкоинструментальной промышленности России',
  img:'img/lib/cover-slide-2-6664.jpg',
- url:'https://xn-----dlcdmbaydghgtidfebcgwr9bh3gn.xn--p1ai/den-zakazchika',cs:'ohmy-case.html'},
+ cs:'ohmy-case.html'},
 {f:1,y:2025,n:'АБП2Б',s:'it',t:['web','care'],
  d:'Редизайн и сопровождение сайтов компании в области кибербезопасности — пятый год работы',
- img:'img/lib/13176813-3032.png',url:'https://abp2b.com/',cs:'ohmy-case-abp2b.html'},
+ img:'img/lib/13176813-3032.png',
+ cs:'ohmy-case-abp2b.html'},
 {f:1,y:2025,n:'ГЦК',s:'industry',t:['web','brand'],
  d:'Сайт, логотип и фирменный стиль Головного центра компетенций МГТУ «СТАНКИН»',
  img:'img/lib/cover-slide-1-6333.jpg',
- url:'https://xn-----dlcdmbaydghgtidfebcgwr9bh3gn.xn--p1ai/'},
+ cs:'ohmy-case-gck.html'},
 {f:1,y:2026,n:'ЕвроМед',s:'med',t:['web','brand'],
  d:'Редизайн сайта, логотип и фирменный стиль сети многопрофильных медицинских центров',
- img:'img/lib/421009901-6139.jpg',url:'https://evro-med.ru/'},
-
+ img:'img/lib/421009901-6139.jpg',
+ cs:'ohmy-case-evromed.html'},
 {y:2025,n:'IT-TECH HUB',s:'event',t:['brand'],
  d:'Логотип и фирменный стиль B2B-форума для лидеров цифровой трансформации',
- img:'img/lib/43484f614db8f293893f-3731.jpg',url:'https://cdk.expoforum.ru/ithub'},
+ img:'img/lib/43484f614db8f293893f-3731.jpg',
+ cs:'ohmy-case-it-tech-hub.html'},
 {y:2025,n:'URBEX',s:'city',t:['web','brand'],
  d:'Сайт и бренд московского архитектурного бюро',
- img:'img/lib/18217832-6438.jpg',url:'https://urbex-architects.com/'},
+ img:'img/lib/18217832-6438.jpg',
+ cs:'ohmy-case-urbex.html'},
 {y:2025,n:'ТИШЬ',s:'service',t:['web'],
  d:'Первый в России интернет-магазин товаров для здорового сна',
- img:'img/lib/49060229-3435.jpg',url:'https://tish.su',cs:'ohmy-case-tish.html'},
+ img:'img/lib/49060229-3435.jpg',
+ cs:'ohmy-case-tish.html'},
 {y:2025,n:'ОдинКлюч',s:'it',t:['web','care'],
  d:'Редизайн и сопровождение сайта российского корпоративного менеджера паролей',
- img:'img/lib/86982290-6230.jpg',url:'https://xn--d1aigeid2etc.xn--p1ai/'},
+ img:'img/lib/86982290-6230.jpg',
+ cs:'ohmy-case-odinkluch.html'},
 {y:2025,n:'МС22',s:'it',t:['web','care'],
  d:'Редизайн и сопровождение сайта менеджера соединений от АБП2Б',
- img:'img/lib/cover-slide-6633.jpg',url:'https://xn--22-7lcu.xn--p1ai/'},
+ img:'img/lib/cover-slide-6633.jpg',
+ cs:'ohmy-case-ms22.html'},
 {y:2025,n:'ОдинХаб',s:'it',t:['web','care'],
  d:'Редизайн и сопровождение сайта платформы инвентаризации ИТ-активов',
- img:'img/lib/cover-slide-6630.jpg',url:'https://xn--80achqzd6c.xn--p1ai/'},
+ img:'img/lib/cover-slide-6630.jpg',
+ cs:'ohmy-case-odinhub.html'},
 {y:2025,n:'ELSTAR',s:'service',t:['brand'],
  d:'Логотип и фирменный стиль премиального автосервиса по диагностике и дооснащению BMW',
- img:'img/lib/0f7feef4efdf4f1061ca-6465.jpg',url:'https://disk.yandex.ru/i/G6MxiPV3tFqPfQ'},
+ img:'img/lib/0f7feef4efdf4f1061ca-6465.jpg',
+ cs:'ohmy-case-elstar.html'},
 {y:2025,n:'Бастион',s:'service',t:['web'],
  d:'Сайт консалтинговой компании',
- img:'img/lib/cover-slide-6334.jpg',url:'https://bastionconsulting.ru/'},
+ img:'img/lib/cover-slide-6334.jpg',
+ cs:'ohmy-case-bastion.html'},
 {y:2025,n:'iOStrade',s:'service',t:['web'],
  d:'Редизайн сайта магазина цифровой техники в Санкт-Петербурге',
- img:'img/lib/68294126-6238.png',url:'https://iostrade.com'},
+ img:'img/lib/68294126-6238.png',
+ cs:'ohmy-case-iostrade.html'},
 {y:2025,n:'НОТКИ',s:'service',t:['web'],
  d:'Редизайн сайта магазина женского белья',
- img:'img/lib/44055042-3533.jpg',url:'https://notki.shop/'},
+ img:'img/lib/44055042-3533.jpg',
+ cs:'ohmy-case-notki.html'},
 {y:2024,n:'WEAREVR',s:'it',t:['web','brand'],
  d:'Сайт и бренд развлекательного VR-центра',
- img:'img/lib/97131825-3032.png',url:'https://wearevr.io/'},
+ img:'img/lib/97131825-3032.png',
+ cs:'ohmy-case-wearevr.html'},
 {y:2024,n:'Гипрогор',s:'city',t:['web','care'],
  d:'Редизайн и сопровождение сайта одной из старейших градостроительных организаций России',
- img:'img/lib/94120872-6331.jpg',url:'https://www.giprogor.ru/'},
+ img:'img/lib/94120872-6331.jpg',
+ cs:'ohmy-case-giprogor.html'},
 {y:2024,n:'Студия Плюс',s:'service',t:['web','brand'],
  d:'Сайт и фирменный стиль компании по санитарной обработке',
- img:'img/lib/18097428-6465.jpg',url:'https://st-plus.ru/'},
+ img:'img/lib/18097428-6465.jpg',
+ cs:'ohmy-case-studia-plus.html'},
 {y:2024,n:'IEAE',s:'event',t:['web'],
  d:'Сайт международной выставки потребительской электроники',
- img:'img/lib/57091778-3838.jpg',url:'http://ieae.com.ru'},
+ img:'img/lib/57091778-3838.jpg',
+ cs:'ohmy-case-ieae.html'},
 {y:2024,n:'АзимутКом',s:'industry',t:['web'],
  d:'Сайт производителя модульных систем герметизации кабелей и труб',
- img:'img/lib/89399457-3435.jpg',url:'https://azimutcom.ru'},
+ img:'img/lib/89399457-3435.jpg',
+ cs:'ohmy-case-azimutcom.html'},
 {y:2024,n:'Эпиляшка',s:'med',t:['web'],
  d:'Сайт сети салонов лазерной эпиляции',
- img:'img/lib/17344355-3637.jpg',url:'https://www.epilyashka.pro/'},
+ img:'img/lib/17344355-3637.jpg',
+ cs:'ohmy-case-epilyashka.html'},
 {y:2024,n:'Estettika',s:'med',t:['web'],
  d:'Сайт студии коррекции фигуры во Внуково',
- img:'img/lib/81571474-1-3635.jpg',url:'https://estettika-vnukovo.ru/'},
+ img:'img/lib/81571474-1-3635.jpg',
+ cs:'ohmy-case-estettika.html'},
 {y:2023,n:'Север-Юг: Комфортная среда',s:'event',t:['web','care'],
  d:'Сайт и сопровождение первого всероссийского форума о качестве городской среды',
- img:'img/lib/63365296-3261.jpg',url:'https://ohmy.design/back-to-projects'},
+ img:'img/lib/63365296-3261.jpg',
+ cs:'ohmy-case-sever-yug.html'},
 {y:2023,n:'ECO/ON',s:'event',t:['brand','care'],
  d:'Бренд и сопровождение первой международной экологической биеннале в России',
- img:'img/lib/81619714-3561.jpg',url:'https://ohmy.design/back-to-projects'},
+ img:'img/lib/81619714-3561.jpg',
+ cs:'ohmy-case-eco-on.html'},
 {y:2023,n:'MOST Petersburg',s:'service',t:['web','brand','care'],
  d:'Бренд, разработка и продвижение туристического портала',
- img:'img/lib/49588136-3738.png',url:'https://ohmy.design/back-to-projects'},
+ img:'img/lib/49588136-3738.png',
+ cs:'ohmy-case-most-petersburg.html'},
 {y:2023,n:'Градсовет Югры',s:'city',t:['web'],
  d:'Сайт Градостроительного совета Ханты-Мансийского автономного округа — Югры',
- img:'img/lib/69051933-3439.jpg',url:'https://ohmy.design/back-to-projects'},
+ img:'img/lib/69051933-3439.jpg',
+ cs:'ohmy-case-gradsovet-ugry.html'},
 {y:2023,n:'Рекламный Хаб',s:'event',t:['web'],
  d:'Редизайн сайта крупнейшего мероприятия Северо-Запада в области рекламы',
- img:'img/lib/47782719-3730.jpg',url:'https://cdk.expoforum.ru/trends'},
+ img:'img/lib/47782719-3730.jpg',
+ cs:'ohmy-case-reklamny-hub.html'},
 {y:2023,n:'UNITREE',s:'industry',t:['web'],
  d:'Сайт универсального мобильного тренажёра от Acrosport',
- img:'img/lib/20368226-3931.jpg',url:'https://unitree-pump.ru'},
+ img:'img/lib/20368226-3931.jpg',
+ cs:'ohmy-case-unitree.html'},
 {y:2023,n:'Тари Тур',s:'service',t:['web'],
  d:'Сайт для продвижения туров в Москву от ведущего туроператора России',
- img:'img/lib/84716128-6666.jpg',url:'https://tarimsk.ru/msk'},
+ img:'img/lib/84716128-6666.jpg',
+ cs:'ohmy-case-tari-tur.html'},
 {y:2023,n:'EuroSkills',s:'event',t:['brand'],
  d:'Серия баннеров для EuroSkills 2023',
- img:'img/lib/60710607-3034.jpg',url:'https://ohmy.design/back-to-projects'}
+ img:'img/lib/60710607-3034.jpg',
+ cs:'ohmy-case-euroskills.html'}
 ];
 
 /* ============================================================
@@ -644,15 +670,15 @@ function drawChips(){
 
 function card(p,big){
   const tags = p.t.map(t=>`<span class="t">${T[t]}</span>`).join('');
-  const href = p.cs || p.url;
-  const ext  = p.cs ? '' : ' target="_blank" rel="noopener"';
-  return `<a class="card" href="${href}"${ext}>
+  // Все проекты ведут на собственные страницы: наружу уводит только ссылка
+  // внутри страницы проекта, и только если сайт клиента ещё работает
+  return `<a class="card" href="${p.cs}">
     <div class="card-img">
       <img loading="lazy" src="${p.img}" alt="${p.n}">
-      <span class="card-go">${p.cs?'→':'↗'}</span>
+      <span class="card-go">→</span>
     </div>
     <div class="card-meta">
-      ${p.cs?'<span class="t case">кейс</span>':''}${tags}
+      ${tags}
       <span class="t yr">${p.y}</span>
     </div>
     <h3>${p.n}</h3>

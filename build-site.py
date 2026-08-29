@@ -23,6 +23,8 @@
 
 import os, re, shutil
 
+from cases import CASES
+
 DOMAIN = 'ohmy.design'
 # Пока домен не привязан, файла CNAME в сборке быть не должно: Pages подхватит
 # его сразу и уведёт адрес на непривязанный домен — превью станет недоступным.
@@ -41,9 +43,6 @@ ROUTES = {
  'ohmy-brand.html':      'brand/index.html',
  'ohmy-care.html':       'care/index.html',
  'ohmy-projects.html':   'projects/index.html',
- 'ohmy-case.html':       'projects/den-zakazchika/index.html',
- 'ohmy-case-abp2b.html': 'projects/abp2b/index.html',
- 'ohmy-case-tish.html':  'projects/tish/index.html',
  'ohmy-studio.html':     'studio/index.html',
  'ohmy-journal.html':    'journal/index.html',
  'ohmy-article.html':    'journal/swiss-grid/index.html',
@@ -51,6 +50,10 @@ ROUTES = {
  'ohmy-privacy.html':    'privacy/index.html',
  'ohmy-404.html':        '404.html',          # GitHub Pages подхватывает сам
 }
+
+# страницы проектов приходят из cases.py — там же данные и мета-теги
+for _c in CASES:
+    ROUTES[_c['file']] = f"projects/{_c['slug']}/index.html"
 
 # файл → адрес, на который должны указывать ссылки
 LINKS = {f: ('/' if p == 'index.html'

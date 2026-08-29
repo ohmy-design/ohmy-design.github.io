@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+<!-- theme:begin. Тема запоминается между страницами.
+     Скрипт стоит в head и до стилей намеренно: если применять тему ниже,
+     страница успевает моргнуть чужим фоном -->
+<script>
+(function(){
+  var root = document.documentElement, KEY = 'ohmy-theme', saved = null;
+  try { saved = localStorage.getItem(KEY); } catch(e) {}
+  root.dataset.theme = saved ||
+    (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  // тумблеры на страницах просто меняют атрибут — сохраняем сам факт смены,
+  // так их код трогать не нужно
+  new MutationObserver(function(){
+    try { localStorage.setItem(KEY, root.dataset.theme); } catch(e) {}
+  }).observe(root, {attributes:true, attributeFilter:['data-theme']});
+})();
+</script>
+<!-- theme:end -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Градсовет Югры — сайт Градостроительного совета ХМАО</title>
+<meta name="description" content="Сайт Градостроительного совета Ханты-Мансийского автономного округа — Югры. Кейс студии ohmy.design.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root, [data-theme="dark"]{
+  --bg:#131317; --bg-2:#1A1A20;
+  --ink:#F2F0EC; --muted:#84848E;
+  --line:rgba(242,240,236,.11); --line-strong:rgba(242,240,236,.30);
+  --accent:#FF4A1C;
+  --img-b:.78; --img-b-hover:.92;
+  --logo-filter:brightness(0) invert(1);
+  --blend:difference;
+}
+[data-theme="light"]{
+  --bg:#F3F1ED; --bg-2:#E9E6E0;
+  --ink:#141418; --muted:#71717A;
+  --line:rgba(20,20,24,.12); --line-strong:rgba(20,20,24,.28);
+  --accent:#E5350B;
+  --img-b:.98; --img-b-hover:1.04;
+  --logo-filter:brightness(0);
+  --blend:normal;
+}
+:root{--pad:clamp(20px,4vw,64px);--ease:cubic-bezier(.16,1,.3,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Onest',system-ui,sans-serif;font-weight:300;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background .7s var(--ease),color .7s var(--ease)}
+::selection{background:var(--accent);color:var(--bg)}
+a{color:inherit;text-decoration:none}
+.mono{font-weight:400;font-size:13px;letter-spacing:.01em;color:var(--muted)}
+
+/* ---------- прогресс чтения ---------- */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:60;
+  transition:width .1s linear}
+
+/* ---------- NAV ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;gap:20px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px var(--pad);mix-blend-mode:var(--blend)}
+.logo{font-size:16px;font-weight:600;letter-spacing:-.02em}
+.nav-links{display:flex;gap:28px;font-size:14px}
+/* Приглушение висело на всей группе, и выпадающая панель наследовала его
+   вместе с фоном — отсюда просвечивающая подложка. Гасим сами ссылки */
+.nav-links > a,.nav-links > .sub-wrap > a{opacity:.78;
+  transition:opacity .35s var(--ease)}
+.nav-links > a:hover,.nav-links > .sub-wrap > a:hover,
+.nav-links a.on{opacity:1}
+.nav-links a{position:relative}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;
+  background:currentColor;transition:width .5s var(--ease)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:14px}
+.theme{width:52px;height:26px;border-radius:100px;flex-shrink:0;
+  border:1px solid var(--line-strong);background:transparent;position:relative;
+  cursor:pointer;transition:.5s var(--ease)}
+.theme:hover{border-color:var(--ink)}
+.theme i{position:absolute;top:50%;left:4px;transform:translateY(-50%);
+  width:16px;height:16px;border-radius:50%;background:var(--ink);
+  transition:transform .55s var(--ease)}
+[data-theme="light"] .theme i{transform:translateY(-50%) translateX(26px)}
+.nav-cta{font-size:13px;border:1px solid var(--line-strong);white-space:nowrap;
+  padding:9px 18px;border-radius:100px;transition:.5s var(--ease)}
+.nav-cta:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* nav:begin */
+/* Шапка прозрачная и работает на разнице, пока страница не прокручена: над
+   героем это часть замысла. Как только под неё уезжает контент — проявляется
+   стекло, иначе текст меню наслаивается на то, что под ним. */
+nav{border-bottom:1px solid transparent;
+  transition:background .45s var(--ease),border-color .45s var(--ease)}
+nav.stuck{mix-blend-mode:normal;background:var(--bg);
+  border-bottom-color:var(--line)}
+[data-menu="on"] nav{mix-blend-mode:normal}
+
+/* Бургер. Две черты складываются в крест — третья не нужна, читается и так */
+.burger{display:none;width:40px;height:40px;flex-shrink:0;padding:0;border:0;
+  background:none;color:inherit;cursor:pointer;position:relative}
+.burger i{position:absolute;left:9px;width:22px;height:1.5px;background:currentColor;
+  transition:transform .5s var(--ease)}
+.burger i:nth-child(1){top:17px}
+.burger i:nth-child(2){top:23px}
+[data-menu="on"] .burger i:nth-child(1){transform:translateY(3px) rotate(45deg)}
+[data-menu="on"] .burger i:nth-child(2){transform:translateY(-3px) rotate(-45deg)}
+
+/* Мобильное меню. Ссылки клонируются из шапки скриптом, поэтому на каждой
+   странице они свои и активный пункт подхватывается сам */
+.menu{position:fixed;inset:0;z-index:45;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:var(--nav-h,80px) var(--pad) 0;
+  opacity:0;visibility:hidden;
+  transition:opacity .45s var(--ease),visibility .45s var(--ease)}
+[data-menu="on"] .menu{opacity:1;visibility:visible}
+.menu a{font-size:clamp(28px,7.5vw,42px);font-weight:500;letter-spacing:-.03em;
+  line-height:1.45;opacity:0;transform:translateY(12px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease),color .3s var(--ease)}
+[data-menu="on"] .menu a{opacity:1;transform:none;
+  transition-delay:calc(var(--i,0) * .045s + .1s)}
+.menu a.on{color:var(--accent)}
+.menu .menu-cta{margin-top:34px;align-self:flex-start;font-size:15px;font-weight:400;
+  letter-spacing:0;border:1px solid var(--line-strong);border-radius:100px;
+  padding:13px 26px}
+html[data-menu="on"]{overflow:hidden}
+
+@media(max-width:900px){.burger{display:block}}
+@media(max-width:600px){nav .nav-cta{display:none}}
+/* subnav:begin */
+/* Второй уровень под «направлениями»: общая страница или сразу нужное.
+   Отступ сверху у панели — мостик под курсор, без него меню закрывается
+   в зазоре между ссылкой и панелью */
+.sub-wrap{position:relative}
+.sub{position:absolute;top:100%;left:-20px;padding-top:15px;min-width:238px;
+  opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity .16s var(--ease),transform .22s var(--ease),visibility .16s}
+.sub-in{background:var(--bg);border:1px solid var(--line-strong);padding:7px 0;
+  box-shadow:0 22px 44px -16px rgba(0,0,0,.55)}
+.sub a{display:block;padding:9px 20px;font-size:14px;white-space:nowrap;
+  transition:background .3s var(--ease),color .3s var(--ease)}
+.sub a::after{display:none}
+.sub a:hover{background:var(--bg-2);color:var(--accent)}
+.sub a.all{border-bottom:1px solid var(--line);margin-bottom:6px;padding-bottom:13px}
+.sub-wrap:hover .sub,.sub-wrap:focus-within .sub{opacity:1;visibility:visible;transform:none}
+/* Пока панель открыта, шапке нужен плотный фон: на разнице панель
+   просвечивала бы содержимым страницы */
+/* Фон переключается мгновенно: с плавным переходом панель первые доли
+   секунды всплывала над ещё прозрачной шапкой и выглядела просвечивающей */
+nav:has(.sub-wrap:hover),nav:has(.sub-wrap:focus-within){
+  mix-blend-mode:normal;background:var(--bg);border-bottom-color:var(--line);
+  transition:none}
+
+/* в мобильном меню второй уровень — просто вложенная группа */
+/* Вложенная группа: без линейки и отступа — они читались как посторонний
+   элемент. Просто мельче и приглушённее, прижата к своему пункту */
+.menu-sub{display:flex;flex-direction:column;gap:2px;margin:6px 0 18px}
+.menu-sub a{font-size:clamp(15px,3.6vw,18px);font-weight:400;line-height:1.5;
+  letter-spacing:-.01em;color:var(--muted)}
+.menu-sub a:hover{color:var(--ink)}
+[data-menu="on"] .menu-sub a{opacity:1;transform:none}
+/* subnav:end */
+/* nav:end */
+
+
+/* ---------- ОБЛОЖКА ---------- */
+.cover{position:relative;height:92vh;min-height:520px;overflow:hidden;
+  display:flex;align-items:flex-end}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:grayscale(.25) brightness(var(--img-b));transform:scale(1.06)}
+.cover::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,transparent 35%,rgba(0,0,0,.82) 100%)}
+.cover-in{position:relative;z-index:2;padding:0 var(--pad) clamp(36px,5vw,68px);
+  width:100%;color:#F2F0EC}
+.crumb{display:inline-flex;align-items:center;gap:10px;font-size:13px;
+  opacity:.7;margin-bottom:clamp(20px,3vw,36px);transition:.4s var(--ease)}
+.crumb:hover{opacity:1;gap:16px}
+.cover h1{font-size:clamp(42px,8vw,124px);font-weight:200;
+  letter-spacing:-.05em;line-height:.9}
+.cover-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.tag{border:1px solid rgba(242,240,236,.34);border-radius:100px;
+  padding:7px 16px;font-size:13px}
+.tag.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ---------- ПАСПОРТ ---------- */
+.facts{display:grid;grid-template-columns:repeat(5,1fr);
+  border-bottom:1px solid var(--line);padding:0 var(--pad)}
+.fact{padding:clamp(28px,3vw,44px) clamp(18px,2vw,32px) clamp(28px,3vw,44px) 0;
+  border-right:1px solid var(--line)}
+.fact:first-child{padding-left:0}
+.fact:last-child{border-right:0;padding-right:0}
+.fact span{display:block;font-size:13px;color:var(--muted);margin-bottom:12px}
+.fact b{font-size:clamp(15px,1.5vw,19px);font-weight:400;letter-spacing:-.015em;line-height:1.35}
+@media(max-width:900px){
+  .facts{grid-template-columns:1fr 1fr}
+  .fact{border-right:0;border-bottom:1px solid var(--line);padding-right:0}
+  .fact:nth-child(odd){padding-left:0}
+  .fact:last-child{border-bottom:0}
+}
+
+/* ---------- БЛОКИ ---------- */
+section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+  padding-bottom:30px;border-bottom:1px solid var(--line)}
+.sec-head > div{display:flex;flex-direction:column;gap:12px}
+.sec-idx{font-size:13px;color:var(--accent)}
+.sec-title{font-size:clamp(30px,4.2vw,62px);font-weight:200;
+  letter-spacing:-.045em;line-height:.94}
+
+.two{display:grid;grid-template-columns:1.3fr .9fr;gap:clamp(30px,7vw,110px);
+  align-items:start;margin-top:clamp(40px,5vw,72px)}
+.lead{font-size:clamp(20px,2.4vw,34px);font-weight:200;line-height:1.27;letter-spacing:-.03em}
+.lead em{font-style:normal;color:var(--accent)}
+.body{font-size:15px;color:var(--muted);line-height:1.7;max-width:54ch}
+.body + .body{margin-top:20px}
+@media(max-width:900px){.two{grid-template-columns:1fr}}
+
+.pains{border-top:1px solid var(--line)}
+.pain{display:grid;grid-template-columns:32px 1fr;gap:18px;
+  padding:20px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.5}
+.pain span{color:var(--accent);font-size:13px;padding-top:3px}
+
+/* ---------- ЭТАПЫ ---------- */
+.steps{margin-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
+.step{display:grid;grid-template-columns:80px 1fr 1.4fr;gap:clamp(20px,3vw,48px);
+  padding:clamp(26px,3vw,42px) 0;border-bottom:1px solid var(--line);
+  align-items:start;transition:padding-left .5s var(--ease)}
+.step:hover{padding-left:14px}
+.step-n{font-size:13px;color:var(--accent);padding-top:6px}
+.step h3{font-size:clamp(19px,2vw,27px);font-weight:300;letter-spacing:-.025em;line-height:1.2}
+.step p{font-size:15px;color:var(--muted);line-height:1.65}
+@media(max-width:820px){.step{grid-template-columns:44px 1fr;gap:12px 16px}
+  .step p{grid-column:2}}
+
+/* ---------- ГАЛЕРЕЯ ---------- */
+.gallery{padding:0 var(--pad) clamp(70px,9vw,150px);
+  display:grid;gap:clamp(10px,1.4vw,22px)}
+.shot{overflow:hidden;border-radius:4px;background:var(--bg-2);position:relative}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:brightness(var(--img-b));transition:transform 1.2s var(--ease),filter .8s var(--ease)}
+.shot:hover img{transform:scale(1.04);filter:brightness(var(--img-b-hover))}
+.shot-cap{padding:14px 2px 0;font-size:13px;color:var(--muted)}
+.wide{aspect-ratio:16/9}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.4vw,22px)}
+.pair .shot{aspect-ratio:4/3}
+@media(max-width:760px){.pair{grid-template-columns:1fr}}
+
+/* ---------- РЕЗУЛЬТАТ ---------- */
+.res{display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line);margin-top:clamp(40px,5vw,72px)}
+.res-i{padding:34px clamp(22px,2.6vw,40px) 0;border-right:1px solid var(--line)}
+.res-i:first-child{padding-left:0}
+.res-i:last-child{border-right:0;padding-right:0}
+.res-i b{display:block;font-size:clamp(38px,5.4vw,80px);font-weight:200;
+  letter-spacing:-.055em;line-height:.88;color:var(--accent)}
+.res-i span{display:block;margin-top:16px;font-size:14px;color:var(--muted);max-width:24ch;line-height:1.5}
+@media(max-width:820px){
+  .res{grid-template-columns:1fr}
+  .res-i{border-right:0;border-bottom:1px solid var(--line);padding:28px 0}
+  .res-i:last-child{border-bottom:0}
+}
+
+/* ---------- ОТЗЫВ ---------- */
+.quote{background:var(--bg-2);transition:background .7s var(--ease)}
+.quote blockquote{font-size:clamp(21px,2.6vw,38px);font-weight:200;
+  line-height:1.3;letter-spacing:-.03em;max-width:22ch;max-width:min(100%,26ch)}
+.quote .q-wrap{display:grid;grid-template-columns:1.5fr .8fr;gap:clamp(30px,6vw,90px);align-items:end}
+.q-author{display:flex;gap:16px;align-items:center}
+.q-author img{width:52px;height:52px;border-radius:50%;object-fit:cover;filter:grayscale(1)}
+.q-author b{display:block;font-size:16px;font-weight:400}
+.q-author span{font-size:13px;color:var(--muted);line-height:1.4}
+@media(max-width:900px){.quote .q-wrap{grid-template-columns:1fr}
+  .quote blockquote{max-width:none}}
+
+/* ---------- СЛЕДУЮЩИЙ ---------- */
+.next{position:relative;overflow:hidden;display:block;
+  padding:clamp(60px,8vw,130px) var(--pad);border-top:1px solid var(--line)}
+.next img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:grayscale(1) brightness(.28);transform:scale(1.05);
+  transition:transform 1.4s var(--ease),filter 1s var(--ease);z-index:0}
+.next:hover img{transform:scale(1.12);filter:grayscale(.3) brightness(.42)}
+.next-in{position:relative;z-index:2;color:#F2F0EC}
+.next-in .mono{color:rgba(242,240,236,.6)}
+.next-in h2{font-size:clamp(34px,6vw,92px);font-weight:200;
+  letter-spacing:-.05em;line-height:.95;margin-top:14px;
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.next-arrow{transition:transform .7s var(--ease);display:inline-block}
+.next:hover .next-arrow{transform:translate(14px,-14px)}
+
+/* ---------- CTA + FOOTER ---------- */
+.cta{text-align:center;padding-block:clamp(90px,12vw,170px)}
+.cta-big{font-size:clamp(34px,7.4vw,116px);font-weight:200;letter-spacing:-.05em;line-height:.92}
+.cta-big a{transition:.6s var(--ease);display:inline-block}
+.cta-big a:hover{color:var(--accent);transform:scale(.985)}
+.cta-sub{margin-top:26px;color:var(--muted);font-size:15px}
+footer{padding:40px var(--pad);border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+.rv{opacity:0;transform:translateY(24px);
+  transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+
+/* ---------- ОБЩИЙ ПОДВАЛ ----------
+   Один блок на всех страницах: навигация, прямая связь, реквизиты.
+   Для B2B подвал — рабочий инструмент: там ищут ИНН и телефон. */
+footer.site-foot{background:var(--bg-2);border-top:1px solid var(--line);
+  padding:clamp(50px,6vw,86px) var(--pad) clamp(26px,3vw,38px);
+  margin-top:clamp(70px,9vw,140px);transition:background .7s var(--ease)}
+.foot-top{display:grid;grid-template-columns:1.6fr 1fr 1fr;
+  gap:clamp(26px,4vw,60px);padding-bottom:clamp(34px,4vw,56px);
+  border-bottom:1px solid var(--line)}
+@media(max-width:980px){.foot-top{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.foot-top{grid-template-columns:1fr}}
+.foot-brand .foot-logo{font-size:19px;font-weight:600;letter-spacing:-.025em;display:inline-block}
+.foot-brand p{margin-top:14px;font-size:14px;color:var(--muted);
+  line-height:1.65;max-width:34ch}
+.foot-col b{display:block;font-size:12.5px;font-weight:400;color:var(--muted);
+  margin-bottom:16px;letter-spacing:.01em}
+.foot-col a,.foot-col span.li{display:block;font-size:14.5px;padding:5px 0;
+  transition:color .35s var(--ease),padding-left .35s var(--ease)}
+.foot-col a:hover{color:var(--accent);padding-left:5px}
+.foot-col em{font-style:normal;font-size:12.5px;color:var(--muted);
+  display:block;margin-top:2px}
+
+/* cta-contacts:begin */
+/* Блок связи идёт по общей сетке страницы, во всю ширину — как соседние
+   секции, а не узкой полосой по центру. Плитки крупные и вертикальные:
+   это закрывающий экран страницы, а не служебная строка.
+   Медиазапросы держим ниже базовых правил — специфичность одинаковая,
+   и выигрывает то, что стоит позже */
+.cta{padding-inline:var(--pad);padding-block:clamp(80px,9vw,150px)}
+.cta-contacts{display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(12px,1.4vw,20px);text-align:left}
+.cta-contacts .fc{flex-direction:column;align-items:flex-start;
+  justify-content:space-between;gap:clamp(22px,2.6vw,40px);
+  min-height:clamp(150px,15vw,215px);
+  padding:clamp(24px,2.6vw,36px)}
+.cta-contacts .fc:hover{background:var(--bg-2)}
+.cta-contacts .fc svg{width:26px;height:26px}
+.cta-contacts .fc-txt span{font-size:13px;margin-bottom:7px}
+.cta-contacts .fc-txt b{font-size:clamp(17px,1.5vw,21px);letter-spacing:-.02em}
+
+@media(max-width:900px){.cta-contacts{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){
+  .cta-contacts{grid-template-columns:1fr}
+  /* в один столбец плитки и так во всю ширину: высоту не задаём,
+     иначе блок растягивается на два экрана прокрутки */
+  .cta-contacts .fc{min-height:0;gap:16px;padding:22px 20px}
+}
+/* cta-contacts:end */
+
+/* contact-tile:begin */
+/* Подвал раскладывается блоками. Общее правило footer{display:flex} осталось
+   от прежнего простого подвала и сжимало все внутренние строки по содержимому,
+   а не по ширине страницы. Перебиваем здесь, чтобы не трогать старое правило:
+   оно ещё может касаться других footer на страницах */
+footer.site-foot{display:block}
+
+/* Плитка связи. Живёт в закрывающем блоке страницы; из подвала убрана,
+   чтобы не дублировать один и тот же список дважды на экране */
+.fc{display:flex;align-items:center;gap:14px;border:1px solid var(--line);
+  padding:15px 17px;
+  transition:border-color .45s var(--ease),background .45s var(--ease)}
+.fc:hover{border-color:var(--line-strong);background:var(--bg-2)}
+.fc svg{width:20px;height:20px;flex-shrink:0;color:var(--muted);
+  transition:color .45s var(--ease)}
+.fc:hover svg{color:var(--accent)}
+.fc-txt{min-width:0}
+.fc-txt span{display:block;font-size:12px;color:var(--muted);margin-bottom:3px}
+.fc-txt b{display:block;font-size:14.5px;font-weight:400;letter-spacing:-.01em;
+  overflow-wrap:anywhere}
+/* contact-tile:end */
+
+/* реквизиты */
+.foot-req{display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(18px,2.4vw,34px);padding:clamp(28px,3.4vw,46px) 0;
+  border-bottom:1px solid var(--line)}
+@media(max-width:980px){.foot-req{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.foot-req{grid-template-columns:1fr}}
+.foot-req div span{display:block;font-size:12.5px;color:var(--muted);margin-bottom:7px}
+.foot-req div b{font-size:14.5px;font-weight:400;line-height:1.4;display:block}
+.foot-req div b.todo{color:var(--accent);border-bottom:1px dashed currentColor;
+  display:inline-block}
+.foot-req div b{overflow-wrap:anywhere}
+.foot-req a.req-link{font-size:13px;color:var(--accent);
+  border-bottom:1px solid rgba(255,74,28,.4);display:inline-block;margin-top:6px}
+
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;
+  gap:18px;flex-wrap:wrap;padding-top:clamp(20px,2.4vw,30px);
+  font-size:13px;color:var(--muted)}
+.foot-bottom a{transition:color .35s var(--ease)}
+.foot-bottom a:hover{color:var(--accent)}
+
+/* case-extra:begin. Правила только для собранных генератором страниц проектов */
+
+/* Паспорт проекта бывает разной длины: жёсткие пять колонок оставляли дыры */
+.facts[data-n="3"]{grid-template-columns:repeat(3,1fr)}
+.facts[data-n="4"]{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){
+  .facts[data-n="3"],.facts[data-n="4"]{grid-template-columns:1fr 1fr}
+}
+
+/* Ссылка на работающий сайт. Раньше карточка каталога уводила на сторонний
+   адрес — теперь путь всегда через страницу проекта, а сам сайт открывается
+   отсюда, явной строкой */
+.live{margin:0 var(--pad) clamp(70px,9vw,150px);
+  border:1px solid var(--line);display:flex;align-items:center;
+  justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding:clamp(26px,3vw,40px) clamp(24px,3vw,44px);
+  transition:border-color .45s var(--ease),background .45s var(--ease)}
+.live:hover{border-color:var(--line-strong);background:var(--bg-2)}
+.live-l span{display:block;font-size:13px;color:var(--muted);margin-bottom:9px}
+.live-l b{font-size:clamp(19px,2.4vw,32px);font-weight:200;letter-spacing:-.035em;
+  overflow-wrap:anywhere}
+.live-a{font-size:clamp(22px,3vw,38px);color:var(--muted);
+  transition:transform .6s var(--ease),color .45s var(--ease)}
+.live:hover .live-a{transform:translate(8px,-8px);color:var(--accent)}
+/* Проект без публичного адреса: та же строка, но без ссылки и стрелки */
+.live.off{cursor:default}
+.live.off:hover{border-color:var(--line);background:transparent}
+.live.off .live-l b{color:var(--muted);font-size:clamp(15px,1.6vw,19px);
+  font-weight:300;letter-spacing:-.01em;max-width:52ch;line-height:1.5}
+
+/* Итог словами, когда считать нечего: цифры выдумывать нельзя */
+.outcome{margin-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
+/* Селектор обязан быть прямым потомком: без «>» правило сетки попадало
+   и на вложенный div с текстом, и строка ломалась по одному слову */
+.outcome > div{display:grid;grid-template-columns:32px 1fr;gap:18px;
+  padding:20px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.55}
+.outcome > div > span{color:var(--accent);font-size:13px;padding-top:3px}
+/* case-extra:end */
+</style>
+<!-- seo:start -->
+<link rel="canonical" href="https://ohmy.design/projects/gradsovet-ugry">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ohmy.design">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Градсовет Югры — сайт Градостроительного совета ХМАО">
+<meta property="og:description" content="Сайт Градостроительного совета Ханты-Мансийского автономного округа — Югры. Кейс студии ohmy.design.">
+<meta property="og:url" content="https://ohmy.design/projects/gradsovet-ugry">
+<meta property="og:image" content="https://ohmy.design/og/projects-gradsovet-ugry.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Градсовет Югры — сайт Градостроительного совета ХМАО">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Градсовет Югры — сайт Градостроительного совета ХМАО">
+<meta name="twitter:description" content="Сайт Градостроительного совета Ханты-Мансийского автономного округа — Югры. Кейс студии ohmy.design.">
+<meta name="twitter:image" content="https://ohmy.design/og/projects-gradsovet-ugry.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#131317">
+<!-- seo:end -->
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+
+<nav>
+  <a class="logo" href="ohmy-site.html">ohmy.design</a>
+  <div class="nav-links">
+    <span class="sub-wrap">
+      <a href="ohmy-services.html">направления</a>
+      <div class="sub"><div class="sub-in">
+        <a class="all" href="ohmy-services.html">все направления</a>
+        <a href="ohmy-web.html">сайты и digital</a>
+        <a href="ohmy-ai.html">ai и автоматизации</a>
+        <a href="ohmy-brand.html">дизайн и айдентика</a>
+        <a href="ohmy-care.html">поддержка и развитие</a>
+      </div></div>
+    </span>
+    <a href="ohmy-site.html#proj">проекты</a>
+    <a href="ohmy-studio.html">студия</a>
+    <a href="ohmy-journal.html">журнал</a>
+    <a href="ohmy-contacts.html">контакты</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme" id="themeBtn" aria-label="переключить тему"><i></i></button>
+    <button class="burger" id="burgerBtn" aria-label="меню" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
+    
+    
+    <a class="nav-cta" href="#cta">обсудить задачу</a>
+  </div>
+</nav>
+<div class="menu" id="menu"></div>
+
+<header class="cover">
+  <img src="img/lib/69051933-3439.jpg" alt="Градсовет Югры">
+  <div class="cover-in">
+    <a class="crumb" href="ohmy-projects.html">← все проекты</a>
+    <h1>Градсовет Югры</h1>
+    <div class="cover-tags">
+      <span class="tag on">сайт</span>
+      <span class="tag">2023</span>
+    </div>
+  </div>
+</header>
+
+<div class="facts" data-n="4">
+  <div class="fact"><span>клиент</span><b>Градостроительный совет ХМАО — Югры</b></div>
+  <div class="fact"><span>направление</span><b>Веб</b></div>
+  <div class="fact"><span>роль студии</span><b>Структура, дизайн, сборка</b></div>
+  <div class="fact"><span>особенность</span><b>Государственный заказчик: требования к доступности</b></div>
+</div>
+
+<section id="task">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">01 — контекст</span><h2 class="sec-title">задача</h2></div>
+    <span class="mono">город и архитектура</span>
+  </div>
+
+  <div class="two">
+    <p class="lead rv">Совет принимает решения, которые касаются жителей округа. <em>Сайт здесь — не витрина, а документ</em>: состав, заседания, протоколы, повестка.</p>
+    <div class="rv">
+      <p class="body">У государственного сайта другая мера качества. Его успех — не время на странице, а то, что нужный документ находится с первой попытки и открывается на любом устройстве.</p>
+      <p class="body">Одновременно совет обсуждает архитектуру и облик городов. Полностью канцелярское оформление противоречило бы предмету: нужен был сдержанный, но живой язык.</p>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">02 — работа</span><h2 class="sec-title">что сделали</h2></div>
+    <span class="mono">4 решения</span>
+  </div>
+
+  <div class="steps">
+    <div class="step rv"><span class="step-n">01</span>
+      <h3>Сделали документы главным разделом</h3>
+      <p>Повестка, состав, протоколы заседаний — то, за чем приходят, на верхнем уровне навигации.</p></div>
+    <div class="step rv"><span class="step-n">02</span>
+      <h3>Собрали заседания в хронологию</h3>
+      <p>Каждое — со своими материалами и решениями, а не одной общей папкой.</p></div>
+    <div class="step rv"><span class="step-n">03</span>
+      <h3>Учли требования к доступности</h3>
+      <p>Крупный шрифт, контраст, работа с клавиатуры: для государственного сайта это обязательное условие.</p></div>
+    <div class="step rv"><span class="step-n">04</span>
+      <h3>Оставили место архитектуре</h3>
+      <p>Проекты и облик городов показаны изображениями — предмет работы совета виден, а не только описан.</p></div>
+  </div>
+</section>
+
+<section id="result">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">03 — итог</span><h2 class="sec-title">результат</h2></div>
+    <span class="mono">что можно проверить</span>
+  </div>
+
+  <div class="outcome rv">
+    <div><span>01</span><div>Документы вынесены на верхний уровень — их ищут в первую очередь.</div></div>
+    <div><span>02</span><div>Заседания собраны хронологией, каждое со своими материалами.</div></div>
+    <div><span>03</span><div>Соблюдены требования к доступности государственного сайта.</div></div>
+  </div>
+</section>
+
+<div class="live off rv">
+  <div class="live-l"><span>публичной ссылки нет</span><b>Сайт совета сейчас недоступен по своему адресу.</b></div>
+</div>
+
+<a class="next" href="ohmy-case-reklamny-hub.html">
+  <img src="img/lib/47782719-3730.jpg" alt="">
+  <div class="next-in">
+    <span class="mono">следующий проект</span>
+    <h2>Рекламный Хаб <span class="next-arrow">↗</span></h2>
+  </div>
+</a>
+
+<section class="cta" id="cta">
+  <div class="mono rv" style="margin-bottom:30px">похожая задача?</div>
+  <div class="cta-contacts rv">
+    <a class="fc" href="tel:+79317099307">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.5.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.57 3.5a1 1 0 0 1-.25 1l-2.22 2.3z"/></svg>
+      <span class="fc-txt"><span>телефон</span><b>+7 931 709 9307</b></span></a>
+    <a class="fc" href="https://t.me/ohmy_design" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.94 4.6 18.9 19.2c-.23 1.02-.84 1.27-1.7.79l-4.7-3.46-2.27 2.18c-.25.25-.46.46-.95.46l.34-4.8 8.73-7.89c.38-.34-.08-.53-.59-.19L6.98 13.1l-4.64-1.45c-1.01-.32-1.03-1.01.21-1.5l18.14-6.99c.84-.31 1.57.2 1.25 1.44z"/></svg>
+      <span class="fc-txt"><span>телеграм</span><b>@ohmy_design</b></span></a>
+    <a class="fc" href="https://wa.me/79317099307" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.15h-.01c-1.52 0-3.01-.41-4.31-1.18l-.31-.18-3.2.84.85-3.12-.2-.32a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.23 8.23z"/><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.42.25-.69.25-1.28.17-1.4-.07-.13-.27-.2-.57-.35z"/></svg>
+      <span class="fc-txt"><span>whatsapp</span><b>+7 931 709 9307</b></span></a>
+    <a class="fc" href="mailto:hi@ohmy.design">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      <span class="fc-txt"><span>почта</span><b>hi@ohmy.design</b></span></a>
+  </div>
+</section>
+
+<footer class="site-foot">
+  <div class="foot-top">
+    <div class="foot-brand">
+      <a class="foot-logo" href="ohmy-site.html">ohmy.design</a>
+      <p>Студия дизайна и автоматизации для бизнеса.<br>
+        Санкт-Петербург, с 2018 года. 200+ проектов.</p>
+    </div>
+
+    <div class="foot-col">
+      <b>Разделы</b>
+      <a href="ohmy-projects.html">Проекты</a>
+      <a href="ohmy-studio.html">Студия</a>
+      <a href="ohmy-journal.html">Журнал</a>
+      <a href="ohmy-contacts.html">Контакты</a>
+    </div>
+
+    <div class="foot-col">
+      <b>Направления</b>
+      <a href="ohmy-web.html">Сайты и digital</a>
+      <a href="ohmy-ai.html">AI и автоматизации</a>
+      <a href="ohmy-brand.html">Дизайн и айдентика</a>
+      <a href="ohmy-care.html">Поддержка и развитие</a>
+    </div>
+  </div>
+
+  <div class="foot-req">
+    <div><span>наименование</span><b>ИП Семёнов Борис Романович</b></div>
+    <div><span>ИНН / ОГРНИП</span><b>783900004042<br>324784700055790</b></div>
+    <div><span>банк</span><b>ООО «Банк Точка»<br>БИК 044525104</b></div>
+    <div><span>расчётный счёт</span><b>40802810120000247972</b>
+      <a class="req-link" href="https://i.tochka.com/bank/myprofile/ohmy.design"
+         target="_blank" rel="noopener">карточка компании ↗</a></div>
+  </div>
+
+  <div class="foot-bottom">
+    <span>© 2018–2026 ohmy.design</span>
+    <a href="ohmy-privacy.html">Политика конфиденциальности и обработки ПД</a>
+  </div>
+</footer>
+
+<script>
+/* тема */
+(function(){
+  const root=document.documentElement;
+  document.getElementById('themeBtn').addEventListener('click',()=>{
+    root.dataset.theme = root.dataset.theme==='light' ? 'dark' : 'light';
+  });
+})();
+
+/* появление блоков */
+(function(){
+  const io=new IntersectionObserver(es=>{
+    es.forEach((e,i)=>{ if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('in'),(i%6)*70);
+      io.unobserve(e.target);} });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+})();
+
+/* прогресс чтения */
+(function(){
+  const bar=document.getElementById('prog');
+  function upd(){
+    const h=document.documentElement.scrollHeight-innerHeight;
+    bar.style.width = (h>0 ? (scrollY/h)*100 : 0)+'%';
+  }
+  addEventListener('scroll',upd,{passive:true});
+  addEventListener('resize',upd); upd();
+})();
+
+/* лёгкий параллакс обложки */
+(function(){
+  const img=document.querySelector('.cover img');
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  addEventListener('scroll',()=>{
+    if(scrollY>innerHeight) return;
+    img.style.transform=`scale(1.06) translateY(${scrollY*0.16}px)`;
+  },{passive:true});
+})();
+</script>
+
+<!-- nav:begin. Шапка: высота, подложка при прокрутке, мобильное меню -->
+<script>
+(function(){
+  var nav = document.querySelector('nav'); if(!nav) return;
+  var root = document.documentElement;
+
+  // Высота шапки уезжает в переменную: липкие панели фильтров и оглавление
+  // паркуются под ней, а не за ней
+  function measure(){ root.style.setProperty('--nav-h', nav.offsetHeight + 'px'); }
+  measure(); addEventListener('resize', measure);
+  // Onest догружается после первой отрисовки и меняет высоту шапки на пару
+  // пикселей — без пересчёта под липкой панелью остаётся щель
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+
+  // Подложка появляется, когда под шапку уходит контент
+  function onScroll(){ nav.classList.toggle('stuck', scrollY > nav.offsetHeight); }
+  onScroll(); addEventListener('scroll', onScroll, {passive:true});
+
+  var burger = nav.querySelector('.burger'), menu = document.getElementById('menu');
+  if(!burger || !menu) return;
+
+  // Меню собирается из ссылок самой страницы — активный пункт переносится как есть.
+  // Берём только верхний уровень, второй добавляем отдельной группой под ним
+  nav.querySelectorAll('.nav-links > a, .nav-links > .sub-wrap > a').forEach(function(a, i){
+    var c = a.cloneNode(true);
+    c.className = a.classList.contains('on') ? 'on' : '';
+    c.style.setProperty('--i', i);
+    menu.appendChild(c);
+    var wrap = a.parentElement.classList.contains('sub-wrap') ? a.parentElement : null;
+    if(!wrap) return;
+    var box = document.createElement('div');
+    box.className = 'menu-sub';
+    wrap.querySelectorAll('.sub a:not(.all)').forEach(function(s){
+      var sc = s.cloneNode(true); sc.className = ''; box.appendChild(sc);
+    });
+    menu.appendChild(box);
+  });
+  var cta = nav.querySelector('.nav-cta');
+  if(cta){ var c = cta.cloneNode(true); c.className = 'menu-cta'; menu.appendChild(c); }
+
+  function close(){ root.removeAttribute('data-menu');
+                    burger.setAttribute('aria-expanded','false'); }
+  function toggle(){
+    if(root.getAttribute('data-menu') === 'on') return close();
+    root.setAttribute('data-menu','on'); burger.setAttribute('aria-expanded','true');
+  }
+  burger.addEventListener('click', toggle);
+  menu.addEventListener('click', function(e){ if(e.target.closest('a')) close(); });
+  addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+  matchMedia('(min-width:901px)').addEventListener('change', function(e){
+    if(e.matches) close();
+  });
+})();
+</script>
+<!-- nav:end -->
+
+<!-- Яндекс.Метрика. Общий блок на всех страницах, правится скриптом-заменой -->
+<script>
+if (location.hostname === 'ohmy.design' || location.hostname.endsWith('.ohmy.design')) {
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+m[i].l=1*new Date();
+for (var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,
+a.parentNode.insertBefore(k,a)})
+(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=76559848','ym');
+ym(76559848,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:false});
+}
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/76559848" style="position:absolute;left:-9999px" alt=""></div></noscript>
+<!-- /Яндекс.Метрика -->
+</body>
+</html>

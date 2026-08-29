@@ -395,6 +395,23 @@ footer.site-foot{display:block}
   font-size:13px;color:var(--muted)}
 .foot-bottom a{transition:color .35s var(--ease)}
 .foot-bottom a:hover{color:var(--accent)}
+
+/* live:begin. Ссылка на работающий сайт клиента. Те же правила, что
+   в build-assets/case-shell.html: страницы проектов должны выглядеть
+   одинаково, кем бы они ни были собраны */
+.live{margin:0 var(--pad) clamp(70px,9vw,150px);
+  border:1px solid var(--line);display:flex;align-items:center;
+  justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding:clamp(26px,3vw,40px) clamp(24px,3vw,44px);
+  transition:border-color .45s var(--ease),background .45s var(--ease)}
+.live:hover{border-color:var(--line-strong);background:var(--bg-2)}
+.live-l span{display:block;font-size:13px;color:var(--muted);margin-bottom:9px}
+.live-l b{font-size:clamp(19px,2.4vw,32px);font-weight:200;letter-spacing:-.035em;
+  overflow-wrap:anywhere}
+.live-a{font-size:clamp(22px,3vw,38px);color:var(--muted);
+  transition:transform .6s var(--ease),color .45s var(--ease)}
+.live:hover .live-a{transform:translate(8px,-8px);color:var(--accent)}
+/* live:end */
 </style>
 <!-- seo:start -->
 <link rel="canonical" href="https://ohmy.design/projects/abp2b">
@@ -592,6 +609,11 @@ footer.site-foot{display:block}
 </section>
 
 <!-- ============ СЛЕДУЮЩИЙ КЕЙС ============ -->
+<a class="live rv" href="https://abp2b.com/" target="_blank" rel="noopener">
+  <div class="live-l"><span>смотреть работу</span><b>abp2b.com</b></div>
+  <span class="live-a">↗</span>
+</a>
+
 <a class="next" href="ohmy-case-tish.html">
   <img src="img/lib/49060229-3435.jpg" alt="">
   <div class="next-in">
