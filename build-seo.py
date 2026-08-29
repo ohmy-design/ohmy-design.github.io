@@ -29,6 +29,8 @@ OUTDIR = os.path.join(ROOT, 'исходники')   # страницы-исхо�
 PAGES = {
  'ohmy-site.html':       ('/',                      '1.0','weekly',
     'проектируем облик\nи механику бизнеса',        'студия дизайна и автоматизации'),
+ 'ohmy-services.html':   ('/services',              '0.9','monthly',
+    'направления',                                  'состав работ и цены'),
  'ohmy-web.html':        ('/web',                   '0.9','monthly',
     'веб',                                          'сайты и цифровые продукты'),
  'ohmy-ai.html':         ('/ai',                    '0.9','monthly',

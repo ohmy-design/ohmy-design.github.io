@@ -35,6 +35,7 @@ OUT    = os.path.join(ROOT, 'docs')        # то, что отдаёт GitHub Pa
 # файл → путь в репозитории
 ROUTES = {
  'ohmy-site.html':       'index.html',
+ 'ohmy-services.html':   'services/index.html',
  'ohmy-web.html':        'web/index.html',
  'ohmy-ai.html':         'ai/index.html',
  'ohmy-brand.html':      'brand/index.html',
