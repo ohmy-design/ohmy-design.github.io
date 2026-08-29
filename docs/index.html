@@ -63,7 +63,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;gap:20px;
   display:flex;align-items:center;justify-content:space-between;
   padding:22px var(--pad);mix-blend-mode:var(--blend)}
 .logo{font-size:16px;font-weight:600;letter-spacing:-.02em}
-.nav-links{display:flex;gap:28px;font-size:14px;opacity:.78}
+.nav-links{display:flex;gap:28px;font-size:14px}
+/* Приглушение висело на всей группе, и выпадающая панель наследовала его
+   вместе с фоном — отсюда просвечивающая подложка. Гасим сами ссылки */
+.nav-links > a,.nav-links > .sub-wrap > a{opacity:.78;
+  transition:opacity .35s var(--ease)}
+.nav-links > a:hover,.nav-links > .sub-wrap > a:hover,
+.nav-links a.on{opacity:1}
 .nav-links a{position:relative}
 .nav-links a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;
   background:currentColor;transition:width .5s var(--ease)}
@@ -295,16 +301,20 @@ section{position:relative;z-index:4;background:var(--bg);
 
 /* ---------- КЛИЕНТЫ ---------- */
 .clients{margin-top:clamp(44px,5vw,76px);display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(5,1fr);
   border-top:1px solid var(--line);border-left:1px solid var(--line)}
-@media(max-width:900px){.clients{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:1100px){.clients{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:820px){.clients{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:600px){.clients{grid-template-columns:repeat(2,1fr)}}
 .client{border-right:1px solid var(--line);border-bottom:1px solid var(--line);
-  height:clamp(112px,11vw,152px);display:flex;align-items:center;justify-content:center;
-  padding:26px;transition:background .5s var(--ease)}
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  padding:clamp(14px,1.6vw,26px);transition:background .5s var(--ease)}
 .client:hover{background:var(--bg-2)}
-.client img{max-width:100%;max-height:var(--h,46px);object-fit:contain;filter:var(--logo-filter);
-  opacity:.36;transition:opacity .5s var(--ease),transform .6s var(--ease)}
+/* Ширина у каждого своя и посчитана так, чтобы площадь знака была одинаковой.
+   Ровнять по общей высоте или ширине нельзя: широкий леттеринг тогда кажется
+   вдвое крупнее компактного герба */
+.client img{width:var(--w,70%);height:auto;object-fit:contain;filter:var(--logo-filter);
+  opacity:.42;transition:opacity .5s var(--ease),transform .6s var(--ease)}
 .client:hover img{opacity:1;transform:scale(1.06)}
 
 /* ---------- ПРОЕКТЫ ---------- */
@@ -674,18 +684,16 @@ footer.site-foot{display:block}
     <span class="mono">промышленность · события · технологии</span>
   </div>
   <div class="clients rv">
-    <div class="client"><img src="/img/lib/group-6563.svg" style="--h:47px" alt=""></div>
-    <div class="client"><img src="/img/lib/group-11-1-6234.png" style="--h:57px" alt=""></div>
-    <div class="client"><img src="/img/lib/logo-0000-layer-2-co-3331.png" style="--h:73px" alt=""></div>
-    <div class="client"><img src="/img/lib/layer-x0020-1-3966.svg" style="--h:42px" alt=""></div>
-    <div class="client"><img src="/img/lib/clip-path-group-6339.svg" style="--h:39px" alt=""></div>
-    <div class="client"><img src="/img/lib/group-39-6363.png" style="--h:53px" alt=""></div>
-    <div class="client"><img src="/img/lib/gas-logo-ru-2023-3137.png" style="--h:52px" alt=""></div>
-    <div class="client"><img src="/img/lib/group-12-3836.png" style="--h:46px" alt=""></div>
-    <div class="client"><img src="/img/lib/strag-logo-pngru-2-3033.png" style="--h:50px" alt=""></div>
-    <div class="client"><img src="/img/lib/group-2-3037.png" style="--h:53px" alt=""></div>
-    <div class="client"><img src="/img/lib/noroot-3-6237.svg" style="--h:61px" alt=""></div>
-    <div class="client"><img src="/img/lib/stankin-logo-main-mo-3534.png" style="--h:42px" alt=""></div>
+    <div class="client"><img src="/img/clients/minstroy.png" style="--w:77%" alt="Минстрой России" loading="lazy"></div>
+    <div class="client"><img src="/img/clients/expoforum.png" style="--w:88%" alt="Expoforum" loading="lazy"></div>
+    <div class="client"><img src="/img/clients/ugra.png" style="--w:68%" alt="Ханты-Мансийский автономный округ — Югра" loading="lazy"></div>
+    <div class="client"><img src="/img/clients/stankin.png" style="--w:82%" alt="Станкин" loading="lazy"></div>
+    <div class="client"><img src="/img/clients/euroskills.png" style="--w:65%" alt="EuroSkills St Petersburg 2023" loading="lazy"></div>
+    <div class="client"><img src="/img/clients/gck.png" style="--w:75%" alt="Головной центр компетенций" loading="lazy"></div>
+    <div class="client"><img src="/img/clients/sven.png" style="--w:88%" alt="SVEN" loading="lazy"></div>
+    <div class="client"><img src="/img/clients/abp2b.png" style="--w:66%" alt="АБП2Б" loading="lazy"></div>
+    <div class="client"><img src="/img/clients/ecp-spb.png" style="--w:83%" alt="Единый центр предпринимательства" loading="lazy"></div>
+    <div class="client"><img src="/img/clients/giprogor.png" style="--w:83%" alt="Гипрогор" loading="lazy"></div>
   </div>
 </section>
 

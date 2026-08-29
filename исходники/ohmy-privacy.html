@@ -58,7 +58,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;gap:20px;
   display:flex;align-items:center;justify-content:space-between;
   padding:22px var(--pad);mix-blend-mode:var(--blend)}
 .logo{font-size:16px;font-weight:600;letter-spacing:-.02em}
-.nav-links{display:flex;gap:28px;font-size:14px;opacity:.78}
+.nav-links{display:flex;gap:28px;font-size:14px}
+/* Приглушение висело на всей группе, и выпадающая панель наследовала его
+   вместе с фоном — отсюда просвечивающая подложка. Гасим сами ссылки */
+.nav-links > a,.nav-links > .sub-wrap > a{opacity:.78;
+  transition:opacity .35s var(--ease)}
+.nav-links > a:hover,.nav-links > .sub-wrap > a:hover,
+.nav-links a.on{opacity:1}
 .nav-links a{position:relative}
 .nav-links a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;
   background:currentColor;transition:width .5s var(--ease)}
