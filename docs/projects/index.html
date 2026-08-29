@@ -216,11 +216,17 @@ nav:has(.sub-wrap:hover),nav:has(.sub-wrap:focus-within){
   padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:clamp(26px,3vw,44px)}
 .block-head b{font-size:clamp(20px,2.2vw,30px);font-weight:200;letter-spacing:-.03em}
 
-.grid{display:grid;gap:clamp(24px,3vw,52px) clamp(16px,2vw,30px)}
-.grid.big{grid-template-columns:repeat(2,1fr)}
-.grid.all{grid-template-columns:repeat(3,1fr)}
-@media(max-width:1000px){.grid.all{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:680px){.grid.big,.grid.all{grid-template-columns:1fr}}
+/* Ровная сетка из одинаковых карточек читается как таблица: глаз скользит
+   и ни на чём не останавливается. Ритм задаёт каждая третья карточка —
+   она идёт во всю ширину и разбивает поток на части */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);
+  gap:clamp(24px,3vw,52px) clamp(16px,2vw,30px)}
+.card.wide{grid-column:1 / -1}
+.card.wide .card-img{aspect-ratio:21/9}
+@media(max-width:680px){
+  .grid{grid-template-columns:1fr}
+  .card.wide .card-img{aspect-ratio:16/9}
+}
 
 .card{display:block;opacity:0;transform:translateY(22px);
   transition:opacity .8s var(--ease),transform .8s var(--ease)}
@@ -228,9 +234,9 @@ nav:has(.sub-wrap:hover),nav:has(.sub-wrap:focus-within){
 .card-img{position:relative;overflow:hidden;border-radius:4px;
   background:var(--bg-2);aspect-ratio:16/9}
 .card-img img{width:100%;height:100%;object-fit:cover;display:block;
-  filter:grayscale(1) brightness(var(--img-b)) contrast(1.04);
+  filter:brightness(var(--img-b)) contrast(1.04);
   transform:scale(1.03);transition:transform 1.1s var(--ease),filter .8s var(--ease)}
-.card:hover .card-img img{transform:scale(1.08);filter:grayscale(0) brightness(var(--img-b-hover))}
+.card:hover .card-img img{transform:scale(1.08);filter:brightness(var(--img-b-hover))}
 .card-go{position:absolute;right:14px;bottom:14px;z-index:2;
   width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
   background:var(--ink);color:var(--bg);font-size:14px;
@@ -244,11 +250,11 @@ nav:has(.sub-wrap:hover),nav:has(.sub-wrap:focus-within){
 .t.yr{border:0;padding-left:2px}
 .card h3{font-weight:400;letter-spacing:-.022em;margin-top:11px;
   transition:color .4s var(--ease)}
-.grid.big h3{font-size:clamp(23px,2.4vw,33px)}
-.grid.all h3{font-size:clamp(18px,1.7vw,22px)}
+.card h3{font-size:clamp(20px,2vw,26px)}
+.card.wide h3{font-size:clamp(26px,3vw,40px);font-weight:300}
 .card:hover h3{color:var(--accent)}
-.card p{font-size:13.5px;color:var(--muted);line-height:1.5;margin-top:8px;max-width:46ch}
-.grid.big p{font-size:15px;max-width:52ch}
+.card p{font-size:14px;color:var(--muted);line-height:1.55;margin-top:8px;max-width:52ch}
+.card.wide p{font-size:15.5px;max-width:60ch}
 
 .empty{padding:clamp(60px,8vw,120px) var(--pad);text-align:center;color:var(--muted)}
 
@@ -668,11 +674,11 @@ function drawChips(){
   $reset.hidden = (fT==='all' && fS==='all');
 }
 
-function card(p,big){
+function card(p,wide){
   const tags = p.t.map(t=>`<span class="t">${T[t]}</span>`).join('');
   // Все проекты ведут на собственные страницы: наружу уводит только ссылка
   // внутри страницы проекта, и только если сайт клиента ещё работает
-  return `<a class="card" href="${p.cs}">
+  return `<a class="card${wide ? ' wide' : ''}" href="${p.cs}">
     <div class="card-img">
       <img loading="lazy" src="${p.img}" alt="${p.n}">
       <span class="card-go">→</span>
@@ -702,19 +708,20 @@ function render(){
 
   if(filtered){
     // при активном фильтре иерархия не нужна — один ровный список
-    html = `<div class="wrap"><div class="grid all">${items.map(p=>card(p)).join('')}</div></div>`;
+    html = `<div class="wrap"><div class="grid">${
+      items.map((p,i)=>card(p, i % 3 === 0)).join('')}</div></div>`;
   } else {
     const top  = items.filter(p=>p.f);
     const rest = items.filter(p=>!p.f);
     html = `<div class="wrap">
         <div class="block-head"><b>избранное</b>
           <span class="mono">${top.length} ${plural(top.length)}</span></div>
-        <div class="grid big">${top.map(p=>card(p,true)).join('')}</div>
+        <div class="grid">${top.map((p,i)=>card(p, i % 3 === 0)).join('')}</div>
       </div>
       <div class="wrap">
         <div class="block-head"><b>все проекты</b>
           <span class="mono">${rest.length} ${plural(rest.length)}</span></div>
-        <div class="grid all">${rest.map(p=>card(p)).join('')}</div>
+        <div class="grid">${rest.map((p,i)=>card(p, i % 3 === 0)).join('')}</div>
       </div>`;
   }
 
