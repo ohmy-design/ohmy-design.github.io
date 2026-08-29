@@ -281,11 +281,9 @@ def main():
     open('robots.txt', 'w', encoding='utf-8').write(
       'User-agent: *\n'
       'Allow: /\n'
-      'Disallow: /privacy\n'
       'Disallow: /*?\n\n'
       'User-agent: Yandex\n'
       'Allow: /\n'
-      'Disallow: /privacy\n'
       f'Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content\n\n'
       f'Sitemap: {SITE}/sitemap.xml\n')
 
