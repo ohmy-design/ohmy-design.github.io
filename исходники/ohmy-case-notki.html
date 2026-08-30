@@ -446,6 +446,191 @@ footer.site-foot{display:block}
 .cta .sec-head{margin-bottom:clamp(30px,3.4vw,46px)}
 /* cta-head:end */
 </style>
+
+
+
+<!-- motion:begin. Переходы между страницами и инерционная прокрутка.
+     Блок общий для всех страниц, правится скриптом motion.py -->
+<style>
+/* Переход между страницами делает сам браузер: обе страницы объявляют
+   navigation:auto, и он снимает кадр старой, кадр новой и сводит их.
+   Никакого роутера и подгрузки — сайт остаётся набором обычных страниц.
+   Там, где API нет, переход просто не случится: ссылка сработает как всегда */
+@view-transition{navigation:auto}
+
+/* Подложка под кадрами. Оба кадра в середине перехода полупрозрачны, и без
+   неё сквозь них видно холст браузера — белую или чёрную полосу */
+::view-transition-group(root){background:var(--bg)}
+
+/* Штатная сводка кадров идёт на plus-lighter: сумма двух картинок светлее
+   каждой, и середина перехода вспыхивает. Нам нужна простая укладка новой
+   страницы поверх старой */
+::view-transition-old(root),::view-transition-new(root){mix-blend-mode:normal}
+::view-transition-old(root){animation:ohmy-page-out .40s var(--ease) both}
+::view-transition-new(root){animation:ohmy-page-in .54s var(--ease) both}
+
+@keyframes ohmy-page-out{
+  from{opacity:1;transform:none}
+  to{opacity:0;transform:translateY(-14px) scale(.994)}
+}
+/* Новая страница набирает полную непрозрачность к 60% пути — раньше, чем
+   старая догорит, иначе в середине просвечивает подложка */
+@keyframes ohmy-page-in{
+  from{opacity:0;transform:translateY(22px)}
+  60%{opacity:1}
+  to{opacity:1;transform:none}
+}
+
+/* Обложка проекта переезжает из карточки каталога в шапку страницы одним
+   предметом. Имя на стороне каталога вешает скрипт — в момент клика */
+.cover > img{view-transition-name:ohmy-cover}
+::view-transition-group(ohmy-cover){animation-duration:.62s;
+  animation-timing-function:var(--ease)}
+/* Пропорции карточки и обложки разные. Без этого браузер растягивает кадр
+   по рамке и картинка на секунду сплющивается */
+::view-transition-old(ohmy-cover),::view-transition-new(ohmy-cover){
+  height:100%;object-fit:cover;mix-blend-mode:normal}
+
+@media(prefers-reduced-motion:reduce){
+  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){
+    animation:none !important}
+}
+</style>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var calm = matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* ---------- обложка проекта ----------
+     Карточка и страница проекта показывают один и тот же файл. Если дать
+     картинке в карточке то же имя, что и обложке, браузер поймёт, что это
+     один предмет, и переведёт его из сетки в шапку, а не сменит кадром */
+  var tagged = null;
+  function drop(){ if(tagged){ tagged.style.viewTransitionName=''; tagged=null; } }
+
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href]');
+    if(!a) return;
+    // только переходы на страницу проекта: и в каталоге, и на главной,
+    // и с проекта на проект адрес один и тот же
+    if(!/(^|\/)ohmy-case-|\/projects\//.test(a.getAttribute('href')||'')) return;
+    var img = a.querySelector('img');
+    if(!img) return;
+    drop();
+    img.style.viewTransitionName = 'ohmy-cover';
+    tagged = img;
+  }, true);
+
+  // Уход с именем оставит его висеть на странице из кэша: два одинаковых
+  // имени в одном документе — и браузер отменяет переход целиком
+  addEventListener('pagehide', drop);
+  addEventListener('pageshow', drop);
+
+
+  /* ---------- инерционная прокрутка ----------
+     Прокручиваем настоящий документ, а не двигаем обёртку трансформом:
+     иначе ломаются липкая шапка, липкий герой на главной и оглавление.
+     На тач-экранах не включаем — родная прокрутка там лучше любой нашей */
+  if(calm.matches || !matchMedia('(pointer: fine)').matches) return;
+
+  var target = scrollY, now = target, live = false, prev = 0, mine = -1;
+  var PULL = .105;   // доля оставшегося пути за кадр при 60 кадрах в секунду
+
+  root.style.scrollBehavior = 'auto';   // иначе scrollTo сам начнёт плавить
+
+  function edge(){ return Math.max(0, root.scrollHeight - innerHeight); }
+  function fit(v){ return Math.max(0, Math.min(v, edge())); }
+
+  function step(t){
+    var dt = Math.min((t - prev)/16.667, 4); prev = t;
+    // шаг считается от времени кадра: на экране 120 Гц он вдвое мельче,
+    // и прокрутка идёт с той же скоростью, что на 60 Гц
+    now += (target - now) * (1 - Math.pow(1 - PULL, dt));
+    if(Math.abs(target - now) < .4){ now = target; live = false; }
+    mine = Math.round(now);
+    scrollTo(0, now);
+    if(live) requestAnimationFrame(step);
+  }
+  function run(){
+    if(live) return;
+    live = true; prev = performance.now(); requestAnimationFrame(step);
+  }
+  function to(v){ target = fit(v); run(); }
+
+  // Прокрутка мимо нас — колесо по списку с своей полосой, перетаскивание
+  // ползунка, поиск по странице, восстановление позиции при возврате
+  addEventListener('scroll', function(){
+    if(Math.abs(scrollY - mine) > 2){ now = target = scrollY; }
+  }, {passive:true});
+  addEventListener('pageshow', function(){ now = target = scrollY; live = false; });
+  // В невидимой вкладке кадров нет, и незаконченный разгон достался бы
+  // возвращению: страница поехала бы сама. Сбрасываем на уходе
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){ now = target = scrollY; live = false; }
+  });
+
+  // Внутри блока со своей полосой прокрутки колесо принадлежит ему
+  function ownScroll(el, dy){
+    if(!el || el.nodeType !== 1) return false;
+    for(; el && el !== document.body && el !== root; el = el.parentElement){
+      if(el.scrollHeight <= el.clientHeight + 1) continue;
+      var ov = getComputedStyle(el).overflowY;
+      if(ov !== 'auto' && ov !== 'scroll') continue;
+      if(dy < 0 ? el.scrollTop > 0 : el.scrollTop < el.scrollHeight - el.clientHeight - 1)
+        return true;
+    }
+    return false;
+  }
+
+  addEventListener('wheel', function(e){
+    if(e.ctrlKey || e.defaultPrevented) return;       // масштаб страницы
+    if(root.dataset.menu === 'on') return;            // мобильное меню поверх
+    var dy = e.deltaY;
+    if(!dy) return;
+    if(e.deltaMode === 1) dy *= 16;                   // колесо считает строками
+    else if(e.deltaMode === 2) dy *= innerHeight;     // ...или экранами
+    if(ownScroll(e.target, dy)) return;
+    e.preventDefault();
+    to(target + dy);
+  }, {passive:false});
+
+  // Клавиши. Форму и поля ввода не трогаем
+  var KEYS = {PageDown:1, PageUp:-1, ' ':1, Home:0, End:0, ArrowDown:1, ArrowUp:-1};
+  addEventListener('keydown', function(e){
+    if(e.metaKey || e.ctrlKey || e.altKey) return;
+    var el = document.activeElement;
+    if(el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+    if(!(e.key in KEYS)) return;
+    if(ownScroll(el, KEYS[e.key])) return;
+    var page = innerHeight * .88;
+    if(e.key === 'Home')      to(0);
+    else if(e.key === 'End')  to(edge());
+    else if(e.key === 'PageDown' || e.key === 'PageUp') to(target + KEYS[e.key]*page);
+    else if(e.key === ' ')    to(target + (e.shiftKey ? -page : page));
+    else                      to(target + KEYS[e.key]*90);
+    e.preventDefault();
+  });
+
+  // Якоря. Родное scroll-behavior:smooth мы только что выключили — ведём сами,
+  // ровно в ту же точку, что и раньше
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if(!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    var id = a.getAttribute('href').slice(1);
+    var el = id ? document.getElementById(id) : null;
+    if(id && !el) return;
+    e.preventDefault();
+    to(el ? el.getBoundingClientRect().top + scrollY : 0);
+    if(id) history.replaceState(null, '', '#' + id);
+  });
+
+  // Переключение «спокойного режима» на ходу: возвращаем всё как было
+  calm.addEventListener('change', function(){ if(calm.matches) location.reload(); });
+})();
+</script>
+<!-- motion:end -->
+
 <!-- seo:start -->
 <link rel="canonical" href="https://ohmy.design/projects/notki">
 <meta property="og:type" content="website">
