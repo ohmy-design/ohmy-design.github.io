@@ -189,7 +189,9 @@ nav:has(.sub-wrap:hover),nav:has(.sub-wrap:focus-within){
 /* ---------- ПАСПОРТ ---------- */
 .facts{display:grid;grid-template-columns:repeat(5,1fr);
   border-bottom:1px solid var(--line);padding:0 var(--pad)}
-.fact{padding:clamp(28px,3vw,44px) clamp(18px,2vw,32px) clamp(28px,3vw,44px) 0;
+/* Отступ нужен с обеих сторон: без левого текст соседней ячейки
+   упирался прямо в разделительную линейку */
+.fact{padding:clamp(28px,3vw,44px) clamp(18px,2vw,32px);
   border-right:1px solid var(--line)}
 .fact:first-child{padding-left:0}
 .fact:last-child{border-right:0;padding-right:0}
@@ -199,8 +201,20 @@ nav:has(.sub-wrap:hover),nav:has(.sub-wrap:focus-within){
   .facts{grid-template-columns:1fr 1fr}
   .fact{border-right:0;border-bottom:1px solid var(--line);padding-right:0}
   .fact:nth-child(odd){padding-left:0}
-  .fact:last-child{border-bottom:0}
+  .fact:nth-child(even){padding-left:clamp(18px,4vw,32px)}
+  /* В две колонки последняя строка своя. Убирать линейку только
+     у последней ячейки мало: при чётном числе граф оставался обрубок */
+  .facts[data-n="3"] .fact:nth-child(n+3),
+  .facts[data-n="4"] .fact:nth-child(n+3),
+  .facts[data-n="5"] .fact:nth-child(n+5){border-bottom:0}
 }
+
+/* ---------- ТИПОГРАФИКА ----------
+   Одинокое слово в конце абзаца браузер убирает лучше нас: pretty
+   перебирает переносы всего абзаца, balance выравнивает короткий
+   заголовок по длине строк */
+h1,h2,h3,.sec-title,.lead{text-wrap:balance}
+p,.body,.fact b,figcaption,.step p,.outcome div div{text-wrap:pretty}
 
 /* ---------- БЛОКИ ---------- */
 section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
@@ -695,18 +709,18 @@ footer.site-foot{display:block}
   </div>
 
   <div class="two">
-    <p class="lead rv">Магазин в категории, которой в России не существовало.
-      <em>Нужно было не продать товар, а объяснить, зачем он нужен</em> — и доказать,
-      что это оригинал.</p>
+    <p class="lead rv">Магазин в&nbsp;категории, которой в&nbsp;России не&nbsp;существовало.
+      <em>Нужно было не&nbsp;продать товар, а&nbsp;объяснить, зачем он&nbsp;нужен</em>&nbsp;— и&nbsp;доказать,
+      что&nbsp;это оригинал.</p>
     <div class="rv">
-      <p class="body">ТИШЬ — официальный дистрибьютор Loop Earplugs из Бельгии
-        и Manta Sleep из США. Обе категории для российского покупателя новые: беруши
-        за несколько тысяч рублей и маска для сна с индивидуальной подгонкой требуют
-        объяснения ценности, а не просто карточки с ценой.</p>
-      <p class="body">Вторая сложность — доверие. В нише, где легко нарваться на подделку,
-        покупатель первым делом ищет подтверждение оригинальности. Третья — товар
-        поставляется партиями из-за рубежа, и часть позиций регулярно отсутствует
-        в наличии.</p>
+      <p class="body">ТИШЬ&nbsp;— официальный дистрибьютор Loop Earplugs из&nbsp;Бельгии
+        и&nbsp;Manta Sleep из&nbsp;США. Обе категории для&nbsp;российского покупателя новые: беруши
+        за&nbsp;несколько тысяч рублей и&nbsp;маска для&nbsp;сна с&nbsp;индивидуальной подгонкой требуют
+        объяснения ценности, а&nbsp;не&nbsp;просто карточки с&nbsp;ценой.</p>
+      <p class="body">Вторая сложность&nbsp;— доверие. В&nbsp;нише, где легко нарваться на&nbsp;подделку,
+        покупатель первым делом ищет подтверждение оригинальности. Третья&nbsp;— товар
+        поставляется партиями из-за&nbsp;рубежа, и&nbsp;часть позиций регулярно отсутствует
+        в&nbsp;наличии.</p>
     </div>
   </div>
 
@@ -726,29 +740,29 @@ footer.site-foot{display:block}
 
   <div class="steps">
     <div class="step rv"><span class="step-n">01</span>
-      <h3>Разложили каталог по сценариям сна</h3>
-      <p>Не по производителям, а по задаче: беруши, маски, аксессуары. Покупатель приходит
-        с проблемой «шумно» или «светло», а не с названием бренда.</p></div>
+      <h3>Разложили каталог по&nbsp;сценариям&nbsp;сна</h3>
+      <p>Не&nbsp;по&nbsp;производителям, а&nbsp;по&nbsp;задаче: беруши, маски, аксессуары. Покупатель приходит
+        с&nbsp;проблемой «шумно» или&nbsp;«светло», а&nbsp;не&nbsp;с&nbsp;названием&nbsp;бренда.</p></div>
     <div class="step rv"><span class="step-n">02</span>
-      <h3>Вынесли дистрибьюторство в отдельный аргумент</h3>
-      <p>Страница о бренде объясняет, что ТИШЬ — официальный представитель Loop и Manta
-        в России, с гарантией и оригинальной продукцией. Это снимает главное возражение
-        до того, как оно возникнет.</p></div>
+      <h3>Вынесли дистрибьюторство в&nbsp;отдельный аргумент</h3>
+      <p>Страница о&nbsp;бренде объясняет, что&nbsp;ТИШЬ&nbsp;— официальный представитель Loop и&nbsp;Manta
+        в&nbsp;России, с&nbsp;гарантией и&nbsp;оригинальной продукцией. Это снимает главное возражение
+        до&nbsp;того, как&nbsp;оно возникнет.</p></div>
     <div class="step rv"><span class="step-n">03</span>
       <h3>Сделали предзаказ равноправным сценарием</h3>
-      <p>Отсутствие товара не выбрасывает покупателя с сайта: он оставляет контакты
-        и попадает в очередь. Спрос между поставками не теряется, а сразу
-        превращается в список ожидания.</p></div>
+      <p>Отсутствие товара не&nbsp;выбрасывает покупателя с&nbsp;сайта: он&nbsp;оставляет контакты
+        и&nbsp;попадает в&nbsp;очередь. Спрос между&nbsp;поставками не&nbsp;теряется, а&nbsp;сразу
+        превращается в&nbsp;список ожидания.</p></div>
     <div class="step rv"><span class="step-n">04</span>
-      <h3>Снизили порог покупки</h3>
-      <p>Оплата картой, ЮMoney и через ЮKassa, плюс Яндекс Пэй и Сплит — рассрочка
-        для категории с высоким средним чеком. Промокоды подключены для маркетинговых
+      <h3>Снизили порог&nbsp;покупки</h3>
+      <p>Оплата картой, ЮMoney и&nbsp;через&nbsp;ЮKassa, плюс Яндекс Пэй и&nbsp;Сплит&nbsp;— рассрочка
+        для&nbsp;категории с&nbsp;высоким средним чеком. Промокоды подключены для&nbsp;маркетинговых
         кампаний.</p></div>
     <div class="step rv"><span class="step-n">05</span>
       <h3>Закрыли юридический контур магазина</h3>
       <p>Публичная оферта, политика конфиденциальности, реквизиты, условия доставки,
-        обмена и возврата, раздел вопросов. Для розницы это не формальность,
-        а условие работы и доверия.</p></div>
+        обмена и&nbsp;возврата, раздел вопросов. Для&nbsp;розницы это не&nbsp;формальность,
+        а&nbsp;условие работы и&nbsp;доверия.</p></div>
   </div>
 </section>
 
@@ -756,8 +770,8 @@ footer.site-foot{display:block}
   <figure class="shot wide rv">
     <img src="/img/lib/freepik-adjust-458-3033.png" alt="Страница о бренде">
   </figure>
-  <figcaption class="shot-cap rv">Страница о бренде: официальное дистрибьюторство вынесено
-    в главный аргумент доверия</figcaption>
+  <figcaption class="shot-cap rv">Страница о&nbsp;бренде: официальное дистрибьюторство вынесено
+    в&nbsp;главный аргумент&nbsp;доверия</figcaption>
 
   <div class="pair">
     <figure class="shot rv">
@@ -767,8 +781,8 @@ footer.site-foot{display:block}
       <img src="/img/lib/1-3037.png" alt="Товары">
     </figure>
   </div>
-  <figcaption class="shot-cap rv">Каталог разложен по сценариям — беруши, маски, аксессуары,
-    а не по производителям</figcaption>
+  <figcaption class="shot-cap rv">Каталог разложен по&nbsp;сценариям&nbsp;— беруши, маски, аксессуары,
+    а&nbsp;не&nbsp;по&nbsp;производителям</figcaption>
 </div>
 
 <section id="result">
@@ -784,17 +798,17 @@ footer.site-foot{display:block}
   </div>
 
   <p class="body rv" style="margin-top:clamp(34px,4vw,54px);max-width:62ch">
-    Магазин работает как полноценная розничная точка: каталог, оплата в несколько способов,
-    рассрочка, доставка по России, возвраты и поддержка. Ключевое решение — предзаказ:
-    в нише с поставками партиями он превращает отсутствие товара из потери
-    в накопленный спрос.</p>
+    Магазин работает как&nbsp;полноценная розничная точка: каталог, оплата в&nbsp;несколько способов,
+    рассрочка, доставка по&nbsp;России, возвраты и&nbsp;поддержка. Ключевое решение&nbsp;— предзаказ:
+    в&nbsp;нише с&nbsp;поставками партиями он&nbsp;превращает отсутствие товара из&nbsp;потери
+    в&nbsp;накопленный&nbsp;спрос.</p>
 
   <div class="note rv" style="margin-top:clamp(30px,3.4vw,44px);max-width:62ch;
        border:1px solid var(--line);border-radius:5px;padding:clamp(22px,2.6vw,32px)">
     <b style="display:block;font-size:15px;font-weight:400;margin-bottom:10px">Что стоит добавить</b>
-    <p style="font-size:14.5px;color:var(--muted);line-height:1.65;margin:0">Цифры по продажам,
-      конверсии и среднему чеку — у клиента. Один-два показателя здесь усилят кейс сильнее,
-      чем любой текст.</p>
+    <p style="font-size:14.5px;color:var(--muted);line-height:1.65;margin:0">Цифры по&nbsp;продажам,
+      конверсии и&nbsp;среднему чеку&nbsp;— у&nbsp;клиента. Один-два показателя здесь усилят кейс сильнее,
+      чем&nbsp;любой&nbsp;текст.</p>
   </div>
 </section>
 
@@ -836,8 +850,8 @@ footer.site-foot{display:block}
   <div class="foot-top">
     <div class="foot-brand">
       <a class="foot-logo" href="/">ohmy.design</a>
-      <p>Студия дизайна и автоматизации для бизнеса.<br>
-        Санкт-Петербург, с 2018 года. 200+ проектов.</p>
+      <p>Студия дизайна и&nbsp;автоматизации для&nbsp;бизнеса.<br>
+        Санкт-Петербург, с&nbsp;2018&nbsp;года. 200+ проектов.</p>
     </div>
 
     <div class="foot-col">

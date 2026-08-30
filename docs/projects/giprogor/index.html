@@ -189,18 +189,38 @@ nav:has(.sub-wrap:hover),nav:has(.sub-wrap:focus-within){
 /* ---------- ПАСПОРТ ---------- */
 .facts{display:grid;grid-template-columns:repeat(5,1fr);
   border-bottom:1px solid var(--line);padding:0 var(--pad)}
-.fact{padding:clamp(28px,3vw,44px) clamp(18px,2vw,32px) clamp(28px,3vw,44px) 0;
+/* Отступ нужен с обеих сторон: без левого текст соседней ячейки
+   упирался прямо в разделительную линейку */
+.fact{padding:clamp(28px,3vw,44px) clamp(18px,2vw,32px);
   border-right:1px solid var(--line)}
 .fact:first-child{padding-left:0}
 .fact:last-child{border-right:0;padding-right:0}
+/* Ссылка строчная, а не flex: у длинного домена стрелка иначе уезжала
+   на отдельную строку к правому краю ячейки */
+.fact-live{border-bottom:1px solid var(--line-strong);padding-bottom:2px;
+  overflow-wrap:anywhere;
+  transition:color .4s var(--ease),border-color .4s var(--ease)}
+.fact-live:hover{color:var(--accent);border-color:var(--accent)}
+/* Стрелка строчная и без inline-block: он создаёт место для переноса,
+   и у длинного домена стрелка уходила на строку одна */
+.fact-live i{font-style:normal;font-size:12px;margin-left:7px}
 .fact span{display:block;font-size:13px;color:var(--muted);margin-bottom:12px}
 .fact b{font-size:clamp(15px,1.5vw,19px);font-weight:400;letter-spacing:-.015em;line-height:1.35}
 @media(max-width:900px){
   .facts{grid-template-columns:1fr 1fr}
   .fact{border-right:0;border-bottom:1px solid var(--line);padding-right:0}
   .fact:nth-child(odd){padding-left:0}
+  .fact:nth-child(even){padding-left:clamp(18px,4vw,32px)}
   .fact:last-child{border-bottom:0}
 }
+
+/* ---------- ТИПОГРАФИКА ----------
+   Неразрывные пробелы расставляет сборка. Одинокое слово в конце абзаца
+   браузер убирает лучше нас: pretty перебирает переносы всего абзаца,
+   balance выравнивает короткий заголовок по длине строк. Там, где этого
+   нет, держат неразрывные пробелы — запасной вариант не нужен */
+h1,h2,h3,.sec-title,.lead{text-wrap:balance}
+p,.body,.fact b,figcaption,.pal-t,.step p,.outcome div div{text-wrap:pretty}
 
 /* ---------- БЛОКИ ---------- */
 section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
@@ -248,6 +268,59 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.4vw,22px)}
 .pair .shot{aspect-ratio:4/3}
 @media(max-width:760px){.pair{grid-template-columns:1fr}}
+
+/* ---------- ЗНАК И ПАЛИТРА ----------
+   Плашки показывают фирменные цвета клиента и намеренно не зависят от
+   темы сайта: в светлой теме чёрная плашка обязана остаться чёрной,
+   иначе это уже не его палитра, а наша. Цвет подписи на плашке считает
+   сборка по светлоте фона */
+.marks{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+  margin-top:clamp(38px,4.5vw,66px)}
+.mark{position:relative;aspect-ratio:4/3;display:flex;
+  align-items:center;justify-content:center;padding:clamp(22px,4vw,54px);
+  box-shadow:inset 0 0 0 1px rgba(128,128,132,.25)}
+.mark img{max-width:76%;max-height:50%;width:auto;height:auto}
+.mark span{position:absolute;left:clamp(14px,1.6vw,22px);bottom:clamp(12px,1.4vw,18px);
+  font-size:12px;letter-spacing:.02em}
+@media(max-width:760px){
+  .marks{grid-template-columns:1fr}
+  .mark{aspect-ratio:16/9}
+}
+
+.pal{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(20px,2.6vw,44px);margin-top:clamp(34px,4vw,58px)}
+.pal-c{height:clamp(70px,8vw,112px);box-shadow:inset 0 0 0 1px rgba(128,128,132,.3)}
+.pal-h{margin-top:16px;font-size:14px;font-weight:500;letter-spacing:.02em;
+  font-variant-numeric:tabular-nums}
+.pal-n{margin-top:2px;font-size:13px;color:var(--muted)}
+.pal-t{margin-top:12px;font-size:14px;line-height:1.6;color:var(--muted)}
+@media(max-width:760px){.pal{grid-template-columns:1fr;gap:26px}}
+
+/* ---------- НОСИТЕЛИ ----------
+   Отдельно от .gallery: та сетка осталась от собранной руками страницы
+   ТИШЬ и приглушает картинки, а здесь фотографии должны быть в цвете.
+   Кадр держит пропорцию, на наведении подъезжает картинка внутри —
+   если двигать сам кадр, поедет вся сетка */
+.frames{display:grid;grid-template-columns:repeat(2,1fr);
+  gap:clamp(14px,1.8vw,28px);margin-top:clamp(38px,4.5vw,66px)}
+.frame{margin:0}
+.frame.full{grid-column:1 / -1}
+.frame-i{overflow:hidden;background:var(--bg-2)}
+.frame img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;
+  transition:transform 1.1s var(--ease)}
+.frame.full img{aspect-ratio:16/9}
+.frame:hover img{transform:scale(1.03)}
+.frame figcaption{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  margin-top:14px;font-size:13px;color:var(--muted)}
+/* «фото» или «макет» — не украшение: рендер не выдаём за напечатанное */
+.frame figcaption i{font-style:normal;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;opacity:.72;
+  border:1px solid var(--line);border-radius:100px;padding:3px 9px}
+@media(max-width:680px){
+  .frames{grid-template-columns:1fr}
+  .frame img,.frame.full img{aspect-ratio:3/2}
+}
+@media(prefers-reduced-motion:reduce){.frame:hover img{transform:none}}
 
 /* ---------- РЕЗУЛЬТАТ ---------- */
 .res{display:grid;grid-template-columns:repeat(3,1fr);
@@ -703,10 +776,10 @@ footer.site-foot{display:block}
 </header>
 
 <div class="facts" data-n="4">
-  <div class="fact"><span>клиент</span><b>АО «Гипрогор», Москва</b></div>
+  <div class="fact"><span>клиент</span><b>АО&nbsp;«Гипрогор»,&nbsp;Москва</b></div>
   <div class="fact"><span>направление</span><b>Веб · сопровождение</b></div>
   <div class="fact"><span>роль студии</span><b>Структура, дизайн, сборка, развитие</b></div>
-  <div class="fact"><span>особенность</span><b>Институту 95 лет — архив больше, чем текущие проекты</b></div>
+  <div class="fact"><span>особенность</span><b>Институту 95&nbsp;лет&nbsp;— архив больше, чем&nbsp;текущие&nbsp;проекты</b></div>
 </div>
 
 <section id="task">
@@ -716,10 +789,10 @@ footer.site-foot{display:block}
   </div>
 
   <div class="two">
-    <p class="lead rv">Институт с историей отечественной градостроительной школы. <em>Такой архив легко превращается в музей</em> — а сайт нужен для работы с сегодняшними заказчиками.</p>
+    <p class="lead rv">Институт с&nbsp;историей отечественной градостроительной школы. <em>Такой архив легко превращается в&nbsp;музей</em>&nbsp;— а&nbsp;сайт нужен для&nbsp;работы с&nbsp;сегодняшними заказчиками.</p>
     <div class="rv">
-      <p class="body">За институтом — тысяча генеральных планов, проекты в двенадцати странах, восстановление городов после войны, Олимпиада в Сочи, саммит АТЭС. Это сильнейший аргумент и одновременно ловушка: сайт может целиком уйти в прошлое.</p>
-      <p class="body">Заказчик приходит с конкретной задачей — генплан, мастер-план, нормирование, работа с наследием. Ему нужно быстро понять, делает ли институт именно это, и увидеть похожий проект.</p>
+      <p class="body">За&nbsp;институтом&nbsp;— тысяча генеральных планов, проекты в&nbsp;двенадцати странах, восстановление городов после войны, Олимпиада в&nbsp;Сочи, саммит АТЭС. Это сильнейший аргумент и&nbsp;одновременно ловушка: сайт может целиком уйти в&nbsp;прошлое.</p>
+      <p class="body">Заказчик приходит с&nbsp;конкретной задачей&nbsp;— генплан, мастер-план, нормирование, работа с&nbsp;наследием. Ему нужно быстро понять, делает&nbsp;ли&nbsp;институт именно это, и&nbsp;увидеть похожий&nbsp;проект.</p>
     </div>
   </div>
 </section>
@@ -732,20 +805,20 @@ footer.site-foot{display:block}
 
   <div class="steps">
     <div class="step rv"><span class="step-n">01</span>
-      <h3>Поставили опыт на службу услугам</h3>
-      <p>Девяносто пять лет и тысяча генпланов — не отдельный раздел «история», а подтверждение рядом с направлениями работы.</p></div>
+      <h3>Поставили опыт на&nbsp;службу&nbsp;услугам</h3>
+      <p>Девяносто пять лет и&nbsp;тысяча генпланов&nbsp;— не&nbsp;отдельный раздел «история», а&nbsp;подтверждение рядом с&nbsp;направлениями&nbsp;работы.</p></div>
     <div class="step rv"><span class="step-n">02</span>
-      <h3>Разложили услуги по шести направлениям</h3>
-      <p>Градостроительная документация, нормирование, городская среда, территориальное планирование, наследие, новые направления. Заказчик находит своё.</p></div>
+      <h3>Разложили услуги по&nbsp;шести направлениям</h3>
+      <p>Градостроительная документация, нормирование, городская среда, территориальное планирование, наследие, новые направления. Заказчик находит&nbsp;своё.</p></div>
     <div class="step rv"><span class="step-n">03</span>
-      <h3>Собрали проекты в работающий раздел</h3>
-      <p>С географией и масштабом: от федеральных до локальных. Ревитализация центра Великого Новгорода и мастер-план Дагестана читаются как разные типы работ, а не как одинаковые карточки.</p></div>
+      <h3>Собрали проекты в&nbsp;работающий&nbsp;раздел</h3>
+      <p>С&nbsp;географией и&nbsp;масштабом: от&nbsp;федеральных до&nbsp;локальных. Ревитализация центра Великого Новгорода и&nbsp;мастер-план Дагестана читаются как&nbsp;разные типы работ, а&nbsp;не&nbsp;как&nbsp;одинаковые карточки.</p></div>
     <div class="step rv"><span class="step-n">04</span>
-      <h3>Вынесли лицензии и награды туда, где их ищут</h3>
-      <p>Для государственного заказчика это часть проверки, а не украшение.</p></div>
+      <h3>Вынесли лицензии и&nbsp;награды туда, где их&nbsp;ищут</h3>
+      <p>Для&nbsp;государственного заказчика это часть проверки, а&nbsp;не&nbsp;украшение.</p></div>
     <div class="step rv"><span class="step-n">05</span>
-      <h3>Взяли сайт на сопровождение</h3>
-      <p>Новости, проекты и разделы законодательства обновляются постоянно — институт ведёт их сам, мы поддерживаем систему.</p></div>
+      <h3>Взяли сайт на&nbsp;сопровождение</h3>
+      <p>Новости, проекты и&nbsp;разделы законодательства обновляются постоянно&nbsp;— институт ведёт их&nbsp;сам, мы&nbsp;поддерживаем систему.</p></div>
   </div>
 </section>
 
@@ -756,10 +829,10 @@ footer.site-foot{display:block}
   </div>
 
   <div class="outcome rv">
-    <div><span>01</span><div>История института работает как подтверждение услуг, а не как отдельный музей.</div></div>
-    <div><span>02</span><div>Шесть направлений разведены так, что заказчик находит своё с первого экрана.</div></div>
-    <div><span>03</span><div>Проекты показаны по масштабу и географии — от федеральных до локальных.</div></div>
-    <div><span>04</span><div>Сайт на сопровождении: институт публикует сам, структура остаётся целой.</div></div>
+    <div><span>01</span><div>История института работает как&nbsp;подтверждение услуг, а&nbsp;не&nbsp;как&nbsp;отдельный&nbsp;музей.</div></div>
+    <div><span>02</span><div>Шесть направлений разведены так, что&nbsp;заказчик находит своё с&nbsp;первого&nbsp;экрана.</div></div>
+    <div><span>03</span><div>Проекты показаны по&nbsp;масштабу и&nbsp;географии&nbsp;— от&nbsp;федеральных до&nbsp;локальных.</div></div>
+    <div><span>04</span><div>Сайт на&nbsp;сопровождении: институт публикует сам, структура остаётся&nbsp;целой.</div></div>
   </div>
 </section>
 
@@ -769,7 +842,7 @@ footer.site-foot{display:block}
 </a>
 
 <a class="next" href="/projects/studia-plus/">
-  <img src="/img/lib/18097428-6465.jpg" alt="">
+  <img src="/img/lib/18097428-6465.jpg" alt="" loading="lazy">
   <div class="next-in">
     <span class="mono">следующий проект</span>
     <h2>Студия Плюс <span class="next-arrow">↗</span></h2>

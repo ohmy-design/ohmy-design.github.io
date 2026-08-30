@@ -189,18 +189,38 @@ nav:has(.sub-wrap:hover),nav:has(.sub-wrap:focus-within){
 /* ---------- ПАСПОРТ ---------- */
 .facts{display:grid;grid-template-columns:repeat(5,1fr);
   border-bottom:1px solid var(--line);padding:0 var(--pad)}
-.fact{padding:clamp(28px,3vw,44px) clamp(18px,2vw,32px) clamp(28px,3vw,44px) 0;
+/* Отступ нужен с обеих сторон: без левого текст соседней ячейки
+   упирался прямо в разделительную линейку */
+.fact{padding:clamp(28px,3vw,44px) clamp(18px,2vw,32px);
   border-right:1px solid var(--line)}
 .fact:first-child{padding-left:0}
 .fact:last-child{border-right:0;padding-right:0}
+/* Ссылка строчная, а не flex: у длинного домена стрелка иначе уезжала
+   на отдельную строку к правому краю ячейки */
+.fact-live{border-bottom:1px solid var(--line-strong);padding-bottom:2px;
+  overflow-wrap:anywhere;
+  transition:color .4s var(--ease),border-color .4s var(--ease)}
+.fact-live:hover{color:var(--accent);border-color:var(--accent)}
+/* Стрелка строчная и без inline-block: он создаёт место для переноса,
+   и у длинного домена стрелка уходила на строку одна */
+.fact-live i{font-style:normal;font-size:12px;margin-left:7px}
 .fact span{display:block;font-size:13px;color:var(--muted);margin-bottom:12px}
 .fact b{font-size:clamp(15px,1.5vw,19px);font-weight:400;letter-spacing:-.015em;line-height:1.35}
 @media(max-width:900px){
   .facts{grid-template-columns:1fr 1fr}
   .fact{border-right:0;border-bottom:1px solid var(--line);padding-right:0}
   .fact:nth-child(odd){padding-left:0}
+  .fact:nth-child(even){padding-left:clamp(18px,4vw,32px)}
   .fact:last-child{border-bottom:0}
 }
+
+/* ---------- ТИПОГРАФИКА ----------
+   Неразрывные пробелы расставляет сборка. Одинокое слово в конце абзаца
+   браузер убирает лучше нас: pretty перебирает переносы всего абзаца,
+   balance выравнивает короткий заголовок по длине строк. Там, где этого
+   нет, держат неразрывные пробелы — запасной вариант не нужен */
+h1,h2,h3,.sec-title,.lead{text-wrap:balance}
+p,.body,.fact b,figcaption,.pal-t,.step p,.outcome div div{text-wrap:pretty}
 
 /* ---------- БЛОКИ ---------- */
 section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
@@ -248,6 +268,59 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.4vw,22px)}
 .pair .shot{aspect-ratio:4/3}
 @media(max-width:760px){.pair{grid-template-columns:1fr}}
+
+/* ---------- ЗНАК И ПАЛИТРА ----------
+   Плашки показывают фирменные цвета клиента и намеренно не зависят от
+   темы сайта: в светлой теме чёрная плашка обязана остаться чёрной,
+   иначе это уже не его палитра, а наша. Цвет подписи на плашке считает
+   сборка по светлоте фона */
+.marks{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+  margin-top:clamp(38px,4.5vw,66px)}
+.mark{position:relative;aspect-ratio:4/3;display:flex;
+  align-items:center;justify-content:center;padding:clamp(22px,4vw,54px);
+  box-shadow:inset 0 0 0 1px rgba(128,128,132,.25)}
+.mark img{max-width:76%;max-height:50%;width:auto;height:auto}
+.mark span{position:absolute;left:clamp(14px,1.6vw,22px);bottom:clamp(12px,1.4vw,18px);
+  font-size:12px;letter-spacing:.02em}
+@media(max-width:760px){
+  .marks{grid-template-columns:1fr}
+  .mark{aspect-ratio:16/9}
+}
+
+.pal{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(20px,2.6vw,44px);margin-top:clamp(34px,4vw,58px)}
+.pal-c{height:clamp(70px,8vw,112px);box-shadow:inset 0 0 0 1px rgba(128,128,132,.3)}
+.pal-h{margin-top:16px;font-size:14px;font-weight:500;letter-spacing:.02em;
+  font-variant-numeric:tabular-nums}
+.pal-n{margin-top:2px;font-size:13px;color:var(--muted)}
+.pal-t{margin-top:12px;font-size:14px;line-height:1.6;color:var(--muted)}
+@media(max-width:760px){.pal{grid-template-columns:1fr;gap:26px}}
+
+/* ---------- НОСИТЕЛИ ----------
+   Отдельно от .gallery: та сетка осталась от собранной руками страницы
+   ТИШЬ и приглушает картинки, а здесь фотографии должны быть в цвете.
+   Кадр держит пропорцию, на наведении подъезжает картинка внутри —
+   если двигать сам кадр, поедет вся сетка */
+.frames{display:grid;grid-template-columns:repeat(2,1fr);
+  gap:clamp(14px,1.8vw,28px);margin-top:clamp(38px,4.5vw,66px)}
+.frame{margin:0}
+.frame.full{grid-column:1 / -1}
+.frame-i{overflow:hidden;background:var(--bg-2)}
+.frame img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;
+  transition:transform 1.1s var(--ease)}
+.frame.full img{aspect-ratio:16/9}
+.frame:hover img{transform:scale(1.03)}
+.frame figcaption{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  margin-top:14px;font-size:13px;color:var(--muted)}
+/* «фото» или «макет» — не украшение: рендер не выдаём за напечатанное */
+.frame figcaption i{font-style:normal;font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;opacity:.72;
+  border:1px solid var(--line);border-radius:100px;padding:3px 9px}
+@media(max-width:680px){
+  .frames{grid-template-columns:1fr}
+  .frame img,.frame.full img{aspect-ratio:3/2}
+}
+@media(prefers-reduced-motion:reduce){.frame:hover img{transform:none}}
 
 /* ---------- РЕЗУЛЬТАТ ---------- */
 .res{display:grid;grid-template-columns:repeat(3,1fr);
@@ -703,10 +776,10 @@ footer.site-foot{display:block}
 </header>
 
 <div class="facts" data-n="4">
-  <div class="fact"><span>клиент</span><b>МС22, менеджер соединений, АБП2Б</b></div>
+  <div class="fact"><span>клиент</span><b>МС22, менеджер соединений,&nbsp;АБП2Б</b></div>
   <div class="fact"><span>направление</span><b>Веб · сопровождение</b></div>
   <div class="fact"><span>роль студии</span><b>Структура, дизайн, сборка, развитие</b></div>
-  <div class="fact"><span>особенность</span><b>Сайт для инженеров — аудитория проверяет каждое слово</b></div>
+  <div class="fact"><span>особенность</span><b>Сайт для&nbsp;инженеров&nbsp;— аудитория проверяет каждое&nbsp;слово</b></div>
 </div>
 
 <section id="task">
@@ -716,10 +789,10 @@ footer.site-foot{display:block}
   </div>
 
   <div class="two">
-    <p class="lead rv">Российский аналог PuTTY, MobaXterm и SecureCRT в одном окне. <em>Покупатель здесь — инженер</em>, и маркетинговый текст он закрывает быстрее, чем дочитывает.</p>
+    <p class="lead rv">Российский аналог PuTTY, MobaXterm и&nbsp;SecureCRT в&nbsp;одном окне. <em>Покупатель здесь&nbsp;— инженер</em>, и&nbsp;маркетинговый текст он&nbsp;закрывает быстрее, чем&nbsp;дочитывает.</p>
     <div class="rv">
-      <p class="body">У продукта широкая функциональность: терминал и файловый менеджер, удалённый рабочий стол, базы данных, автоматизация и дюжина утилит — от генерации SSH-ключей до анализа трафика. Всё это нужно показать, не превратив страницу в перечень.</p>
-      <p class="body">Вторая сложность — сравнение. Инженер приходит с вопросом «чем это лучше того, чем я пользуюсь сейчас», и уходит, если ответа нет. Импортозамещение само по себе аргументом не работает.</p>
+      <p class="body">У&nbsp;продукта широкая функциональность: терминал и&nbsp;файловый менеджер, удалённый рабочий стол, базы данных, автоматизация и&nbsp;дюжина утилит&nbsp;— от&nbsp;генерации SSH-ключей до&nbsp;анализа трафика. Всё это нужно показать, не&nbsp;превратив страницу в&nbsp;перечень.</p>
+      <p class="body">Вторая сложность&nbsp;— сравнение. Инженер приходит с&nbsp;вопросом «чем&nbsp;это лучше того, чем&nbsp;я&nbsp;пользуюсь сейчас», и&nbsp;уходит, если&nbsp;ответа нет. Импортозамещение само по&nbsp;себе аргументом не&nbsp;работает.</p>
     </div>
   </div>
 </section>
@@ -732,20 +805,20 @@ footer.site-foot{display:block}
 
   <div class="steps">
     <div class="step rv"><span class="step-n">01</span>
-      <h3>Начали с того, что заменяет пять программ</h3>
-      <p>Первый экран отвечает на главный вопрос инженера: что именно перестанет быть нужным после установки.</p></div>
+      <h3>Начали с&nbsp;того, что&nbsp;заменяет пять программ</h3>
+      <p>Первый экран отвечает на&nbsp;главный вопрос инженера: что&nbsp;именно перестанет быть нужным после установки.</p></div>
     <div class="step rv"><span class="step-n">02</span>
-      <h3>Развернули утилиты списком, а не общими словами</h3>
-      <p>Скрипты, генерация ключей, DNS, трассировка, скан портов, анализ трафика, HTTP, SNMP, LDAP, калькулятор подсетей, сравнение файлов. Инженер ищет конкретный инструмент — и находит его название.</p></div>
+      <h3>Развернули утилиты списком, а&nbsp;не&nbsp;общими&nbsp;словами</h3>
+      <p>Скрипты, генерация ключей, DNS, трассировка, скан портов, анализ трафика, HTTP, SNMP, LDAP, калькулятор подсетей, сравнение файлов. Инженер ищет конкретный инструмент&nbsp;— и&nbsp;находит его название.</p></div>
     <div class="step rv"><span class="step-n">03</span>
       <h3>Сделали честную таблицу сравнения</h3>
-      <p>Сопоставление с зарубежными аналогами по функциям, а не по стране происхождения.</p></div>
+      <p>Сопоставление с&nbsp;зарубежными аналогами по&nbsp;функциям, а&nbsp;не&nbsp;по&nbsp;стране происхождения.</p></div>
     <div class="step rv"><span class="step-n">04</span>
       <h3>Отдельно объяснили безопасность</h3>
-      <p>Мастер-пароль, шифрование учётных данных, локальное хранение, политика нулевого разглашения — блоком, а не сноской.</p></div>
+      <p>Мастер-пароль, шифрование учётных данных, локальное хранение, политика нулевого разглашения&nbsp;— блоком, а&nbsp;не&nbsp;сноской.</p></div>
     <div class="step rv"><span class="step-n">05</span>
-      <h3>Ведём сайт вместе с продуктом</h3>
-      <p>Новые утилиты и версии добавляются в существующую структуру.</p></div>
+      <h3>Ведём сайт вместе с&nbsp;продуктом</h3>
+      <p>Новые утилиты и&nbsp;версии добавляются в&nbsp;существующую структуру.</p></div>
   </div>
 </section>
 
@@ -756,9 +829,9 @@ footer.site-foot{display:block}
   </div>
 
   <div class="outcome rv">
-    <div><span>01</span><div>Первый экран отвечает на вопрос «что это заменит», а не «кто мы такие».</div></div>
-    <div><span>02</span><div>Двенадцать утилит показаны поимённо — инженер ищет по названию.</div></div>
-    <div><span>03</span><div>Сравнение с аналогами построено на функциях, а не на импортозамещении.</div></div>
+    <div><span>01</span><div>Первый экран отвечает на&nbsp;вопрос «что&nbsp;это заменит», а&nbsp;не&nbsp;«кто мы&nbsp;такие».</div></div>
+    <div><span>02</span><div>Двенадцать утилит показаны поимённо&nbsp;— инженер ищет по&nbsp;названию.</div></div>
+    <div><span>03</span><div>Сравнение с&nbsp;аналогами построено на&nbsp;функциях, а&nbsp;не&nbsp;на&nbsp;импортозамещении.</div></div>
   </div>
 </section>
 
@@ -768,7 +841,7 @@ footer.site-foot{display:block}
 </a>
 
 <a class="next" href="ohmy-case-odinhub.html">
-  <img src="img/lib/cover-slide-6630.jpg" alt="">
+  <img src="img/lib/cover-slide-6630.jpg" alt="" loading="lazy">
   <div class="next-in">
     <span class="mono">следующий проект</span>
     <h2>ОдинХаб <span class="next-arrow">↗</span></h2>
