@@ -472,6 +472,7 @@ footer.site-foot{display:block}
 
 
 
+
 <!-- motion:begin. Переходы между страницами и инерционная прокрутка.
      Блок общий для всех страниц, правится скриптом motion.py -->
 <style>
@@ -598,10 +599,14 @@ footer.site-foot{display:block}
     if(!el || el.nodeType !== 1) return false;
     for(; el && el !== document.body && el !== root; el = el.parentElement){
       if(el.scrollHeight <= el.clientHeight + 1) continue;
-      var ov = getComputedStyle(el).overflowY;
-      if(ov !== 'auto' && ov !== 'scroll') continue;
+      var st = getComputedStyle(el);
+      if(st.overflowY !== 'auto' && st.overflowY !== 'scroll') continue;
       if(dy < 0 ? el.scrollTop > 0 : el.scrollTop < el.scrollHeight - el.clientHeight - 1)
         return true;
+      // Блок домотан до края. Если он объявил overscroll-behavior:contain,
+      // прокрутка дальше не уходит — так задумано, и мы тоже не идём
+      var ob = st.overscrollBehaviorY;
+      if(ob === 'contain' || ob === 'none') return true;
     }
     return false;
   }
