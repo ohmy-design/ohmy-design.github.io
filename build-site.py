@@ -43,6 +43,8 @@ ROUTES = {
  'ohmy-brand.html':      'brand/index.html',
  'ohmy-care.html':       'care/index.html',
  'ohmy-projects.html':   'projects/index.html',
+ 'ohmy-tools.html':      'tools/index.html',
+ 'ohmy-tool-palette.html': 'tools/palette/index.html',
  'ohmy-studio.html':     'studio/index.html',
  'ohmy-journal.html':    'journal/index.html',
  'ohmy-article.html':    'journal/swiss-grid/index.html',

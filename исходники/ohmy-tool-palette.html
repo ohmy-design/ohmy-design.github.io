@@ -21,8 +21,8 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IEAE — сайт международной выставки потребительской электроники</title>
-<meta name="description" content="Сайт международной выставки потребительской электроники и умной бытовой техники IEAE. Кейс студии ohmy.design.">
+<title>Генератор палитр с проверкой контраста — ohmy.design</title>
+<meta name="description" content="Бесплатный генератор цветовых палитр: 7 схем, проверка контраста по WCAG 2.1, предпросмотр на интерфейсе и выгрузка в CSS, SCSS или JSON. Без регистрации.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -32,8 +32,7 @@
   --ink:#F2F0EC; --muted:#84848E;
   --line:rgba(242,240,236,.11); --line-strong:rgba(242,240,236,.30);
   --accent:#FF4A1C;
-  --img-b:.78; --img-b-hover:.92;
-  --logo-filter:brightness(0) invert(1);
+  --img-b:.72; --img-b-hover:.95;
   --blend:difference;
 }
 [data-theme="light"]{
@@ -41,8 +40,7 @@
   --ink:#141418; --muted:#71717A;
   --line:rgba(20,20,24,.12); --line-strong:rgba(20,20,24,.28);
   --accent:#E5350B;
-  --img-b:.98; --img-b-hover:1.04;
-  --logo-filter:brightness(0);
+  --img-b:.96; --img-b-hover:1.03;
   --blend:normal;
 }
 :root{--pad:clamp(20px,4vw,64px);--ease:cubic-bezier(.16,1,.3,1)}
@@ -55,10 +53,6 @@ body{background:var(--bg);color:var(--ink);
 ::selection{background:var(--accent);color:var(--bg)}
 a{color:inherit;text-decoration:none}
 .mono{font-weight:400;font-size:13px;letter-spacing:.01em;color:var(--muted)}
-
-/* ---------- прогресс чтения ---------- */
-.progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:60;
-  transition:width .1s linear}
 
 /* ---------- NAV ---------- */
 nav{position:fixed;top:0;left:0;right:0;z-index:50;gap:20px;
@@ -73,9 +67,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:50;gap:20px;
 .nav-links > a:hover,.nav-links > .sub-wrap > a:hover,
 .nav-links a.on{opacity:1}
 .nav-links a{position:relative}
+.nav-links a.on{opacity:1;color:var(--accent)}
 .nav-links a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;
   background:currentColor;transition:width .5s var(--ease)}
-.nav-links a:hover::after{width:100%}
+.nav-links a:hover::after,.nav-links a.on::after{width:100%}
 .nav-right{display:flex;align-items:center;gap:14px}
 .theme{width:52px;height:26px;border-radius:100px;flex-shrink:0;
   border:1px solid var(--line-strong);background:transparent;position:relative;
@@ -167,143 +162,23 @@ nav:has(.sub-wrap:hover),nav:has(.sub-wrap:focus-within){
 /* nav:end */
 
 
-/* ---------- ОБЛОЖКА ---------- */
-.cover{position:relative;height:92vh;min-height:520px;overflow:hidden;
-  display:flex;align-items:flex-end}
-.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  filter:brightness(var(--img-b));transform:scale(1.06)}
-.cover::after{content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,transparent 35%,rgba(0,0,0,.82) 100%)}
-.cover-in{position:relative;z-index:2;padding:0 var(--pad) clamp(36px,5vw,68px);
-  width:100%;color:#F2F0EC}
-.crumb{display:inline-flex;align-items:center;gap:10px;font-size:13px;
-  opacity:.7;margin-bottom:clamp(20px,3vw,36px);transition:.4s var(--ease)}
-.crumb:hover{opacity:1;gap:16px}
-.cover h1{font-size:clamp(42px,8vw,124px);font-weight:200;
-  letter-spacing:-.05em;line-height:.9}
-.cover-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
-.tag{border:1px solid rgba(242,240,236,.34);border-radius:100px;
-  padding:7px 16px;font-size:13px}
-.tag.on{background:var(--accent);border-color:var(--accent);color:#fff}
+/* ---------- ШАПКА ---------- */
+.head{padding:clamp(130px,15vw,200px) var(--pad) 0}
+.head h1{font-size:clamp(46px,10vw,150px);font-weight:200;
+  letter-spacing:-.055em;line-height:.88}
+.head-sub{display:flex;justify-content:space-between;align-items:flex-end;
+  gap:24px;margin-top:clamp(26px,3vw,44px);flex-wrap:wrap}
+.head-sub p{max-width:46ch;font-size:clamp(15px,1.5vw,19px);
+  color:var(--muted);line-height:1.6}
 
-/* ---------- ПАСПОРТ ---------- */
-.facts{display:grid;grid-template-columns:repeat(5,1fr);
-  border-bottom:1px solid var(--line);padding:0 var(--pad)}
-.fact{padding:clamp(28px,3vw,44px) clamp(18px,2vw,32px) clamp(28px,3vw,44px) 0;
-  border-right:1px solid var(--line)}
-.fact:first-child{padding-left:0}
-.fact:last-child{border-right:0;padding-right:0}
-.fact span{display:block;font-size:13px;color:var(--muted);margin-bottom:12px}
-.fact b{font-size:clamp(15px,1.5vw,19px);font-weight:400;letter-spacing:-.015em;line-height:1.35}
-@media(max-width:900px){
-  .facts{grid-template-columns:1fr 1fr}
-  .fact{border-right:0;border-bottom:1px solid var(--line);padding-right:0}
-  .fact:nth-child(odd){padding-left:0}
-  .fact:last-child{border-bottom:0}
-}
-
-/* ---------- БЛОКИ ---------- */
-section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
+section{position:relative;background:var(--bg);
+  padding:clamp(80px,11vw,180px) var(--pad);transition:background .7s var(--ease)}
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
-  padding-bottom:30px;border-bottom:1px solid var(--line)}
+  padding-bottom:30px;border-bottom:1px solid var(--line);margin-bottom:10px}
 .sec-head > div{display:flex;flex-direction:column;gap:12px}
-.sec-idx{font-size:13px;color:var(--accent)}
-.sec-title{font-size:clamp(30px,4.2vw,62px);font-weight:200;
+.sec-idx{font-size:13px;color:var(--accent);letter-spacing:.02em}
+.sec-title{font-size:clamp(32px,4.6vw,68px);font-weight:200;
   letter-spacing:-.045em;line-height:.94}
-
-.two{display:grid;grid-template-columns:1.3fr .9fr;gap:clamp(30px,7vw,110px);
-  align-items:start;margin-top:clamp(40px,5vw,72px)}
-.lead{font-size:clamp(20px,2.4vw,34px);font-weight:200;line-height:1.27;letter-spacing:-.03em}
-.lead em{font-style:normal;color:var(--accent)}
-.body{font-size:15px;color:var(--muted);line-height:1.7;max-width:54ch}
-.body + .body{margin-top:20px}
-@media(max-width:900px){.two{grid-template-columns:1fr}}
-
-.pains{border-top:1px solid var(--line)}
-.pain{display:grid;grid-template-columns:32px 1fr;gap:18px;
-  padding:20px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.5}
-.pain span{color:var(--accent);font-size:13px;padding-top:3px}
-
-/* ---------- ЭТАПЫ ---------- */
-.steps{margin-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
-.step{display:grid;grid-template-columns:80px 1fr 1.4fr;gap:clamp(20px,3vw,48px);
-  padding:clamp(26px,3vw,42px) 0;border-bottom:1px solid var(--line);
-  align-items:start;transition:padding-left .5s var(--ease)}
-.step:hover{padding-left:14px}
-.step-n{font-size:13px;color:var(--accent);padding-top:6px}
-.step h3{font-size:clamp(19px,2vw,27px);font-weight:300;letter-spacing:-.025em;line-height:1.2}
-.step p{font-size:15px;color:var(--muted);line-height:1.65}
-@media(max-width:820px){.step{grid-template-columns:44px 1fr;gap:12px 16px}
-  .step p{grid-column:2}}
-
-/* ---------- ГАЛЕРЕЯ ---------- */
-.gallery{padding:0 var(--pad) clamp(70px,9vw,150px);
-  display:grid;gap:clamp(10px,1.4vw,22px)}
-.shot{overflow:hidden;border-radius:4px;background:var(--bg-2);position:relative}
-.shot img{width:100%;height:100%;object-fit:cover;display:block;
-  filter:brightness(var(--img-b));transition:transform 1.2s var(--ease),filter .8s var(--ease)}
-.shot:hover img{transform:scale(1.04);filter:brightness(var(--img-b-hover))}
-.shot-cap{padding:14px 2px 0;font-size:13px;color:var(--muted)}
-.wide{aspect-ratio:16/9}
-.pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.4vw,22px)}
-.pair .shot{aspect-ratio:4/3}
-@media(max-width:760px){.pair{grid-template-columns:1fr}}
-
-/* ---------- РЕЗУЛЬТАТ ---------- */
-.res{display:grid;grid-template-columns:repeat(3,1fr);
-  border-top:1px solid var(--line);margin-top:clamp(40px,5vw,72px)}
-.res-i{padding:34px clamp(22px,2.6vw,40px) 0;border-right:1px solid var(--line)}
-.res-i:first-child{padding-left:0}
-.res-i:last-child{border-right:0;padding-right:0}
-.res-i b{display:block;font-size:clamp(38px,5.4vw,80px);font-weight:200;
-  letter-spacing:-.055em;line-height:.88;color:var(--accent)}
-.res-i span{display:block;margin-top:16px;font-size:14px;color:var(--muted);max-width:24ch;line-height:1.5}
-@media(max-width:820px){
-  .res{grid-template-columns:1fr}
-  .res-i{border-right:0;border-bottom:1px solid var(--line);padding:28px 0}
-  .res-i:last-child{border-bottom:0}
-}
-
-/* ---------- ОТЗЫВ ---------- */
-.quote{background:var(--bg-2);transition:background .7s var(--ease)}
-.quote blockquote{font-size:clamp(21px,2.6vw,38px);font-weight:200;
-  line-height:1.3;letter-spacing:-.03em;max-width:22ch;max-width:min(100%,26ch)}
-.quote .q-wrap{display:grid;grid-template-columns:1.5fr .8fr;gap:clamp(30px,6vw,90px);align-items:end}
-.q-author{display:flex;gap:16px;align-items:center}
-.q-author img{width:52px;height:52px;border-radius:50%;object-fit:cover;filter:grayscale(1)}
-.q-author b{display:block;font-size:16px;font-weight:400}
-.q-author span{font-size:13px;color:var(--muted);line-height:1.4}
-@media(max-width:900px){.quote .q-wrap{grid-template-columns:1fr}
-  .quote blockquote{max-width:none}}
-
-/* ---------- СЛЕДУЮЩИЙ ---------- */
-.next{position:relative;overflow:hidden;display:block;
-  padding:clamp(60px,8vw,130px) var(--pad);border-top:1px solid var(--line)}
-.next img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  filter:brightness(.34) saturate(.85);transform:scale(1.05);
-  transition:transform 1.4s var(--ease),filter 1s var(--ease);z-index:0}
-.next:hover img{transform:scale(1.12);filter:brightness(.5) saturate(1)}
-.next-in{position:relative;z-index:2;color:#F2F0EC}
-.next-in .mono{color:rgba(242,240,236,.6)}
-.next-in h2{font-size:clamp(34px,6vw,92px);font-weight:200;
-  letter-spacing:-.05em;line-height:.95;margin-top:14px;
-  display:flex;align-items:center;gap:24px;flex-wrap:wrap}
-.next-arrow{transition:transform .7s var(--ease);display:inline-block}
-.next:hover .next-arrow{transform:translate(14px,-14px)}
-
-/* ---------- CTA + FOOTER ---------- */
-.cta{text-align:center;padding-block:clamp(90px,12vw,170px)}
-.cta-big{font-size:clamp(34px,7.4vw,116px);font-weight:200;letter-spacing:-.05em;line-height:.92}
-.cta-big a{transition:.6s var(--ease);display:inline-block}
-.cta-big a:hover{color:var(--accent);transform:scale(.985)}
-.cta-sub{margin-top:26px;color:var(--muted);font-size:15px}
-footer{padding:40px var(--pad);border-top:1px solid var(--line);
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
-
-.rv{opacity:0;transform:translateY(24px);
-  transition:opacity 1s var(--ease),transform 1s var(--ease)}
-.rv.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
 
 /* ---------- ОБЩИЙ ПОДВАЛ ----------
    Один блок на всех страницах: навигация, прямая связь, реквизиты.
@@ -396,45 +271,6 @@ footer.site-foot{display:block}
 .foot-bottom a{transition:color .35s var(--ease)}
 .foot-bottom a:hover{color:var(--accent)}
 
-/* case-extra:begin. Правила только для собранных генератором страниц проектов */
-
-/* Паспорт проекта бывает разной длины: жёсткие пять колонок оставляли дыры */
-.facts[data-n="3"]{grid-template-columns:repeat(3,1fr)}
-.facts[data-n="4"]{grid-template-columns:repeat(4,1fr)}
-@media(max-width:900px){
-  .facts[data-n="3"],.facts[data-n="4"]{grid-template-columns:1fr 1fr}
-}
-
-/* Ссылка на работающий сайт. Раньше карточка каталога уводила на сторонний
-   адрес — теперь путь всегда через страницу проекта, а сам сайт открывается
-   отсюда, явной строкой */
-.live{margin:0 var(--pad) clamp(70px,9vw,150px);
-  border:1px solid var(--line);display:flex;align-items:center;
-  justify-content:space-between;gap:20px;flex-wrap:wrap;
-  padding:clamp(26px,3vw,40px) clamp(24px,3vw,44px);
-  transition:border-color .45s var(--ease),background .45s var(--ease)}
-.live:hover{border-color:var(--line-strong);background:var(--bg-2)}
-.live-l span{display:block;font-size:13px;color:var(--muted);margin-bottom:9px}
-.live-l b{font-size:clamp(19px,2.4vw,32px);font-weight:200;letter-spacing:-.035em;
-  overflow-wrap:anywhere}
-.live-a{font-size:clamp(22px,3vw,38px);color:var(--muted);
-  transition:transform .6s var(--ease),color .45s var(--ease)}
-.live:hover .live-a{transform:translate(8px,-8px);color:var(--accent)}
-/* Проект без публичного адреса: та же строка, но без ссылки и стрелки */
-.live.off{cursor:default}
-.live.off:hover{border-color:var(--line);background:transparent}
-.live.off .live-l b{color:var(--muted);font-size:clamp(15px,1.6vw,19px);
-  font-weight:300;letter-spacing:-.01em;max-width:52ch;line-height:1.5}
-
-/* Итог словами, когда считать нечего: цифры выдумывать нельзя */
-.outcome{margin-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
-/* Селектор обязан быть прямым потомком: без «>» правило сетки попадало
-   и на вложенный div с текстом, и строка ломалась по одному слову */
-.outcome > div{display:grid;grid-template-columns:32px 1fr;gap:18px;
-  padding:20px 0;border-bottom:1px solid var(--line);font-size:15px;line-height:1.55}
-.outcome > div > span{color:var(--accent);font-size:13px;padding-top:3px}
-/* case-extra:end */
-
 
 /* cta-head:begin */
 /* Блок связи закрывает страницу и до сих пор открывался одной мелкой
@@ -445,30 +281,122 @@ footer.site-foot{display:block}
 .cta{text-align:left}
 .cta .sec-head{margin-bottom:clamp(30px,3.4vw,46px)}
 /* cta-head:end */
-</style>
-<!-- seo:start -->
-<link rel="canonical" href="https://ohmy.design/projects/ieae">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="ohmy.design">
-<meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="IEAE — сайт международной выставки потребительской электроники">
-<meta property="og:description" content="Сайт международной выставки потребительской электроники и умной бытовой техники IEAE. Кейс студии ohmy.design.">
-<meta property="og:url" content="https://ohmy.design/projects/ieae">
-<meta property="og:image" content="https://ohmy.design/og/projects-ieae.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="IEAE — сайт международной выставки потребительской электроники">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="IEAE — сайт международной выставки потребительской электроники">
-<meta name="twitter:description" content="Сайт международной выставки потребительской электроники и умной бытовой техники IEAE. Кейс студии ohmy.design.">
-<meta name="twitter:image" content="https://ohmy.design/og/projects-ieae.png">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#131317">
-<!-- seo:end -->
-</head>
-<body>
 
-<div class="progress" id="prog"></div>
+/* palette:begin. Генератор палитр — весь расчёт в браузере, ничего не уходит */
+.pg{padding:clamp(40px,5vw,70px) var(--pad) 0}
+
+/* панель управления */
+.pg-bar{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,1.4vw,20px);
+  padding-bottom:clamp(22px,2.6vw,34px);border-bottom:1px solid var(--line)}
+.pg-base{display:flex;align-items:center;gap:12px;border:1px solid var(--line);
+  padding:8px 8px 8px 14px;transition:border-color .4s var(--ease)}
+.pg-base:focus-within{border-color:var(--line-strong)}
+.pg-base label{font-size:12.5px;color:var(--muted)}
+.pg-base input[type=text]{width:8ch;background:none;border:0;color:inherit;
+  font:inherit;font-size:15px;letter-spacing:.02em;text-transform:uppercase;
+  outline:none;padding:0}
+.pg-chip-color{width:34px;height:34px;border:1px solid var(--line-strong);
+  padding:0;cursor:pointer;background:none;overflow:hidden;position:relative}
+.pg-chip-color input{position:absolute;inset:-6px;width:150%;height:150%;
+  border:0;padding:0;cursor:pointer;opacity:0}
+.pg-chip-color i{position:absolute;inset:0;display:block}
+
+/* Семь схем занимают больше строки, чем остаётся после поля цвета,
+   и кнопка «новый цвет» уезжала вниз в одиночестве. Отдаём схемам
+   свою строку целиком — порядок предсказуем на любой ширине */
+.pg-schemes{display:flex;flex-wrap:wrap;gap:7px;flex-basis:100%;order:2}
+.pg-schemes button{font-size:13px;color:var(--muted);background:none;
+  border:1px solid var(--line);border-radius:100px;padding:8px 15px;
+  cursor:pointer;font-family:inherit;
+  transition:.4s var(--ease)}
+.pg-schemes button:hover{border-color:var(--line-strong);color:var(--ink)}
+.pg-schemes button[aria-pressed=true]{background:var(--ink);color:var(--bg);
+  border-color:var(--ink)}
+.pg-roll{margin-left:auto;font-size:13.5px;font-family:inherit;color:inherit;
+  background:none;border:1px solid var(--line-strong);border-radius:100px;
+  padding:10px 20px;cursor:pointer;transition:.5s var(--ease)}
+.pg-roll:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pg-roll em{font-style:normal;color:var(--muted);margin-left:8px;font-size:12px}
+.pg-roll:hover em{color:inherit;opacity:.6}
+
+/* полосы палитры */
+.pg-sw{display:grid;grid-template-columns:repeat(5,1fr);
+  margin-top:clamp(22px,2.6vw,34px)}
+.pg-sw button{position:relative;border:0;padding:0;cursor:pointer;
+  font-family:inherit;text-align:left;
+  height:clamp(180px,26vw,340px);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  gap:6px;padding:clamp(16px,1.8vw,24px);
+  transition:flex .6s var(--ease)}
+.pg-sw button b{font-size:clamp(14px,1.5vw,19px);font-weight:400;
+  letter-spacing:.03em}
+.pg-sw button span{font-size:12px;opacity:.72}
+.pg-sw button::after{content:'копировать';position:absolute;
+  left:clamp(16px,1.8vw,24px);top:clamp(16px,1.8vw,24px);
+  font-size:12px;opacity:0;transition:opacity .4s var(--ease)}
+.pg-sw button:hover::after{opacity:.66}
+.pg-sw button.done::after{content:'скопировано';opacity:1}
+@media(max-width:700px){
+  .pg-sw{grid-template-columns:1fr 1fr}
+  .pg-sw button{height:130px}
+  .pg-sw button:last-child{grid-column:1 / -1;height:100px}
+}
+
+/* две колонки: контраст и предпросмотр */
+.pg-cols{display:grid;grid-template-columns:1.1fr .9fr;
+  gap:clamp(24px,3vw,52px);margin-top:clamp(40px,4.6vw,72px)}
+@media(max-width:900px){.pg-cols{grid-template-columns:1fr}}
+.pg-h{font-size:13px;color:var(--muted);margin-bottom:16px;display:block}
+
+.pg-ct{width:100%;border-collapse:collapse;font-size:14px}
+.pg-ct th{font-weight:400;font-size:12.5px;color:var(--muted);text-align:right;
+  padding:0 0 12px;border-bottom:1px solid var(--line)}
+.pg-ct th:first-child{text-align:left}
+.pg-ct td{padding:13px 0;border-bottom:1px solid var(--line);text-align:right;
+  font-variant-numeric:tabular-nums}
+.pg-ct td:first-child{text-align:left;display:flex;align-items:center;gap:11px}
+.pg-ct i{width:19px;height:19px;flex-shrink:0;border:1px solid var(--line)}
+.pg-ct em{font-style:normal;font-size:11.5px;padding:3px 8px;border-radius:100px;
+  border:1px solid var(--line);color:var(--muted);margin-left:8px}
+.pg-ct em.ok{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+
+/* предпросмотр: палитра, надетая на кусок интерфейса */
+.pg-pv{border:1px solid var(--line);overflow:hidden}
+.pg-pv-in{padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;
+  gap:16px;min-height:260px}
+.pg-pv-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.pg-pv-dot{width:26px;height:26px;border-radius:50%}
+.pg-pv h4{font-size:22px;font-weight:300;letter-spacing:-.03em}
+.pg-pv p{font-size:13.5px;line-height:1.6}
+.pg-pv-btn{align-self:flex-start;font-size:13px;padding:10px 20px;
+  border-radius:100px;margin-top:auto}
+.pg-pv-bar{height:8px;display:flex;gap:4px}
+.pg-pv-bar i{flex:1}
+
+/* выгрузка */
+.pg-ex{margin-top:clamp(40px,4.6vw,72px)}
+.pg-ex-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.pg-ex-tabs button{font-size:13px;color:var(--muted);background:none;
+  border:1px solid var(--line);border-radius:100px;padding:7px 15px;
+  cursor:pointer;font-family:inherit;transition:.4s var(--ease)}
+.pg-ex-tabs button[aria-pressed=true]{color:var(--ink);border-color:var(--line-strong)}
+.pg-code{position:relative;border:1px solid var(--line);background:var(--bg-2);
+  transition:background .7s var(--ease)}
+.pg-code pre{margin:0;padding:clamp(20px,2.2vw,30px);overflow-x:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:13px;line-height:1.75;color:var(--ink)}
+.pg-copy{position:absolute;right:12px;top:12px;font-size:12.5px;
+  font-family:inherit;color:var(--muted);background:var(--bg);
+  border:1px solid var(--line);border-radius:100px;padding:7px 15px;
+  cursor:pointer;transition:.4s var(--ease)}
+.pg-copy:hover{color:var(--ink);border-color:var(--line-strong)}
+
+.pg-note{margin-top:clamp(26px,3vw,40px);font-size:14px;color:var(--muted);
+  line-height:1.65;max-width:72ch}
+.pg-note a{color:var(--accent);border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+/* palette:end */
+</style>
+<body>
 
 <nav>
   <a class="logo" href="ohmy-site.html">ohmy.design</a>
@@ -486,7 +414,7 @@ footer.site-foot{display:block}
     <a href="ohmy-projects.html">проекты</a>
     <a href="ohmy-studio.html">студия</a>
     <a href="ohmy-journal.html">журнал</a>
-    <a href="ohmy-tools.html">сервисы</a>
+    <a href="ohmy-tools.html" class="on">сервисы</a>
     <a href="ohmy-contacts.html">контакты</a>
   </div>
   <div class="nav-right">
@@ -499,98 +427,75 @@ footer.site-foot{display:block}
 </nav>
 <div class="menu" id="menu"></div>
 
-<header class="cover">
-  <img src="img/lib/57091778-3838.jpg" alt="IEAE">
-  <div class="cover-in">
-    <a class="crumb" href="ohmy-projects.html">← все проекты</a>
-    <h1>IEAE</h1>
-    <div class="cover-tags">
-      <span class="tag on">сайт</span>
-      <span class="tag">2024</span>
-    </div>
+<header class="head">
+  <h1>генератор палитр</h1>
+  <div class="head-sub">
+    <p>Один цвет на входе — схема на выходе, сразу проверенная на контраст.
+      Режим «под интерфейс» собирает не гармонию, а рабочий набор токенов:
+      фон, поверхность, приглушённый, текст и акцент.</p>
+    <span class="mono">пробел — новый цвет</span>
   </div>
 </header>
 
-<div class="facts" data-n="5">
-  <div class="fact"><span>клиент</span><b>IEAE, международная выставка потребительской электроники</b></div>
-  <div class="fact"><span>направление</span><b>Веб</b></div>
-  <div class="fact"><span>роль студии</span><b>Структура, дизайн, сборка</b></div>
-  <div class="fact"><span>особенность</span><b>Две аудитории: экспоненты и посетители</b></div>
-  <div class="fact"><span>язык</span><b>Русский и английский</b></div>
-</div>
+<div class="pg">
+  <div class="pg-bar">
+    <span class="pg-base">
+      <label for="pgHex">базовый цвет</label>
+      <span aria-hidden="true">#</span>
+      <input id="pgHex" type="text" value="FF4A1C" spellcheck="false"
+             inputmode="text" aria-label="базовый цвет в hex">
+      <span class="pg-chip-color">
+        <i id="pgDot"></i>
+        <input id="pgPick" type="color" value="#FF4A1C" aria-label="выбрать цвет">
+      </span>
+    </span>
 
-<section id="task">
-  <div class="sec-head rv">
-    <div><span class="sec-idx">01 — контекст</span><h2 class="sec-title">задача</h2></div>
-    <span class="mono">события и форумы</span>
+    <div class="pg-schemes" role="group" aria-label="схема палитры"><button type="button" data-s="mono" aria-pressed="false">монохром</button><button type="button" data-s="analog" aria-pressed="false">аналоговая</button><button type="button" data-s="comp" aria-pressed="false">комплементарная</button><button type="button" data-s="split" aria-pressed="false">раздельная</button><button type="button" data-s="triad" aria-pressed="false">триада</button><button type="button" data-s="tetra" aria-pressed="false">тетрада</button><button type="button" data-s="ui" aria-pressed="false">под интерфейс</button></div>
+
+    <button class="pg-roll" id="pgRoll" type="button">новый цвет <em>пробел</em></button>
   </div>
 
-  <div class="two">
-    <p class="lead rv">Выставка живёт годовым циклом: анонс, регистрация, дни работы, пост-релиз. <em>Сайт должен отработать все четыре состояния</em> — и не устареть на следующий день после закрытия.</p>
-    <div class="rv">
-      <p class="body">У выставки две аудитории с противоположными задачами. Экспонент решает, платить ли за стенд, и смотрит на аудиторию, разделы и цифры прошлого года. Посетитель решает, стоит ли ехать, и смотрит на участников и программу.</p>
-      <p class="body">Плюс восемнадцать тематических разделов — от мобильных аксессуаров до умного дома и кухонной техники. Их нужно показать так, чтобы производитель нашёл свой, а посетитель не утонул.</p>
+  <div class="pg-sw" id="pgSw"></div>
+
+  <div class="pg-cols">
+    <div>
+      <span class="pg-h">контраст по WCAG 2.1 — отношение и уровень для обычного текста</span>
+      <table class="pg-ct"><tbody id="pgCt"></tbody></table>
+    </div>
+    <div>
+      <span class="pg-h">как палитра ложится на интерфейс</span>
+      <div class="pg-pv" id="pgPv"></div>
     </div>
   </div>
-</section>
 
-<section id="work">
-  <div class="sec-head rv">
-    <div><span class="sec-idx">02 — работа</span><h2 class="sec-title">что сделали</h2></div>
-    <span class="mono">5 решений</span>
+  <div class="pg-ex">
+    <span class="pg-h">забрать в проект</span>
+    <div class="pg-ex-tabs" role="group" aria-label="формат выгрузки">
+      <button type="button" data-f="css" aria-pressed="true">CSS</button>
+      <button type="button" data-f="scss" aria-pressed="false">SCSS</button>
+      <button type="button" data-f="json" aria-pressed="false">JSON</button>
+      <button type="button" data-f="list" aria-pressed="false">списком</button>
+    </div>
+    <div class="pg-code">
+      <button class="pg-copy" id="pgCopy" type="button">скопировать</button>
+      <pre id="pgOut"></pre>
+    </div>
   </div>
 
-  <div class="steps">
-    <div class="step rv"><span class="step-n">01</span>
-      <h3>Развели экспонентов и посетителей по разным входам</h3>
-      <p>Два раздела с разной логикой: одному — условия участия, другому — зачем ехать и что смотреть.</p></div>
-    <div class="step rv"><span class="step-n">02</span>
-      <h3>Разложили восемнадцать тематических разделов</h3>
-      <p>От потребительской электроники и автоэлектроники до умной одежды. Производитель находит свою категорию, а не читает список.</p></div>
-    <div class="step rv"><span class="step-n">03</span>
-      <h3>Сохранили прошлые годы вместо того, чтобы стирать</h3>
-      <p>Каталоги участников, фото и видео по годам, пост-релизы. Это главный аргумент для того, кто выбирает стенд на следующий сезон.</p></div>
-    <div class="step rv"><span class="step-n">04</span>
-      <h3>Собрали медиацентр</h3>
-      <p>Публикации в РБК, Retail.ru и на CGTN — внешнее подтверждение масштаба, собранное в одном месте.</p></div>
-    <div class="step rv"><span class="step-n">05</span>
-      <h3>Сделали английскую версию</h3>
-      <p>Выставка международная, значительная часть экспонентов — из Китая.</p></div>
-  </div>
-</section>
-
-<section id="result">
-  <div class="sec-head rv">
-    <div><span class="sec-idx">03 — итог</span><h2 class="sec-title">результат</h2></div>
-    <span class="mono">что можно проверить</span>
-  </div>
-
-  <div class="res rv">
-    <div class="res-i"><b>18</b><span>тематических разделов вместо общего перечня</span></div>
-    <div class="res-i"><b>2</b><span>контура сайта: экспонентам и посетителям</span></div>
-    <div class="res-i"><b>2</b><span>языка — выставка международная</span></div>
-  </div>
-</section>
-
-<a class="live rv" href="http://ieae.com.ru" target="_blank" rel="noopener">
-  <div class="live-l"><span>смотреть работу</span><b>ieae.com.ru</b></div>
-  <span class="live-a">↗</span>
-</a>
-
-<a class="next" href="ohmy-case-azimutcom.html">
-  <img src="img/lib/89399457-3435.jpg" alt="">
-  <div class="next-in">
-    <span class="mono">следующий проект</span>
-    <h2>АзимутКом <span class="next-arrow">↗</span></h2>
-  </div>
-</a>
+  <p class="pg-note">Уровень AA требует отношения 4.5:1 для обычного текста
+    и 3:1 для крупного — от 18 pt или от 14 pt полужирного. AAA — 7:1.
+    Проверка идёт по <a href="https://www.w3.org/TR/WCAG21/#contrast-minimum"
+    target="_blank" rel="noopener">WCAG 2.1</a>. Расчёт целиком в браузере:
+    цвет никуда не отправляется, ссылкой на палитру можно делиться —
+    она вся лежит в адресе страницы.</p>
+</div>
 
 <section class="cta" id="cta">
   <div class="sec-head rv">
-    <div><span class="sec-idx">04 — связь</span><h2 class="sec-title">будем на связи</h2></div>
-    <span class="mono">похожая задача?</span>
+    <div><span class="sec-idx">связь</span><h2 class="sec-title">будем на связи</h2></div>
+    <span class="mono">расскажите о задаче</span>
   </div>
-  <div class="cta-contacts rv">
+  <div class="cta-contacts">
     <a class="fc" href="tel:+79317099307">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.5.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.57 3.5a1 1 0 0 1-.25 1l-2.22 2.3z"/></svg>
       <span class="fc-txt"><span>телефон</span><b>+7 931 709 9307</b></span></a>
@@ -648,46 +553,250 @@ footer.site-foot{display:block}
 </footer>
 
 <script>
-/* тема */
+/* ---------- тема ---------- */
 (function(){
   const root=document.documentElement;
   document.getElementById('themeBtn').addEventListener('click',()=>{
     root.dataset.theme = root.dataset.theme==='light' ? 'dark' : 'light';
   });
 })();
-
-/* появление блоков */
-(function(){
-  const io=new IntersectionObserver(es=>{
-    es.forEach((e,i)=>{ if(e.isIntersecting){
-      setTimeout(()=>e.target.classList.add('in'),(i%6)*70);
-      io.unobserve(e.target);} });
-  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
-})();
-
-/* прогресс чтения */
-(function(){
-  const bar=document.getElementById('prog');
-  function upd(){
-    const h=document.documentElement.scrollHeight-innerHeight;
-    bar.style.width = (h>0 ? (scrollY/h)*100 : 0)+'%';
-  }
-  addEventListener('scroll',upd,{passive:true});
-  addEventListener('resize',upd); upd();
-})();
-
-/* лёгкий параллакс обложки */
-(function(){
-  const img=document.querySelector('.cover img');
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  addEventListener('scroll',()=>{
-    if(scrollY>innerHeight) return;
-    img.style.transform=`scale(1.06) translateY(${scrollY*0.16}px)`;
-  },{passive:true});
-})();
 </script>
 
+
+<script>
+/* ============================================================
+   Генератор палитр. Весь расчёт в браузере: цвет никуда не уходит,
+   страница работает и без сети.
+   ============================================================ */
+(function(){
+  const $ = s => document.querySelector(s);
+
+  /* ---------- цвет: перевод и контраст ---------- */
+  const hex2rgb = h => {
+    h = h.replace('#','');
+    if(h.length === 3) h = h.split('').map(c => c + c).join('');
+    const n = parseInt(h, 16);
+    return [n >> 16 & 255, n >> 8 & 255, n & 255];
+  };
+  const rgb2hex = ([r,g,b]) =>
+    '#' + [r,g,b].map(v => Math.round(v).toString(16).padStart(2,'0')).join('').toUpperCase();
+
+  function rgb2hsl([r,g,b]){
+    r/=255; g/=255; b/=255;
+    const mx = Math.max(r,g,b), mn = Math.min(r,g,b), d = mx - mn;
+    let h = 0;
+    if(d){
+      if(mx === r)      h = ((g - b) / d + (g < b ? 6 : 0));
+      else if(mx === g) h = ((b - r) / d + 2);
+      else              h = ((r - g) / d + 4);
+      h *= 60;
+    }
+    const l = (mx + mn) / 2;
+    const s = d ? d / (1 - Math.abs(2 * l - 1)) : 0;
+    return [h, s * 100, l * 100];
+  }
+
+  function hsl2rgb([h,s,l]){
+    h = ((h % 360) + 360) % 360; s /= 100; l /= 100;
+    const c = (1 - Math.abs(2 * l - 1)) * s, x = c * (1 - Math.abs((h / 60) % 2 - 1)),
+          m = l - c / 2;
+    const t = h < 60  ? [c,x,0] : h < 120 ? [x,c,0] : h < 180 ? [0,c,x]
+            : h < 240 ? [0,x,c] : h < 300 ? [x,0,c] : [c,0,x];
+    return t.map(v => (v + m) * 255);
+  }
+
+  // относительная яркость по WCAG 2.1
+  const lum = ([r,g,b]) => {
+    const f = v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); };
+    return .2126 * f(r) + .7152 * f(g) + .0722 * f(b);
+  };
+  const ratio = (a, b) => {
+    const l1 = lum(hex2rgb(a)), l2 = lum(hex2rgb(b));
+    return (Math.max(l1,l2) + .05) / (Math.min(l1,l2) + .05);
+  };
+  // на чём читается сам цвет: белым по нему или почти чёрным
+  const ink = c => ratio(c, '#FFFFFF') >= ratio(c, '#141418') ? '#FFFFFF' : '#141418';
+
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+
+  /* ---------- схемы ---------- */
+  const SCHEMES = {
+    mono:  {n:'монохром',      f:([h,s,l]) => [-34,-17,0,15,29].map(d => [h, clamp(s + d/4, 6, 96), clamp(l + d, 8, 94)])},
+    analog:{n:'аналоговая',    f:([h,s,l]) => [[h-32,s,clamp(l-16,8,94)],[h-16,s,l],[h,s,l],[h+16,s,l],[h+32,s,clamp(l+16,8,94)]]},
+    comp:  {n:'комплементарная',f:([h,s,l]) => [[h,s,clamp(l-18,8,94)],[h,s,l],[h,clamp(s-30,5,96),clamp(l+26,8,94)],[h+180,s,l],[h+180,s,clamp(l-18,8,94)]]},
+    split: {n:'раздельная',    f:([h,s,l]) => [[h,s,l],[h,clamp(s-26,5,96),clamp(l+22,8,94)],[h+150,s,l],[h+210,s,l],[h+180,clamp(s-40,5,96),clamp(l-20,8,94)]]},
+    triad: {n:'триада',        f:([h,s,l]) => [[h,s,l],[h,clamp(s-34,5,96),clamp(l+24,8,94)],[h+120,s,l],[h+240,s,l],[h+120,s,clamp(l-20,8,94)]]},
+    tetra: {n:'тетрада',       f:([h,s,l]) => [[h,s,l],[h+90,s,l],[h+180,s,l],[h+270,s,l],[h,clamp(s-40,5,96),clamp(l+24,8,94)]]},
+    ui:    {n:'под интерфейс', f:([h,s,l]) => {
+             // не гармония, а рабочий набор токенов: фон, поверхность,
+             // приглушённый, текст, акцент — с запасом по контрасту
+             const dark = l < 55;
+             return dark
+               ? [[h, clamp(s*.3,4,22), 9], [h, clamp(s*.3,4,22), 14],
+                  [h, clamp(s*.2,3,16), 55], [h, clamp(s*.1,2,10), 95], [h, clamp(s,45,96), clamp(l,45,62)]]
+               : [[h, clamp(s*.2,3,14), 95], [h, clamp(s*.2,3,14), 90],
+                  [h, clamp(s*.15,3,14), 46], [h, clamp(s*.1,2,10), 10], [h, clamp(s,45,96), clamp(l,36,52)]];
+           }}
+  };
+  const ROLES = {
+    ui: ['фон','поверхность','приглушённый','текст','акцент'],
+    def:['01','02','03','04','05']
+  };
+
+  /* ---------- состояние ---------- */
+  let base = '#FF4A1C', scheme = 'analog', fmt = 'css', colors = [];
+
+  function build(){
+    const hsl = rgb2hsl(hex2rgb(base));
+    colors = SCHEMES[scheme].f(hsl).map(c => rgb2hex(hsl2rgb(c)));
+  }
+
+  /* ---------- отрисовка ---------- */
+  const elSw = $('#pgSw'), elCt = $('#pgCt'), elOut = $('#pgOut'), elPv = $('#pgPv');
+
+  function drawSwatches(){
+    const roles = scheme === 'ui' ? ROLES.ui : ROLES.def;
+    elSw.innerHTML = colors.map((c, i) =>
+      `<button type="button" style="background:${c};color:${ink(c)}" data-c="${c}">
+         <b>${c}</b><span>${roles[i]}</span>
+       </button>`).join('');
+  }
+
+  function badge(r){
+    const lvl = r >= 7 ? 'AAA' : r >= 4.5 ? 'AA' : r >= 3 ? 'AA 18pt' : '—';
+    return `<em class="${r >= 4.5 ? 'ok' : ''}">${lvl}</em>`;
+  }
+  function drawContrast(){
+    const rows = colors.map(c => {
+      const w = ratio(c, '#FFFFFF'), b = ratio(c, '#141418');
+      return `<tr><td><i style="background:${c}"></i>${c}</td>
+        <td>${w.toFixed(2)}${badge(w)}</td>
+        <td>${b.toFixed(2)}${badge(b)}</td></tr>`;
+    }).join('');
+    elCt.innerHTML =
+      `<tr><th>цвет</th><th>на белом</th><th>на тёмном</th></tr>${rows}`;
+  }
+
+  function drawPreview(){
+    // Для набора токенов роли уже расписаны. Для гармоний фоном берём самый
+    // тёмный цвет, акцентом — самый насыщенный, а текст подбираем по контрасту:
+    // ставить в роль текста произвольный цвет схемы значит показывать
+    // заведомо нечитаемый предпросмотр
+    let bg, surf, mut, txt, acc;
+    if(scheme === 'ui'){ [bg, surf, mut, txt, acc] = colors; }
+    else {
+      const byL = [...colors].sort((a,b) => lum(hex2rgb(a)) - lum(hex2rgb(b)));
+      bg   = byL[0];
+      surf = byL[1];
+      txt  = ink(bg);
+      mut  = txt === '#FFFFFF' ? 'rgba(255,255,255,.66)' : 'rgba(20,20,24,.62)';
+      acc  = colors.reduce((best, c) =>
+               rgb2hsl(hex2rgb(c))[1] > rgb2hsl(hex2rgb(best))[1] ? c : best, colors[0]);
+    }
+    elPv.innerHTML =
+      `<div class="pg-pv-in" style="background:${bg};color:${txt}">
+         <div class="pg-pv-top">
+           <span class="pg-pv-dot" style="background:${acc}"></span>
+           <span style="font-size:12px;color:${mut}">предпросмотр</span>
+         </div>
+         <h4>Заголовок карточки</h4>
+         <p style="color:${mut}">Строка пояснения, набранная приглушённым цветом:
+            так видно, хватает ли ему контраста на этом фоне.</p>
+         <div class="pg-pv-bar">${colors.map(c => `<i style="background:${c}"></i>`).join('')}</div>
+         <span class="pg-pv-btn" style="background:${acc};color:${ink(acc)}">Кнопка действия</span>
+       </div>`;
+    elPv.style.background = surf;
+  }
+
+  function drawExport(){
+    const roles = scheme === 'ui' ? ROLES.ui : ROLES.def;
+    const slug = ['bg','surface','muted','ink','accent'];
+    const names = scheme === 'ui' ? slug : colors.map((_, i) => 'c' + (i + 1));
+    if(fmt === 'css')
+      elOut.textContent = ':root{\n' + colors.map((c,i) =>
+        `  --${names[i]}: ${c};`).join('\n') + '\n}';
+    else if(fmt === 'scss')
+      elOut.textContent = colors.map((c,i) => `$${names[i]}: ${c};`).join('\n');
+    else if(fmt === 'json')
+      elOut.textContent = JSON.stringify(
+        Object.fromEntries(colors.map((c,i) => [names[i], c])), null, 2);
+    else
+      elOut.textContent = colors.map((c,i) => `${c}  ${roles[i]}`).join('\n');
+  }
+
+  function render(){
+    build(); drawSwatches(); drawContrast(); drawPreview(); drawExport();
+    $('#pgHex').value = base.replace('#','');
+    $('#pgPick').value = base;
+    $('#pgDot').style.background = base;
+    document.querySelectorAll('.pg-schemes button').forEach(b =>
+      b.setAttribute('aria-pressed', String(b.dataset.s === scheme)));
+    // адрес держим в курсе: палитрой можно поделиться ссылкой
+    history.replaceState(null, '', `#c=${base.replace('#','').toLowerCase()}&s=${scheme}`);
+  }
+
+  /* ---------- события ---------- */
+  document.querySelectorAll('.pg-schemes button').forEach(b =>
+    b.addEventListener('click', () => { scheme = b.dataset.s; render(); }));
+
+  $('#pgHex').addEventListener('input', e => {
+    const v = '#' + e.target.value.replace(/[^0-9a-f]/gi,'').slice(0,6);
+    if(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(v)){ base = v.toUpperCase(); render(); }
+  });
+  $('#pgPick').addEventListener('input', e => { base = e.target.value.toUpperCase(); render(); });
+
+  function roll(){
+    // случайный цвет берём в рабочем диапазоне: кислотные и почти серые
+    // одинаково бесполезны как основа палитры
+    base = rgb2hex(hsl2rgb([Math.random() * 360, 42 + Math.random() * 44, 34 + Math.random() * 32]));
+    render();
+  }
+  $('#pgRoll').addEventListener('click', roll);
+  addEventListener('keydown', e => {
+    if(e.code === 'Space' && !/^(INPUT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)){
+      e.preventDefault(); roll();
+    }
+  });
+
+  document.querySelectorAll('.pg-ex-tabs button').forEach(b =>
+    b.addEventListener('click', () => {
+      fmt = b.dataset.f;
+      document.querySelectorAll('.pg-ex-tabs button').forEach(x =>
+        x.setAttribute('aria-pressed', String(x === b)));
+      drawExport();
+    }));
+
+  function copy(text, done){
+    const ok = () => done && done();
+    if(navigator.clipboard) navigator.clipboard.writeText(text).then(ok, ok);
+    else {
+      const t = document.createElement('textarea');
+      t.value = text; document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); } catch(err){}
+      t.remove(); ok();
+    }
+  }
+  elSw.addEventListener('click', e => {
+    const b = e.target.closest('button'); if(!b) return;
+    copy(b.dataset.c, () => {
+      b.classList.add('done');
+      setTimeout(() => b.classList.remove('done'), 1200);
+    });
+  });
+  $('#pgCopy').addEventListener('click', e => {
+    copy(elOut.textContent, () => {
+      e.target.textContent = 'скопировано';
+      setTimeout(() => { e.target.textContent = 'скопировать'; }, 1400);
+    });
+  });
+
+  /* ---------- старт: палитра из адреса, если ей поделились ---------- */
+  const p = new URLSearchParams(location.hash.slice(1));
+  if(/^[0-9a-f]{6}$/i.test(p.get('c') || '')) base = '#' + p.get('c').toUpperCase();
+  if(SCHEMES[p.get('s')]) scheme = p.get('s');
+  render();
+})();
+</script>
 <!-- nav:begin. Шапка: высота, подложка при прокрутке, мобильное меню -->
 <script>
 (function(){
