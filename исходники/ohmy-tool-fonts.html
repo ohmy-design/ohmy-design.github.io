@@ -21,8 +21,8 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Сервисы — бесплатные инструменты студии ohmy.design</title>
-<meta name="description" content="Бесплатные инструменты студии ohmy.design: генератор палитр с проверкой контраста по WCAG и выгрузкой в CSS. Работают в браузере, без регистрации.">
+<title>Подбор шрифтовых пар с кириллицей — ohmy.design</title>
+<meta name="description" content="Бесплатный подбор шрифтовых пар из Google Fonts: 52 шрифта с проверенной кириллицей, живой предпросмотр на русском тексте и готовый код подключения.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -307,77 +307,102 @@ footer.site-foot{display:block}
 .pg-note a{color:var(--accent);border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
 /* toolbase:end */
 
-/* tools:begin. Раздел сервисов: витрина инструментов студии */
-.tl{display:grid;gap:clamp(14px,1.6vw,24px);
-  padding:clamp(50px,6vw,90px) var(--pad) 0}
-.tl-card{display:grid;grid-template-columns:1.05fr .95fr;
-  border:1px solid var(--line);background:var(--bg);overflow:hidden;
-  transition:border-color .5s var(--ease),background .5s var(--ease)}
-.tl-card:hover{border-color:var(--line-strong);background:var(--bg-2)}
-.tl-body{padding:clamp(30px,3.6vw,56px);display:flex;flex-direction:column;
-  gap:clamp(14px,1.6vw,20px);justify-content:center}
-.tl-role{font-size:12.5px;color:var(--accent);letter-spacing:.02em}
-.tl-card h2{font-size:clamp(28px,3.4vw,46px);font-weight:200;
-  letter-spacing:-.04em;line-height:1.02}
-.tl-card p{font-size:15px;color:var(--muted);line-height:1.65;max-width:46ch}
-.tl-list{display:flex;flex-wrap:wrap;gap:7px}
-.tl-list span{font-size:12.5px;color:var(--muted);border:1px solid var(--line);
-  border-radius:100px;padding:4px 11px}
-.tl-go{display:inline-flex;align-items:center;gap:12px;font-size:15px;
-  margin-top:4px;transition:gap .5s var(--ease),color .4s var(--ease)}
-.tl-card:hover .tl-go{gap:20px;color:var(--accent)}
+/* fonts:begin. Подбор шрифтовых пар */
+.fp{padding:clamp(40px,5vw,70px) var(--pad) 0}
 
-/* Превью: те же полосы, что рисует сам генератор. Цвета живые, не картинка —
-   иначе при смене палитры на странице инструмента витрина бы врала */
-.tl-art{display:flex;min-height:clamp(200px,24vw,330px)}
-.tl-art i{flex:1;transition:flex .9s var(--ease)}
-.tl-card:hover .tl-art i:nth-child(3){flex:2.1}
-/* У шрифтового инструмента превью не из цвета, а из букв: три «Аа»
-   разными начертаниями — видно, о чём карточка, без подписи */
-.tl-art-t{align-items:center;justify-content:center;gap:clamp(14px,2vw,30px);
-  background:var(--bg-2);transition:background .5s var(--ease)}
-.tl-art-t i{flex:0 0 auto;font-style:normal;color:var(--muted);
-  font-size:clamp(36px,5vw,74px);line-height:1;
-  transition:color .5s var(--ease),transform .7s var(--ease)}
-.tl-art-t i:nth-child(1){font-weight:200;letter-spacing:-.04em}
-.tl-art-t i:nth-child(2){font-weight:500}
-.tl-art-t i:nth-child(3){font-weight:800;letter-spacing:-.05em}
-.tl-card:hover .tl-art-t i{color:var(--ink)}
-.tl-card:hover .tl-art-t i:nth-child(2){transform:translateY(-6px)}
+.fp-bar{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,1.4vw,20px);
+  padding-bottom:clamp(22px,2.6vw,34px);border-bottom:1px solid var(--line)}
+.fp-roll{font-size:13.5px;font-family:inherit;color:inherit;background:none;
+  border:1px solid var(--line-strong);border-radius:100px;padding:10px 20px;
+  cursor:pointer;transition:.5s var(--ease)}
+.fp-roll:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.fp-roll em{font-style:normal;color:var(--muted);margin-left:8px;font-size:12px}
+.fp-roll:hover em{color:inherit;opacity:.6}
+.fp-size{display:flex;align-items:center;gap:12px;margin-left:auto;
+  font-size:12.5px;color:var(--muted)}
+.fp-size input{width:clamp(110px,14vw,180px);accent-color:var(--accent);cursor:pointer}
 
-@media(max-width:860px){
-  .tl-card{grid-template-columns:1fr}
-  .tl-art{order:-1;min-height:150px}
-}
+/* два столбца выбора */
+.fp-pick{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,30px);
+  margin-top:clamp(24px,2.8vw,38px)}
+@media(max-width:760px){.fp-pick{grid-template-columns:1fr}}
+.fp-col{border:1px solid var(--line);padding:clamp(18px,2vw,26px);
+  display:flex;flex-direction:column;gap:14px}
+.fp-cat{display:flex;flex-wrap:wrap;gap:6px}
+.fp-cat button,.fp-w button{font-size:12.5px;color:var(--muted);background:none;
+  border:1px solid var(--line);border-radius:100px;padding:6px 13px;
+  cursor:pointer;font-family:inherit;transition:.35s var(--ease)}
+.fp-cat button:hover,.fp-w button:hover{border-color:var(--line-strong);color:var(--ink)}
+.fp-cat button[aria-pressed=true],.fp-w button[aria-pressed=true]{
+  background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.fp-search{background:none;border:0;border-bottom:1px solid var(--line);
+  color:inherit;font:inherit;font-size:14px;padding:8px 0;outline:none;
+  transition:border-color .4s var(--ease)}
+.fp-search:focus{border-color:var(--line-strong)}
+.fp-search::placeholder{color:var(--muted)}
 
-/* Что появится дальше — списком, а не карточками: обещать плитками
-   то, чего ещё нет, нечестно */
-.tl-next{border-top:1px solid var(--line);margin-top:clamp(46px,5vw,80px);
-  padding-top:clamp(28px,3vw,44px);display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
-  gap:clamp(18px,2.4vw,34px)}
-.tl-next div span{display:block;font-size:12.5px;color:var(--accent);margin-bottom:8px}
-.tl-next div b{display:block;font-size:17px;font-weight:400;letter-spacing:-.02em;
-  margin-bottom:7px}
-.tl-next div p{font-size:14px;color:var(--muted);line-height:1.6}
-/* tools:end */
+/* Список: каждое имя набрано своим шрифтом. Файлы для него запрашиваются
+   с параметром text — в них только буквы самих названий, поэтому все
+   пятьдесят два грузятся разом и почти ничего не весят */
+.fp-list{height:clamp(190px,24vw,290px);overflow-y:auto;overscroll-behavior:contain;
+  display:flex;flex-direction:column;gap:1px;margin:0 -6px;padding:0 6px}
+.fp-list::-webkit-scrollbar{width:4px}
+.fp-list::-webkit-scrollbar-thumb{background:var(--line-strong)}
+.fp-list button{text-align:left;background:none;border:0;color:var(--muted);
+  padding:9px 10px;cursor:pointer;font-size:19px;line-height:1.25;
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  transition:background .3s var(--ease),color .3s var(--ease)}
+.fp-list button:hover{background:var(--bg-2);color:var(--ink)}
+.fp-list button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.fp-list button i{font-style:normal;font-size:11px;font-family:'Onest',sans-serif;
+  opacity:.55;flex-shrink:0}
+.fp-w{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.fp-w span{font-size:12.5px;color:var(--muted);margin-right:4px}
+
+/* предпросмотр */
+.fp-pv{border:1px solid var(--line);margin-top:clamp(30px,3.4vw,48px);
+  padding:clamp(28px,4vw,64px);--s:1}
+.fp-eyebrow{font-size:calc(13px * var(--s));color:var(--accent);
+  display:block;margin-bottom:calc(18px * var(--s))}
+.fp-h1{font-size:calc(clamp(30px,5vw,64px) * var(--s));line-height:1.03;
+  letter-spacing:-.03em;margin-bottom:calc(26px * var(--s))}
+.fp-lead{font-size:calc(clamp(17px,1.8vw,23px) * var(--s));line-height:1.45;
+  max-width:34em;margin-bottom:calc(22px * var(--s))}
+.fp-text{font-size:calc(16px * var(--s));line-height:1.7;color:var(--muted);
+  max-width:38em}
+.fp-text + .fp-text{margin-top:calc(16px * var(--s))}
+.fp-btn{display:inline-block;margin-top:calc(28px * var(--s));
+  font-size:calc(14px * var(--s));border:1px solid var(--line-strong);
+  border-radius:100px;padding:calc(11px * var(--s)) calc(24px * var(--s))}
+.fp-spec{margin-top:clamp(28px,3vw,44px);padding-top:clamp(22px,2.4vw,32px);
+  border-top:1px solid var(--line);display:grid;gap:14px}
+.fp-spec b{font-weight:inherit;font-size:calc(clamp(19px,2.4vw,30px) * var(--s));
+  line-height:1.3;letter-spacing:-.01em;overflow-wrap:anywhere}
+.fp-spec em{font-style:normal;font-size:calc(15px * var(--s));color:var(--muted);
+  line-height:1.5;overflow-wrap:anywhere}
+
+.fp-meta{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:clamp(20px,2.2vw,30px);
+  font-size:13px;color:var(--muted)}
+.fp-meta b{color:var(--ink);font-weight:400}
+/* fonts:end */
 </style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest&family=Inter&family=Manrope&family=Montserrat&family=Golos+Text&family=Rubik&family=Nunito+Sans&family=Raleway&family=Jost&family=Commissioner&family=Roboto&family=Open+Sans&family=Fira+Sans&family=PT+Sans&family=Ubuntu&family=Play&family=Oswald&family=Wix+Madefor+Display&family=Geologica&family=Nunito&family=Exo+2&family=Alumni+Sans&family=Playfair+Display&family=Lora&family=Merriweather&family=PT+Serif&family=Cormorant&family=Cormorant+Garamond&family=Literata&family=Bitter&family=EB+Garamond&family=Vollkorn&family=Alegreya&family=Noto+Serif&family=Source+Serif+4&family=Spectral&family=Prata&family=JetBrains+Mono&family=Roboto+Mono&family=IBM+Plex+Mono&family=Source+Code+Pro&family=Martian+Mono&family=Fira+Code&family=Unbounded&family=Russo+One&family=Yeseva+One&family=Pacifico&family=Bad+Script&family=Marck+Script&family=Kelly+Slab&family=Podkova&family=Ruslan+Display&text=%2024ABCDEFGIJKLMNOPRSTUVWYabcdefghiklmnoprstuvwxy&display=swap">
 <!-- seo:start -->
-<link rel="canonical" href="https://ohmy.design/tools">
+<link rel="canonical" href="https://ohmy.design/tools/fonts">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ohmy.design">
 <meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="Сервисы — бесплатные инструменты студии ohmy.design">
-<meta property="og:description" content="Бесплатные инструменты студии ohmy.design: генератор палитр с проверкой контраста по WCAG и выгрузкой в CSS. Работают в браузере, без регистрации.">
-<meta property="og:url" content="https://ohmy.design/tools">
-<meta property="og:image" content="https://ohmy.design/og/tools.png">
+<meta property="og:title" content="Подбор шрифтовых пар с кириллицей — ohmy.design">
+<meta property="og:description" content="Бесплатный подбор шрифтовых пар из Google Fonts: 52 шрифта с проверенной кириллицей, живой предпросмотр на русском тексте и готовый код подключения.">
+<meta property="og:url" content="https://ohmy.design/tools/fonts">
+<meta property="og:image" content="https://ohmy.design/og/tools-fonts.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Сервисы — бесплатные инструменты студии ohmy.design">
+<meta property="og:image:alt" content="Подбор шрифтовых пар с кириллицей — ohmy.design">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Сервисы — бесплатные инструменты студии ohmy.design">
-<meta name="twitter:description" content="Бесплатные инструменты студии ohmy.design: генератор палитр с проверкой контраста по WCAG и выгрузкой в CSS. Работают в браузере, без регистрации.">
-<meta name="twitter:image" content="https://ohmy.design/og/tools.png">
+<meta name="twitter:title" content="Подбор шрифтовых пар с кириллицей — ohmy.design">
+<meta name="twitter:description" content="Бесплатный подбор шрифтовых пар из Google Fonts: 52 шрифта с проверенной кириллицей, живой предпросмотр на русском тексте и готовый код подключения.">
+<meta name="twitter:image" content="https://ohmy.design/og/tools-fonts.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#131317">
 <!-- seo:end -->
@@ -414,67 +439,86 @@ footer.site-foot{display:block}
 <div class="menu" id="menu"></div>
 
 <header class="head">
-  <h1>сервисы</h1>
+  <h1>шрифтовые пары</h1>
   <div class="head-sub">
-    <p>Небольшие инструменты, которые мы сделали для себя и открыли всем.
-      Работают в браузере, бесплатно и без регистрации: ничего никуда
-      не отправляется, весь расчёт идёт на вашей стороне.</p>
-    <span class="mono">открыто · без регистрации</span>
+    <p>Пятьдесят два шрифта Google Fonts, у каждого проверена кириллица:
+      в списке нет ни одного, который развалится на русском тексте.
+      Выберите заголовочный и текстовый — увидите пару в деле и заберёте
+      готовый код подключения.</p>
+    <span class="mono">пробел — случайная пара</span>
   </div>
 </header>
 
-<div class="tl">
-  <a class="tl-card rv" href="ohmy-tool-palette.html">
-    <div class="tl-body">
-      <span class="tl-role">цвет</span>
-      <h2>генератор палитр</h2>
-      <p>Берёт один цвет и строит из него схему: гармонию или готовый набор
-        токенов под интерфейс. Сразу считает контраст по WCAG, показывает
-        палитру на куске интерфейса и отдаёт её в CSS, SCSS или JSON.</p>
-      <div class="tl-list"><span>7 схем</span><span>контраст WCAG</span>
-        <span>предпросмотр</span><span>выгрузка в код</span><span>ссылкой можно поделиться</span></div>
-      <span class="tl-go">открыть <em>↗</em></span>
-    </div>
-    <div class="tl-art" aria-hidden="true">
-      <i style="background:#2A1710"></i><i style="background:#7A2A0E"></i>
-      <i style="background:#FF4A1C"></i><i style="background:#FF9068"></i>
-      <i style="background:#FFD9C2"></i>
-    </div>
-  </a>
-
-  <a class="tl-card rv" href="ohmy-tool-fonts.html">
-    <div class="tl-body">
-      <span class="tl-role">типографика</span>
-      <h2>шрифтовые пары</h2>
-      <p>Пятьдесят два шрифта Google Fonts, у каждого проверена кириллица.
-        Выбираете заголовочный и текстовый — видите пару на русском тексте
-        и забираете готовый код подключения.</p>
-      <div class="tl-list"><span>52 шрифта</span><span>кириллица проверена</span>
-        <span>живой предпросмотр</span><span>код подключения</span><span>ссылкой можно поделиться</span></div>
-      <span class="tl-go">открыть <em>↗</em></span>
-    </div>
-    <div class="tl-art tl-art-t" aria-hidden="true">
-      <i>Аа</i><i>Аа</i><i>Аа</i>
-    </div>
-  </a>
-
-  <div class="tl-next rv">
-    <div><span>в работе</span><b>Калькулятор сайта</b>
-      <p>Отвечаете на несколько вопросов о задаче — получаете вилку по срокам
-        и бюджету и черновик состава работ.</p></div>
-    <div><span>в работе</span><b>Конструктор брифа</b>
-      <p>Собирает техническое задание по ответам и отдаёт готовый документ,
-        с которым можно идти к любому подрядчику.</p></div>
-    <div><span>в работе</span><b>Типографическая шкала</b>
-      <p>Модульная шкала размеров и высот строки с выгрузкой
-        в CSS-переменные.</p></div>
-    <div><span>в работе</span><b>Проверка контраста</b>
-      <p>Пара цветов, отношение по WCAG и уровень AA или AAA —
-        отдельной страницей под быструю проверку.</p></div>
-    <div><span>в работе</span><b>Конструктор UTM</b>
-      <p>Метки для рекламы по единому шаблону, чтобы отчёты
-        не разъезжались из-за опечаток.</p></div>
+<div class="fp">
+  <div class="fp-bar">
+    <button class="fp-roll" id="fpRoll" type="button">случайная пара <em>пробел</em></button>
+    <label class="fp-size">размер
+      <input id="fpSize" type="range" min="70" max="140" value="100"
+             aria-label="размер предпросмотра"></label>
   </div>
+
+  <div class="fp-pick">
+    <div class="fp-col">
+      <span class="pg-h" style="margin-bottom:0">заголовочный <em style="font-style:normal;opacity:.6">— характер</em></span>
+      <div class="fp-cat" id="fpCat-h" role="group" aria-label="вид шрифта"><button type="button" data-c="all" aria-pressed="true">все</button><button type="button" data-c="sans" aria-pressed="false">гротеск</button><button type="button" data-c="serif" aria-pressed="false">антиква</button><button type="button" data-c="mono" aria-pressed="false">моно</button><button type="button" data-c="display" aria-pressed="false">акцидентный</button></div>
+      <input class="fp-search" id="fpQ-h" type="search" placeholder="поиск по названию"
+             spellcheck="false" aria-label="поиск шрифта">
+      <div class="fp-list" id="fpList-h" role="group" aria-label="заголовочный"></div>
+      <div class="fp-w" id="fpW-h" role="group" aria-label="начертание"></div>
+    </div>
+    <div class="fp-col">
+      <span class="pg-h" style="margin-bottom:0">текстовый <em style="font-style:normal;opacity:.6">— читаемость</em></span>
+      <div class="fp-cat" id="fpCat-b" role="group" aria-label="вид шрифта"><button type="button" data-c="all" aria-pressed="true">все</button><button type="button" data-c="sans" aria-pressed="false">гротеск</button><button type="button" data-c="serif" aria-pressed="false">антиква</button><button type="button" data-c="mono" aria-pressed="false">моно</button><button type="button" data-c="display" aria-pressed="false">акцидентный</button></div>
+      <input class="fp-search" id="fpQ-b" type="search" placeholder="поиск по названию"
+             spellcheck="false" aria-label="поиск шрифта">
+      <div class="fp-list" id="fpList-b" role="group" aria-label="текстовый"></div>
+      <div class="fp-w" id="fpW-b" role="group" aria-label="начертание"></div>
+    </div>
+  </div>
+
+  <div class="fp-pv" id="fpPv">
+    <span class="fp-eyebrow">01 — типографика</span>
+    <div class="fp-h1">Пара шрифтов говорит раньше текста</div>
+    <p class="fp-lead">Читатель решает, стоит ли вникать, до того как разберёт
+      первое слово: по плотности строки, по контрасту заголовка, по тому,
+      сколько воздуха вокруг абзаца.</p>
+    <p class="fp-text">Заголовочный шрифт отвечает за характер — его видно
+      секунду, и он задаёт интонацию. Текстовый отвечает за то, чтобы абзац
+      дочитали до конца: у него другая работа и другие требования.
+      Поэтому пара почти всегда лучше одного шрифта на всё.</p>
+    <p class="fp-text">Проверять пару нужно на своём языке. Латиница
+      у большинства шрифтов отрисована тщательно, а кириллица бывает
+      добавлена позже и другой рукой — и то, что отлично смотрелось
+      в англоязычном примере, на русском разъезжается.</p>
+    <span class="fp-btn">Читать дальше</span>
+
+    <div class="fp-spec">
+      <b>Съешь же ещё этих мягких французских булок, да выпей чаю</b>
+      <em>АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ<br>
+        абвгдеёжзийклмнопрстуфхцчшщъыьэюя<br>
+        0123456789 — «ёлка» №1 § 40 % ₽</em>
+    </div>
+  </div>
+
+  <div class="fp-meta" id="fpMeta"></div>
+
+  <div class="pg-ex">
+    <span class="pg-h">забрать в проект</span>
+    <div class="pg-ex-tabs" id="fpTabs" role="group" aria-label="формат выгрузки">
+      <button type="button" data-f="html" aria-pressed="true">подключение</button>
+      <button type="button" data-f="css" aria-pressed="false">CSS</button>
+    </div>
+    <div class="pg-code">
+      <button class="pg-copy" id="fpCopy" type="button">скопировать</button>
+      <pre id="fpOut"></pre>
+    </div>
+  </div>
+
+  <p class="pg-note">Кириллица проверена по ответу Google Fonts: у каждого шрифта
+    в списке есть диапазон U+0400–045F. Начертания тоже взяты из ответа сервиса,
+    а не из предположений — поэтому у одних шрифтов их восемь, а у других одно.
+    Все шрифты бесплатны и подходят для коммерческих проектов; ссылкой на пару
+    можно поделиться — она лежит в адресе страницы.</p>
 </div>
 
 <section class="cta" id="cta">
@@ -549,6 +593,188 @@ footer.site-foot{display:block}
 })();
 </script>
 
+
+<script>
+/* ============================================================
+   Подбор шрифтовых пар. Список — только шрифты Google с кириллицей:
+   у каждого проверено наличие диапазона U+0400-045F, а начертания взяты
+   из ответа самого сервиса, а не из предположений.
+   ============================================================ */
+(function(){
+  const F = [{"n":"Onest","c":"sans","w":[100,200,300,400,500,600,700,800,900]},{"n":"Inter","c":"sans","w":[100,200,300,400,500,600,700,800,900]},{"n":"Manrope","c":"sans","w":[200,300,400,500,600,700,800]},{"n":"Montserrat","c":"sans","w":[100,200,300,400,500,600,700,800,900]},{"n":"Golos Text","c":"sans","w":[400,500,600,700,800,900]},{"n":"Rubik","c":"sans","w":[300,400,500,600,700,800,900]},{"n":"Nunito Sans","c":"sans","w":[200,300,400,500,600,700,800,900]},{"n":"Raleway","c":"sans","w":[100,200,300,400,500,600,700,800,900]},{"n":"Jost","c":"sans","w":[100,200,300,400,500,600,700,800,900]},{"n":"Commissioner","c":"sans","w":[100,200,300,400,500,600,700,800,900]},{"n":"Roboto","c":"sans","w":[100,200,300,400,500,600,700,800,900]},{"n":"Open Sans","c":"sans","w":[300,400,500,600,700,800]},{"n":"Fira Sans","c":"sans","w":[100,200,300,400,500,600,700,800,900]},{"n":"PT Sans","c":"sans","w":[400,700]},{"n":"Ubuntu","c":"sans","w":[300,400,500,700]},{"n":"Play","c":"sans","w":[400,700]},{"n":"Oswald","c":"sans","w":[200,300,400,500,600,700]},{"n":"Wix Madefor Display","c":"sans","w":[400,500,600,700,800]},{"n":"Geologica","c":"sans","w":[100,200,300,400,500,600,700,800,900]},{"n":"Nunito","c":"sans","w":[200,300,400,500,600,700,800,900]},{"n":"Exo 2","c":"sans","w":[100,200,300,400,500,600,700,800,900]},{"n":"Alumni Sans","c":"sans","w":[100,200,300,400,500,600,700,800,900]},{"n":"Playfair Display","c":"serif","w":[400,500,600,700,800,900]},{"n":"Lora","c":"serif","w":[400,500,600,700]},{"n":"Merriweather","c":"serif","w":[300,400,500,600,700,800,900]},{"n":"PT Serif","c":"serif","w":[400,700]},{"n":"Cormorant","c":"serif","w":[300,400,500,600,700]},{"n":"Cormorant Garamond","c":"serif","w":[300,400,500,600,700]},{"n":"Literata","c":"serif","w":[200,300,400,500,600,700,800,900]},{"n":"Bitter","c":"serif","w":[100,200,300,400,500,600,700,800,900]},{"n":"EB Garamond","c":"serif","w":[400,500,600,700,800]},{"n":"Vollkorn","c":"serif","w":[400,500,600,700,800,900]},{"n":"Alegreya","c":"serif","w":[400,500,600,700,800,900]},{"n":"Noto Serif","c":"serif","w":[100,200,300,400,500,600,700,800,900]},{"n":"Source Serif 4","c":"serif","w":[200,300,400,500,600,700,800,900]},{"n":"Spectral","c":"serif","w":[200,300,400,500,600,700,800]},{"n":"Prata","c":"serif","w":[400]},{"n":"JetBrains Mono","c":"mono","w":[100,200,300,400,500,600,700,800]},{"n":"Roboto Mono","c":"mono","w":[100,200,300,400,500,600,700]},{"n":"IBM Plex Mono","c":"mono","w":[100,200,300,400,500,600,700]},{"n":"Source Code Pro","c":"mono","w":[200,300,400,500,600,700,800,900]},{"n":"Martian Mono","c":"mono","w":[100,200,300,400,500,600,700,800]},{"n":"Fira Code","c":"mono","w":[300,400,500,600,700]},{"n":"Unbounded","c":"display","w":[200,300,400,500,600,700,800,900]},{"n":"Russo One","c":"display","w":[400]},{"n":"Yeseva One","c":"display","w":[400]},{"n":"Pacifico","c":"display","w":[400]},{"n":"Bad Script","c":"display","w":[400]},{"n":"Marck Script","c":"display","w":[400]},{"n":"Kelly Slab","c":"display","w":[400]},{"n":"Podkova","c":"display","w":[400,500,600,700,800]},{"n":"Ruslan Display","c":"display","w":[400]}];
+  const CAT = {sans:'гротеск', serif:'антиква', mono:'моно', display:'акцидентный'};
+  const FALLBACK = {sans:"system-ui, sans-serif", serif:"Georgia, 'Times New Roman', serif",
+                    mono:"ui-monospace, SFMono-Regular, Menlo, monospace",
+                    display:"system-ui, sans-serif"};
+  const byName = Object.fromEntries(F.map(f => [f.n, f]));
+  const $ = s => document.querySelector(s);
+
+  let sel = {h:{n:'Playfair Display', w:700}, b:{n:'Inter', w:400}};
+  let filt = {h:'all', b:'all'}, q = {h:'', b:''}, scale = 1, fmt = 'html';
+
+  /* ---------- загрузка выбранной пары ---------- */
+  let link = document.createElement('link');
+  link.rel = 'stylesheet'; document.head.appendChild(link);
+  function href(){
+    const fam = [];
+    for(const r of ['h','b']){
+      const f = byName[sel[r].n];
+      const ws = [...new Set([sel[r].w, 400])].filter(w => f.w.includes(w)).sort((a,b)=>a-b);
+      fam.push('family=' + f.n.replace(/ /g,'+') + ':wght@' + (ws.length ? ws.join(';') : 400));
+    }
+    return 'https://fonts.googleapis.com/css2?' + [...new Set(fam)].join('&') + '&display=swap';
+  }
+  const stack = r => `'${sel[r].n}', ${FALLBACK[byName[sel[r].n].c]}`;
+
+  /* ---------- списки ---------- */
+  function drawList(r){
+    const box = $('#fpList-' + r);
+    const items = F.filter(f =>
+      (filt[r] === 'all' || f.c === filt[r]) &&
+      f.n.toLowerCase().includes(q[r]));
+    box.innerHTML = items.length
+      ? items.map(f => `<button type="button" data-n="${f.n}"
+          aria-pressed="${f.n === sel[r].n}"
+          style="font-family:'${f.n}',sans-serif">${f.n}<i>${CAT[f.c]}</i></button>`).join('')
+      : `<button type="button" disabled style="opacity:.5;cursor:default">ничего не нашлось</button>`;
+  }
+
+  function drawWeights(r){
+    const f = byName[sel[r].n];
+    $('#fpW-' + r).innerHTML = '<span>начертание</span>' + f.w.map(w =>
+      `<button type="button" data-w="${w}" aria-pressed="${w === sel[r].w}">${w}</button>`).join('');
+  }
+
+  /* ---------- предпросмотр и выгрузка ---------- */
+  function drawPreview(){
+    const pv = $('#fpPv');
+    pv.style.setProperty('--s', scale);
+    pv.querySelectorAll('.fp-eyebrow,.fp-h1,.fp-spec b').forEach(e => {
+      e.style.fontFamily = stack('h'); e.style.fontWeight = sel.h.w;
+    });
+    pv.querySelectorAll('.fp-lead,.fp-text,.fp-btn,.fp-spec em').forEach(e => {
+      e.style.fontFamily = stack('b'); e.style.fontWeight = sel.b.w;
+    });
+    $('#fpMeta').innerHTML =
+      ['h','b'].map(r => {
+        const f = byName[sel[r].n];
+        return `<span>${r === 'h' ? 'заголовки' : 'текст'}: <b>${f.n} ${sel[r].w}</b> ·
+                ${CAT[f.c]} · начертаний ${f.w.length}</span>`;
+      }).join('');
+  }
+
+  function drawExport(){
+    const out = $('#fpOut');
+    if(fmt === 'html')
+      out.textContent =
+        '<link rel="preconnect" href="https://fonts.googleapis.com">\n' +
+        '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
+        `<link rel="stylesheet" href="${href()}">`;
+    else
+      out.textContent =
+        ':root{\n' +
+        `  --font-head: ${stack('h')};\n` +
+        `  --font-text: ${stack('b')};\n}\n\n` +
+        `h1, h2, h3, h4{\n  font-family: var(--font-head);\n  font-weight: ${sel.h.w};\n}\n\n` +
+        `body{\n  font-family: var(--font-text);\n  font-weight: ${sel.b.w};\n}`;
+  }
+
+  function render(){
+    link.href = href();
+    ['h','b'].forEach(r => { drawList(r); drawWeights(r); });
+    drawPreview(); drawExport();
+    history.replaceState(null, '',
+      `#h=${encodeURIComponent(sel.h.n)}:${sel.h.w}&b=${encodeURIComponent(sel.b.n)}:${sel.b.w}`);
+  }
+
+  /* ---------- события ---------- */
+  ['h','b'].forEach(r => {
+    $('#fpList-' + r).addEventListener('click', e => {
+      const b = e.target.closest('button[data-n]'); if(!b) return;
+      sel[r].n = b.dataset.n;
+      const f = byName[sel[r].n];
+      // веса у шрифтов разные: держим ближайшее из доступных
+      if(!f.w.includes(sel[r].w))
+        sel[r].w = f.w.reduce((a,c) =>
+          Math.abs(c - sel[r].w) < Math.abs(a - sel[r].w) ? c : a, f.w[0]);
+      render();
+    });
+    $('#fpW-' + r).addEventListener('click', e => {
+      const b = e.target.closest('button[data-w]'); if(!b) return;
+      sel[r].w = +b.dataset.w; render();
+    });
+    $('#fpCat-' + r).addEventListener('click', e => {
+      const b = e.target.closest('button'); if(!b) return;
+      filt[r] = b.dataset.c;
+      $('#fpCat-' + r).querySelectorAll('button').forEach(x =>
+        x.setAttribute('aria-pressed', String(x === b)));
+      drawList(r);
+    });
+    $('#fpQ-' + r).addEventListener('input', e => {
+      q[r] = e.target.value.trim().toLowerCase(); drawList(r);
+    });
+  });
+
+  $('#fpSize').addEventListener('input', e => {
+    scale = +e.target.value / 100; drawPreview();
+  });
+
+  /* Случайная пара — не любые два шрифта, а один из рабочих сценариев:
+     контраст между заголовком и текстом должен быть осмысленным */
+  const PLANS = [['serif','sans'], ['sans','serif'], ['display','sans'],
+                 ['sans','sans'], ['display','serif'], ['serif','serif'], ['mono','sans']];
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  function roll(){
+    const [ch, cb] = pick(PLANS);
+    const H = F.filter(f => f.c === ch), B = F.filter(f => f.c === cb);
+    let h = pick(H), b = pick(B), guard = 0;
+    while(h.n === b.n && guard++ < 20) b = pick(B);
+    // текстовому шрифту нужен обычный вес, заголовочному — насыщенный, если он есть
+    sel.h = {n:h.n, w:[800,700,600,500].find(w => h.w.includes(w)) || h.w[h.w.length-1]};
+    sel.b = {n:b.n, w:b.w.includes(400) ? 400 : b.w[0]};
+    render();
+  }
+  $('#fpRoll').addEventListener('click', roll);
+  addEventListener('keydown', e => {
+    if(e.code === 'Space' && !/^(INPUT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)){
+      e.preventDefault(); roll();
+    }
+  });
+
+  document.querySelectorAll('#fpTabs button').forEach(b =>
+    b.addEventListener('click', () => {
+      fmt = b.dataset.f;
+      document.querySelectorAll('#fpTabs button').forEach(x =>
+        x.setAttribute('aria-pressed', String(x === b)));
+      drawExport();
+    }));
+
+  $('#fpCopy').addEventListener('click', e => {
+    const t = $('#fpOut').textContent;
+    const done = () => { e.target.textContent = 'скопировано';
+                         setTimeout(() => { e.target.textContent = 'скопировать'; }, 1400); };
+    if(navigator.clipboard) navigator.clipboard.writeText(t).then(done, done);
+    else {
+      const a = document.createElement('textarea');
+      a.value = t; document.body.appendChild(a); a.select();
+      try { document.execCommand('copy'); } catch(err){}
+      a.remove(); done();
+    }
+  });
+
+  /* ---------- старт: пара из адреса ---------- */
+  const p = new URLSearchParams(location.hash.slice(1));
+  for(const r of ['h','b']){
+    const v = p.get(r); if(!v) continue;
+    const [n, w] = v.split(':');
+    if(byName[n]){
+      sel[r].n = n;
+      sel[r].w = byName[n].w.includes(+w) ? +w : (byName[n].w.includes(400) ? 400 : byName[n].w[0]);
+    }
+  }
+  render();
+})();
+</script>
 <!-- nav:begin. Шапка: высота, подложка при прокрутке, мобильное меню -->
 <script>
 (function(){

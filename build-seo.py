@@ -47,6 +47,8 @@ PAGES = {
     'сервисы',                                      'бесплатные инструменты студии'),
  'ohmy-tool-palette.html': ('/tools/palette',       '0.7','monthly',
     'генератор палитр',                             'схемы, контраст WCAG, выгрузка в css'),
+ 'ohmy-tool-fonts.html': ('/tools/fonts',           '0.7','monthly',
+    'шрифтовые пары',                               '52 шрифта с кириллицей'),
  'ohmy-studio.html':     ('/studio',                '0.8','monthly',
     'студия',                                       'команда, метод, процесс'),
  'ohmy-journal.html':    ('/journal',               '0.8','weekly',
@@ -240,6 +242,10 @@ def inject(fname, url, og_name):
         tags.append('<script type="application/ld+json">' + ORG + '</script>')
     tags.append('<!-- seo:end -->')
 
+    # Без </head> подстановка тихо не срабатывала: страница уезжала
+    # в сборку без canonical и Open Graph, и заметить это было нечем
+    if '</head>' not in s:
+        raise SystemExit(f'  {f}: нет </head> — мета-теги вставлять некуда')
     s = s.replace('</head>', '\n'.join(tags) + '\n</head>', 1)
     open(fname, 'w', encoding='utf-8').write(s)
 

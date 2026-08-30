@@ -282,6 +282,31 @@ footer.site-foot{display:block}
 .cta .sec-head{margin-bottom:clamp(30px,3.4vw,46px)}
 /* cta-head:end */
 
+/* toolbase:begin. Общее для страниц раздела «сервисы» */
+.pg-h{font-size:13px;color:var(--muted);margin-bottom:16px;display:block}
+/* выгрузка */
+.pg-ex{margin-top:clamp(40px,4.6vw,72px)}
+.pg-ex-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.pg-ex-tabs button{font-size:13px;color:var(--muted);background:none;
+  border:1px solid var(--line);border-radius:100px;padding:7px 15px;
+  cursor:pointer;font-family:inherit;transition:.4s var(--ease)}
+.pg-ex-tabs button[aria-pressed=true]{color:var(--ink);border-color:var(--line-strong)}
+.pg-code{position:relative;border:1px solid var(--line);background:var(--bg-2);
+  transition:background .7s var(--ease)}
+.pg-code pre{margin:0;padding:clamp(20px,2.2vw,30px);overflow-x:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:13px;line-height:1.75;color:var(--ink)}
+.pg-copy{position:absolute;right:12px;top:12px;font-size:12.5px;
+  font-family:inherit;color:var(--muted);background:var(--bg);
+  border:1px solid var(--line);border-radius:100px;padding:7px 15px;
+  cursor:pointer;transition:.4s var(--ease)}
+.pg-copy:hover{color:var(--ink);border-color:var(--line-strong)}
+
+.pg-note{margin-top:clamp(26px,3vw,40px);font-size:14px;color:var(--muted);
+  line-height:1.65;max-width:72ch}
+.pg-note a{color:var(--accent);border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+/* toolbase:end */
+
 /* tools:begin. Раздел сервисов: витрина инструментов студии */
 .tl{display:grid;gap:clamp(14px,1.6vw,24px);
   padding:clamp(50px,6vw,90px) var(--pad) 0}
@@ -307,6 +332,19 @@ footer.site-foot{display:block}
 .tl-art{display:flex;min-height:clamp(200px,24vw,330px)}
 .tl-art i{flex:1;transition:flex .9s var(--ease)}
 .tl-card:hover .tl-art i:nth-child(3){flex:2.1}
+/* У шрифтового инструмента превью не из цвета, а из букв: три «Аа»
+   разными начертаниями — видно, о чём карточка, без подписи */
+.tl-art-t{align-items:center;justify-content:center;gap:clamp(14px,2vw,30px);
+  background:var(--bg-2);transition:background .5s var(--ease)}
+.tl-art-t i{flex:0 0 auto;font-style:normal;color:var(--muted);
+  font-size:clamp(36px,5vw,74px);line-height:1;
+  transition:color .5s var(--ease),transform .7s var(--ease)}
+.tl-art-t i:nth-child(1){font-weight:200;letter-spacing:-.04em}
+.tl-art-t i:nth-child(2){font-weight:500}
+.tl-art-t i:nth-child(3){font-weight:800;letter-spacing:-.05em}
+.tl-card:hover .tl-art-t i{color:var(--ink)}
+.tl-card:hover .tl-art-t i:nth-child(2){transform:translateY(-6px)}
+
 @media(max-width:860px){
   .tl-card{grid-template-columns:1fr}
   .tl-art{order:-1;min-height:150px}
@@ -324,6 +362,26 @@ footer.site-foot{display:block}
 .tl-next div p{font-size:14px;color:var(--muted);line-height:1.6}
 /* tools:end */
 </style>
+<!-- seo:start -->
+<link rel="canonical" href="https://ohmy.design/tools">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ohmy.design">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Сервисы — бесплатные инструменты студии ohmy.design">
+<meta property="og:description" content="Бесплатные инструменты студии ohmy.design: генератор палитр с проверкой контраста по WCAG и выгрузкой в CSS. Работают в браузере, без регистрации.">
+<meta property="og:url" content="https://ohmy.design/tools">
+<meta property="og:image" content="https://ohmy.design/og/tools.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Сервисы — бесплатные инструменты студии ohmy.design">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Сервисы — бесплатные инструменты студии ohmy.design">
+<meta name="twitter:description" content="Бесплатные инструменты студии ohmy.design: генератор палитр с проверкой контраста по WCAG и выгрузкой в CSS. Работают в браузере, без регистрации.">
+<meta name="twitter:image" content="https://ohmy.design/og/tools.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#131317">
+<!-- seo:end -->
+</head>
 <body>
 
 <nav>
@@ -384,6 +442,22 @@ footer.site-foot{display:block}
     </div>
   </a>
 
+  <a class="tl-card rv" href="/tools/fonts/">
+    <div class="tl-body">
+      <span class="tl-role">типографика</span>
+      <h2>шрифтовые пары</h2>
+      <p>Пятьдесят два шрифта Google Fonts, у каждого проверена кириллица.
+        Выбираете заголовочный и текстовый — видите пару на русском тексте
+        и забираете готовый код подключения.</p>
+      <div class="tl-list"><span>52 шрифта</span><span>кириллица проверена</span>
+        <span>живой предпросмотр</span><span>код подключения</span><span>ссылкой можно поделиться</span></div>
+      <span class="tl-go">открыть <em>↗</em></span>
+    </div>
+    <div class="tl-art tl-art-t" aria-hidden="true">
+      <i>Аа</i><i>Аа</i><i>Аа</i>
+    </div>
+  </a>
+
   <div class="tl-next rv">
     <div><span>в работе</span><b>Калькулятор сайта</b>
       <p>Отвечаете на несколько вопросов о задаче — получаете вилку по срокам
@@ -394,6 +468,9 @@ footer.site-foot{display:block}
     <div><span>в работе</span><b>Типографическая шкала</b>
       <p>Модульная шкала размеров и высот строки с выгрузкой
         в CSS-переменные.</p></div>
+    <div><span>в работе</span><b>Проверка контраста</b>
+      <p>Пара цветов, отношение по WCAG и уровень AA или AAA —
+        отдельной страницей под быструю проверку.</p></div>
     <div><span>в работе</span><b>Конструктор UTM</b>
       <p>Метки для рекламы по единому шаблону, чтобы отчёты
         не разъезжались из-за опечаток.</p></div>

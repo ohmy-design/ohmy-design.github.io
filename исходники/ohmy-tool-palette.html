@@ -282,6 +282,31 @@ footer.site-foot{display:block}
 .cta .sec-head{margin-bottom:clamp(30px,3.4vw,46px)}
 /* cta-head:end */
 
+/* toolbase:begin. Общее для страниц раздела «сервисы» */
+.pg-h{font-size:13px;color:var(--muted);margin-bottom:16px;display:block}
+/* выгрузка */
+.pg-ex{margin-top:clamp(40px,4.6vw,72px)}
+.pg-ex-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.pg-ex-tabs button{font-size:13px;color:var(--muted);background:none;
+  border:1px solid var(--line);border-radius:100px;padding:7px 15px;
+  cursor:pointer;font-family:inherit;transition:.4s var(--ease)}
+.pg-ex-tabs button[aria-pressed=true]{color:var(--ink);border-color:var(--line-strong)}
+.pg-code{position:relative;border:1px solid var(--line);background:var(--bg-2);
+  transition:background .7s var(--ease)}
+.pg-code pre{margin:0;padding:clamp(20px,2.2vw,30px);overflow-x:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:13px;line-height:1.75;color:var(--ink)}
+.pg-copy{position:absolute;right:12px;top:12px;font-size:12.5px;
+  font-family:inherit;color:var(--muted);background:var(--bg);
+  border:1px solid var(--line);border-radius:100px;padding:7px 15px;
+  cursor:pointer;transition:.4s var(--ease)}
+.pg-copy:hover{color:var(--ink);border-color:var(--line-strong)}
+
+.pg-note{margin-top:clamp(26px,3vw,40px);font-size:14px;color:var(--muted);
+  line-height:1.65;max-width:72ch}
+.pg-note a{color:var(--accent);border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+/* toolbase:end */
+
 /* palette:begin. Генератор палитр — весь расчёт в браузере, ничего не уходит */
 .pg{padding:clamp(40px,5vw,70px) var(--pad) 0}
 
@@ -346,7 +371,6 @@ footer.site-foot{display:block}
 .pg-cols{display:grid;grid-template-columns:1.1fr .9fr;
   gap:clamp(24px,3vw,52px);margin-top:clamp(40px,4.6vw,72px)}
 @media(max-width:900px){.pg-cols{grid-template-columns:1fr}}
-.pg-h{font-size:13px;color:var(--muted);margin-bottom:16px;display:block}
 
 .pg-ct{width:100%;border-collapse:collapse;font-size:14px}
 .pg-ct th{font-weight:400;font-size:12.5px;color:var(--muted);text-align:right;
@@ -373,29 +397,28 @@ footer.site-foot{display:block}
 .pg-pv-bar{height:8px;display:flex;gap:4px}
 .pg-pv-bar i{flex:1}
 
-/* выгрузка */
-.pg-ex{margin-top:clamp(40px,4.6vw,72px)}
-.pg-ex-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
-.pg-ex-tabs button{font-size:13px;color:var(--muted);background:none;
-  border:1px solid var(--line);border-radius:100px;padding:7px 15px;
-  cursor:pointer;font-family:inherit;transition:.4s var(--ease)}
-.pg-ex-tabs button[aria-pressed=true]{color:var(--ink);border-color:var(--line-strong)}
-.pg-code{position:relative;border:1px solid var(--line);background:var(--bg-2);
-  transition:background .7s var(--ease)}
-.pg-code pre{margin:0;padding:clamp(20px,2.2vw,30px);overflow-x:auto;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:13px;line-height:1.75;color:var(--ink)}
-.pg-copy{position:absolute;right:12px;top:12px;font-size:12.5px;
-  font-family:inherit;color:var(--muted);background:var(--bg);
-  border:1px solid var(--line);border-radius:100px;padding:7px 15px;
-  cursor:pointer;transition:.4s var(--ease)}
-.pg-copy:hover{color:var(--ink);border-color:var(--line-strong)}
-
-.pg-note{margin-top:clamp(26px,3vw,40px);font-size:14px;color:var(--muted);
-  line-height:1.65;max-width:72ch}
-.pg-note a{color:var(--accent);border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
 /* palette:end */
 </style>
+<!-- seo:start -->
+<link rel="canonical" href="https://ohmy.design/tools/palette">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ohmy.design">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Генератор палитр с проверкой контраста — ohmy.design">
+<meta property="og:description" content="Бесплатный генератор цветовых палитр: 7 схем, проверка контраста по WCAG 2.1, предпросмотр на интерфейсе и выгрузка в CSS, SCSS или JSON. Без регистрации.">
+<meta property="og:url" content="https://ohmy.design/tools/palette">
+<meta property="og:image" content="https://ohmy.design/og/tools-palette.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Генератор палитр с проверкой контраста — ohmy.design">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Генератор палитр с проверкой контраста — ohmy.design">
+<meta name="twitter:description" content="Бесплатный генератор цветовых палитр: 7 схем, проверка контраста по WCAG 2.1, предпросмотр на интерфейсе и выгрузка в CSS, SCSS или JSON. Без регистрации.">
+<meta name="twitter:image" content="https://ohmy.design/og/tools-palette.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#131317">
+<!-- seo:end -->
+</head>
 <body>
 
 <nav>
