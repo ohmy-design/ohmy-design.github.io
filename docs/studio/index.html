@@ -418,6 +418,8 @@ footer.site-foot{display:block}
 
 
 
+
+
 /* stack:begin */
 /* Инструменты — плитками, без логотипов: чужие знаки на своём сайте
    требуют их файлов и разрешения, а набранное имя работает не хуже.
@@ -426,8 +428,8 @@ footer.site-foot{display:block}
 .stack{margin-top:clamp(40px,5vw,70px);display:grid;
   grid-template-columns:repeat(4,1fr);gap:1px;
   background:var(--line);border:1px solid var(--line)}
-.st{background:var(--bg);padding:clamp(24px,2.6vw,36px);
-  display:flex;flex-direction:column;gap:12px;min-height:clamp(170px,17vw,215px);
+.st{background:var(--bg);padding:clamp(26px,2.8vw,40px);
+  display:flex;flex-direction:column;gap:12px;min-height:clamp(220px,22vw,285px);
   transition:background .6s var(--ease)}
 .st:hover{background:var(--bg-2)}
 .st.two{grid-column:span 2}
@@ -435,12 +437,16 @@ footer.site-foot{display:block}
 /* Знак сервиса. Красится вместе с темой тем же фильтром, что логотипы
    клиентов на главной: набор пёстрый, и в один цвет он собирается в ряд.
    Словесные знаки ниже значков — иначе они перевешивают по массе */
-.st-mark{display:flex;align-items:center;height:28px}
-.st-mark img{height:26px;width:auto;max-width:130px;object-fit:contain;
-  filter:var(--logo-filter);opacity:.75;
+.st-mark{display:flex;align-items:center;
+  height:clamp(46px,4.6vw,62px);margin-bottom:clamp(10px,1.2vw,18px)}
+.st-mark img{height:100%;width:auto;max-width:100%;object-fit:contain;
+  object-position:left center;
+  filter:var(--logo-filter);opacity:.85;
   transition:opacity .5s var(--ease),transform .6s var(--ease)}
-.st-mark.word img{height:19px}
-.st:hover .st-mark img{opacity:1;transform:translateY(-2px)}
+/* Словесные знаки тяжелее значка при той же высоте: у них масса
+   размазана по строке, а не собрана в фигуру. Гасим разницу ростом */
+.st-mark.word img{height:60%}
+.st:hover .st-mark img{opacity:1;transform:translateY(-3px)}
 .st h3{font-size:clamp(19px,2vw,27px);font-weight:300;letter-spacing:-.03em;
   line-height:1.1}
 .st p{font-size:14px;color:var(--muted);line-height:1.6;margin-top:auto}
