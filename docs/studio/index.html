@@ -33,6 +33,7 @@
   --line:rgba(242,240,236,.11); --line-strong:rgba(242,240,236,.30);
   --accent:#FF4A1C;
   --img-b:.8; --img-b-hover:1;
+  --logo-filter:brightness(0) invert(1);
   --blend:difference;
 }
 [data-theme="light"]{
@@ -41,6 +42,7 @@
   --line:rgba(20,20,24,.12); --line-strong:rgba(20,20,24,.28);
   --accent:#E5350B;
   --img-b:.98; --img-b-hover:1.04;
+  --logo-filter:brightness(0);
   --blend:normal;
 }
 :root{--pad:clamp(20px,4vw,64px);--ease:cubic-bezier(.16,1,.3,1)}
@@ -413,6 +415,9 @@ footer.site-foot{display:block}
 
 
 
+
+
+
 /* stack:begin */
 /* Инструменты — плитками, без логотипов: чужие знаки на своём сайте
    требуют их файлов и разрешения, а набранное имя работает не хуже.
@@ -427,6 +432,15 @@ footer.site-foot{display:block}
 .st:hover{background:var(--bg-2)}
 .st.two{grid-column:span 2}
 .st-role{font-size:12.5px;color:var(--accent);letter-spacing:.02em}
+/* Знак сервиса. Красится вместе с темой тем же фильтром, что логотипы
+   клиентов на главной: набор пёстрый, и в один цвет он собирается в ряд.
+   Словесные знаки ниже значков — иначе они перевешивают по массе */
+.st-mark{display:flex;align-items:center;height:28px}
+.st-mark img{height:26px;width:auto;max-width:130px;object-fit:contain;
+  filter:var(--logo-filter);opacity:.75;
+  transition:opacity .5s var(--ease),transform .6s var(--ease)}
+.st-mark.word img{height:19px}
+.st:hover .st-mark img{opacity:1;transform:translateY(-2px)}
 .st h3{font-size:clamp(19px,2vw,27px);font-weight:300;letter-spacing:-.03em;
   line-height:1.1}
 .st p{font-size:14px;color:var(--muted);line-height:1.6;margin-top:auto}
@@ -610,53 +624,63 @@ footer.site-foot{display:block}
 
   <div class="stack">
     <div class="st two rv">
+      <span class="st-mark"><img src="/img/logos/claude.svg" alt="Claude" loading="lazy"></span>
       <span class="st-role">ai · мышление и код</span>
       <h3>Claude</h3>
       <div class="st-sub"><span>Claude Code</span><span>Claude Design</span></div>
       <p>Разбор задачи, черновики текстов, код и сборка страниц. Основной инструмент студии — на нём же собран этот сайт.</p>
     </div>
     <div class="st two rv">
+      <span class="st-mark"><img src="/img/logos/openai.svg" alt="OpenAI" loading="lazy"></span>
       <span class="st-role">ai · тексты и картинки</span>
       <h3>OpenAI</h3>
       <div class="st-sub"><span>ChatGPT</span><span>Codex</span><span>генератор изображений</span></div>
       <p>Второе мнение по тексту, разбор ниши, служебная графика и заглушки, пока нет съёмки.</p>
     </div>
     <div class="st rv">
+      <span class="st-mark"><img src="/img/logos/figma.svg" alt="Figma" loading="lazy"></span>
       <span class="st-role">дизайн</span>
       <h3>Figma</h3>
       <p>Макеты, прототипы и передача в работу. Здесь живёт исходник проекта.</p>
     </div>
     <div class="st rv">
+      <span class="st-mark"><img src="/img/logos/tilda.svg" alt="Tilda" loading="lazy"></span>
       <span class="st-role">сборка сайтов</span>
       <h3>Tilda</h3>
       <p>Быстрый запуск и редактирование силами клиента, без разработчика.</p>
     </div>
     <div class="st rv">
+      <span class="st-mark"><img src="/img/logos/framer.svg" alt="Framer" loading="lazy"></span>
       <span class="st-role">сборка сайтов</span>
       <h3>Framer</h3>
       <p>Там, где нужны сложная анимация и нестандартное поведение.</p>
     </div>
     <div class="st rv">
+      <span class="st-mark word"><img src="/img/logos/canva.svg" alt="Canva" loading="lazy"></span>
       <span class="st-role">графика</span>
       <h3>Canva</h3>
       <p>Регулярная графика: посты, обложки, шаблоны под ведение силами клиента.</p>
     </div>
     <div class="st rv">
+      <span class="st-mark"><img src="/img/logos/github.svg" alt="GitHub" loading="lazy"></span>
       <span class="st-role">код и версии</span>
       <h3>GitHub</h3>
       <p>Хранение кода, история правок и публикация статических сайтов.</p>
     </div>
     <div class="st rv">
+      <span class="st-mark word"><img src="/img/logos/regru.svg" alt="reg.ru" loading="lazy"></span>
       <span class="st-role">домены</span>
       <h3>reg.ru</h3>
       <p>Регистрация и продление доменов, почта на домене клиента.</p>
     </div>
     <div class="st rv">
+      <span class="st-mark word"><img src="/img/logos/timeweb.svg" alt="Timeweb" loading="lazy"></span>
       <span class="st-role">хостинг</span>
       <h3>Timeweb</h3>
       <p>Российские серверы для сайтов, которым нужен свой хостинг.</p>
     </div>
     <div class="st rv">
+      <span class="st-mark"><img src="/img/logos/googleslides.svg" alt="Google Slides" loading="lazy"></span>
       <span class="st-role">презентации</span>
       <h3>Google Slides</h3>
       <p>Защита концепций и отчётность — там, где важна совместная правка.</p>
