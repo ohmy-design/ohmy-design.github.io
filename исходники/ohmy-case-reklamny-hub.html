@@ -280,26 +280,29 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
    иначе это уже не его палитра, а наша. Цвет подписи на плашке считает
    сборка по светлоте фона */
 .marks{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
-  margin-top:clamp(38px,4.5vw,66px)}
-/* min-width:0 обязателен. Колонка 1fr по умолчанию не сжимается уже
-   собственного содержимого, а собственное для картинки — её натуральная
-   ширина: горизонтальное начертание знака 1076 px. На телефоне колонка
-   разъезжалась до этой ширины, и плашку обрезало краем экрана.
-   Отступ задаёт padding, поэтому картинке хватает max-width:100% */
-.mark{position:relative;aspect-ratio:4/3;display:flex;
-  align-items:center;justify-content:center;padding:clamp(22px,4vw,54px);
+  margin-top:clamp(38px,4.5vw,66px);
+  /* Высота плашки и предел знака — одна величина и доля от неё. Так
+     нигде не остаётся процента, который считается от высоты родителя:
+     именно он и не срабатывал, знак оставался в натуральную величину */
+  --plate:clamp(190px,23vw,340px); --logo:calc(var(--plate) * .6)}
+/* min-width:0 нужен с другой стороны: колонка 1fr не
+   сжимается уже своего содержимого, а содержимое картинки — её
+   натуральная ширина, 1076 px у горизонтального начертания.
+
+   Снизу отступ больше: там подпись, и без запаса знак вставал на неё */
+.mark{position:relative;height:var(--plate);display:flex;
+  align-items:center;justify-content:center;
+  padding:clamp(26px,4vw,54px) clamp(30px,7vw,58px) clamp(50px,6vw,84px);
   min-width:0;overflow:hidden;
   box-shadow:inset 0 0 0 1px rgba(128,128,132,.25)}
-/* Картинка тоже элемент флексбокса, и у неё min-width:auto — это её
-   натуральная ширина. Минимум сильнее максимума, поэтому без нуля
-   max-width:100% ничего не решает и знак вылезает за плашку */
-.mark img{max-width:100%;max-height:52%;width:auto;height:auto;min-width:0}
+/* Картинка — элемент флексбокса, у неё min-width:auto тоже равен
+   натуральной ширине. Минимум сильнее максимума, поэтому без нуля
+   max-width:100% ничего не решает */
+.mark img{max-width:100%;max-height:var(--logo);width:auto;height:auto;
+  min-width:0;object-fit:contain}
 .mark span{position:absolute;left:clamp(14px,1.6vw,22px);bottom:clamp(12px,1.4vw,18px);
   font-size:12px;letter-spacing:.02em}
-@media(max-width:760px){
-  .marks{grid-template-columns:1fr}
-  .mark{aspect-ratio:16/9}
-}
+@media(max-width:760px){.marks{grid-template-columns:1fr}}
 
 .pal{display:grid;grid-template-columns:repeat(3,1fr);
   gap:clamp(20px,2.6vw,44px);margin-top:clamp(34px,4vw,58px)}
