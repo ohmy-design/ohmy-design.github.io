@@ -115,7 +115,7 @@ def ident(c, n):
     return f'''<section id="ident">
   <div class="sec-head rv">
     <div><span class="sec-idx">{n:02d} — знак</span><h2 class="sec-title">фирменный стиль</h2></div>
-    <span class="mono">{len(d["colors"])} цвета, {len(d["marks"])} начертания</span>
+    <span class="mono">{len(d["marks"])} начертания</span>
   </div>
 
   <p class="lead rv" style="max-width:64ch">{typo(d["lead"])}</p>

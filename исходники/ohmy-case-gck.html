@@ -230,6 +230,11 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
 .sec-idx{font-size:13px;color:var(--accent)}
 .sec-title{font-size:clamp(30px,4.2vw,62px);font-weight:200;
   letter-spacing:-.045em;line-height:.94}
+/* На узком экране правая подпись отбирает у заголовка половину строки,
+   и «фирменный стиль» ломается пополам. Ставим её под заголовок */
+@media(max-width:600px){
+  .sec-head{flex-direction:column;align-items:flex-start;gap:14px}
+}
 
 .two{display:grid;grid-template-columns:1.3fr .9fr;gap:clamp(30px,7vw,110px);
   align-items:start;margin-top:clamp(40px,5vw,72px)}
@@ -276,10 +281,19 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
    сборка по светлоте фона */
 .marks{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
   margin-top:clamp(38px,4.5vw,66px)}
+/* min-width:0 обязателен. Колонка 1fr по умолчанию не сжимается уже
+   собственного содержимого, а собственное для картинки — её натуральная
+   ширина: горизонтальное начертание знака 1076 px. На телефоне колонка
+   разъезжалась до этой ширины, и плашку обрезало краем экрана.
+   Отступ задаёт padding, поэтому картинке хватает max-width:100% */
 .mark{position:relative;aspect-ratio:4/3;display:flex;
   align-items:center;justify-content:center;padding:clamp(22px,4vw,54px);
+  min-width:0;overflow:hidden;
   box-shadow:inset 0 0 0 1px rgba(128,128,132,.25)}
-.mark img{max-width:76%;max-height:50%;width:auto;height:auto}
+/* Картинка тоже элемент флексбокса, и у неё min-width:auto — это её
+   натуральная ширина. Минимум сильнее максимума, поэтому без нуля
+   max-width:100% ничего не решает и знак вылезает за плашку */
+.mark img{max-width:100%;max-height:52%;width:auto;height:auto;min-width:0}
 .mark span{position:absolute;left:clamp(14px,1.6vw,22px);bottom:clamp(12px,1.4vw,18px);
   font-size:12px;letter-spacing:.02em}
 @media(max-width:760px){
@@ -303,7 +317,7 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
    если двигать сам кадр, поедет вся сетка */
 .frames{display:grid;grid-template-columns:repeat(2,1fr);
   gap:clamp(14px,1.8vw,28px);margin-top:clamp(38px,4.5vw,66px)}
-.frame{margin:0}
+.frame{margin:0;min-width:0}
 .frame.full{grid-column:1 / -1}
 .frame-i{overflow:hidden;background:var(--bg-2)}
 .frame img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;
@@ -801,7 +815,7 @@ footer.site-foot{display:block}
 <section id="ident">
   <div class="sec-head rv">
     <div><span class="sec-idx">02 — знак</span><h2 class="sec-title">фирменный стиль</h2></div>
-    <span class="mono">3 цвета, 3 начертания</span>
+    <span class="mono">3 начертания</span>
   </div>
 
   <p class="lead rv" style="max-width:64ch">Знак читается как&nbsp;фундамент: две плоскости, на&nbsp;которые опирается всё остальное. Диагонали взяты из&nbsp;чертежа&nbsp;— это язык отрасли, а&nbsp;не&nbsp;украшение. Три цвета и&nbsp;три начертания закрывают всё, от&nbsp;сайта до&nbsp;ленты на&nbsp;бейдже.</p>
@@ -849,12 +863,11 @@ footer.site-foot{display:block}
 <section id="shots">
   <div class="sec-head rv">
     <div><span class="sec-idx">04 — носители</span><h2 class="sec-title">как это живёт</h2></div>
-    <span class="mono">4 с площадки</span>
+    <span class="mono">3 с площадки</span>
   </div>
 
   <div class="frames">
-    <figure class="frame rv full"><div class="frame-i"><img src="img/cases/gck/wall.jpg" alt="Пресс-волл ГЦК на площадке форума" loading="lazy"></div><figcaption>Пресс-волл на площадке<i>фото</i></figcaption></figure>
-    <figure class="frame rv"><div class="frame-i"><img src="img/cases/gck/badges.jpg" alt="Бейджи участников «Дня заказчика»" loading="lazy"></div><figcaption>Бейджи участников «Дня заказчика»<i>фото</i></figcaption></figure>
+    <figure class="frame rv full"><div class="frame-i"><img src="img/cases/gck/badges.jpg" alt="Бейджи участников «Дня заказчика»" loading="lazy"></div><figcaption>Бейджи участников «Дня заказчика»<i>фото</i></figcaption></figure>
     <figure class="frame rv"><div class="frame-i"><img src="img/cases/gck/lanyards.jpg" alt="Ленты для бейджей со знаками ГЦК и СТАНКИН" loading="lazy"></div><figcaption>Ленты: центр и университет рядом<i>фото</i></figcaption></figure>
     <figure class="frame rv"><div class="frame-i"><img src="img/cases/gck/notepads.jpg" alt="Блокноты со знаком ГЦК" loading="lazy"></div><figcaption>Блокноты участника<i>фото</i></figcaption></figure>
     <figure class="frame rv"><div class="frame-i"><img src="img/cases/gck/cards.jpg" alt="Визитные карточки ГЦК" loading="lazy"></div><figcaption>Визитные карточки<i>макет</i></figcaption></figure>

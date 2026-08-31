@@ -224,6 +224,11 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
 .sec-idx{font-size:13px;color:var(--accent)}
 .sec-title{font-size:clamp(30px,4.2vw,62px);font-weight:200;
   letter-spacing:-.045em;line-height:.94}
+/* На узком экране правая подпись отбирает у заголовка половину строки,
+   и «фирменный стиль» ломается пополам. Ставим её под заголовок */
+@media(max-width:600px){
+  .sec-head{flex-direction:column;align-items:flex-start;gap:14px}
+}
 
 .two{display:grid;grid-template-columns:1.3fr .9fr;gap:clamp(30px,7vw,110px);
   align-items:start;margin-top:clamp(40px,5vw,72px)}
