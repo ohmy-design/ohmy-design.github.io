@@ -495,6 +495,14 @@ footer.site-foot{display:block}
   .facts[data-n="3"],.facts[data-n="4"]{grid-template-columns:1fr 1fr}
 }
 
+/* Начертаний знака бывает меньше трёх — например, когда клиент отдал
+   в работу только сам знак, а не полный набор начертаний */
+.marks[data-n="1"]{grid-template-columns:1fr}
+.marks[data-n="2"]{grid-template-columns:repeat(2,1fr)}
+@media(max-width:760px){
+  .marks[data-n="1"],.marks[data-n="2"]{grid-template-columns:1fr}
+}
+
 /* Ссылка на работающий сайт. Раньше карточка каталога уводила на сторонний
    адрес — теперь путь всегда через страницу проекта, а сам сайт открывается
    отсюда, явной строкой */
@@ -795,7 +803,7 @@ footer.site-foot{display:block}
   <div class="fact"><span>клиент</span><b>Экспофорум, Петербургский цифровой&nbsp;хаб</b></div>
   <div class="fact"><span>направление</span><b>Айдентика</b></div>
   <div class="fact"><span>роль студии</span><b>Знак, стиль, носители</b></div>
-  <div class="fact"><span>особенность</span><b>Форум сменил имя в&nbsp;2026&nbsp;— знак и&nbsp;стиль перешли без&nbsp;пересборки</b></div>
+  <div class="fact"><span>особенность</span><b>Форум сменил имя в&nbsp;2026&nbsp;— знак пережил ребрендинг без&nbsp;единой&nbsp;правки</b></div>
 </div>
 
 <section id="task">
@@ -813,9 +821,31 @@ footer.site-foot{display:block}
   </div>
 </section>
 
+<section id="ident">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">02 — знак</span><h2 class="sec-title">фирменный стиль</h2></div>
+    <span class="mono">2 начертания</span>
+  </div>
+
+  <p class="lead rv" style="max-width:64ch">Знак&nbsp;— четыре скруглённые плоскости на&nbsp;одной оси, с&nbsp;градиентом вместо&nbsp;плоского цвета: переход от&nbsp;фиолетового к&nbsp;оранжевому держит внимание там, где обычная логотип-плашка потерялась&nbsp;бы&nbsp;в&nbsp;потоке навигации форума. В&nbsp;2025&nbsp;году рядом со&nbsp;знаком стояло имя «IT-TECH HUB»&nbsp;— тоже наша работа. В&nbsp;2026-м&nbsp;форум переименовался в&nbsp;«Петербургский цифровой хаб», и&nbsp;типографику нового имени рядом со&nbsp;знаком уже набирал организатор&nbsp;— а&nbsp;сам знак остался тем&nbsp;же, без&nbsp;единой&nbsp;правки.</p>
+
+  <div class="marks rv" data-n="2">
+    <div class="mark" style="background:#0E0B14"><img src="/img/cases/it-tech-hub/icon.svg" alt="Знак «Петербургского цифрового хаба» без названия" loading="lazy"><span style="color:#FCFCFC;opacity:0.6">знак</span></div>
+    <div class="mark" style="background:#0E0B14"><img src="/img/cases/it-tech-hub/lockup.svg" alt="Лок-ап 2025 года: знак и первое имя IT-TECH HUB" loading="lazy"><span style="color:#FCFCFC;opacity:0.6">лок-ап 2025 года</span></div>
+  </div>
+
+  <div class="pal">
+    <div class="pal-i"><div class="pal-c" style="background:#5C1CB2"></div><div class="pal-h">#5C1CB2</div><div class="pal-n">фиолетовый</div><p class="pal-t">Нижняя, самая холодная точка градиента&nbsp;— с&nbsp;неё начинается переход.</p></div>
+    <div class="pal-i"><div class="pal-c" style="background:#FF00C1"></div><div class="pal-h">#FF00C1</div><div class="pal-n">маджента</div><p class="pal-t">Пиковая точка перехода, самая насыщенная&nbsp;— её&nbsp;видно даже в&nbsp;мелком размере, на&nbsp;иконке или&nbsp;бейдже.</p></div>
+    <div class="pal-i"><div class="pal-c" style="background:#F4AC24"></div><div class="pal-h">#F4AC24</div><div class="pal-n">оранжевый</div><p class="pal-t">Верхняя точка&nbsp;— единственный цвет, которым знак заканчивается и&nbsp;одновременно начинается название. Он&nbsp;сшивает обе половины лок-апа в&nbsp;одну&nbsp;ленту.</p></div>
+  </div>
+
+  <figure class="frame full rv" style="margin-top:clamp(38px,4.5vw,66px)"><div class="frame-i"><img src="/img/cases/it-tech-hub/today.jpg" alt="Знак на экране трансляции рядом с именем «Петербургский цифровой хаб»" loading="lazy"></div><figcaption>Знак на экране в 2026 году — рядом с именем, которое набирали не мы<i>фото</i></figcaption></figure>
+</section>
+
 <section id="work">
   <div class="sec-head rv">
-    <div><span class="sec-idx">02 — работа</span><h2 class="sec-title">что сделали</h2></div>
+    <div><span class="sec-idx">03 — работа</span><h2 class="sec-title">что сделали</h2></div>
     <span class="mono">4 решения</span>
   </div>
 
@@ -837,7 +867,7 @@ footer.site-foot{display:block}
 
 <section id="shots">
   <div class="sec-head rv">
-    <div><span class="sec-idx">03 — носители</span><h2 class="sec-title">как это живёт</h2></div>
+    <div><span class="sec-idx">04 — носители</span><h2 class="sec-title">как это живёт</h2></div>
     <span class="mono">5 с площадки</span>
   </div>
 
@@ -852,14 +882,14 @@ footer.site-foot{display:block}
 
 <section id="result">
   <div class="sec-head rv">
-    <div><span class="sec-idx">04 — итог</span><h2 class="sec-title">результат</h2></div>
+    <div><span class="sec-idx">05 — итог</span><h2 class="sec-title">результат</h2></div>
     <span class="mono">что можно проверить</span>
   </div>
 
   <div class="outcome rv">
     <div><span>01</span><div>Знак читается и&nbsp;в&nbsp;иконке рассылки, и&nbsp;на&nbsp;баннере во&nbsp;всю стену площадки.</div></div>
     <div><span>02</span><div>Носители собраны системой: навигация, бейджи, стенды, шаблоны документов.</div></div>
-    <div><span>03</span><div>В&nbsp;2026&nbsp;форум сменил имя на&nbsp;«Петербургский цифровой хаб»&nbsp;— знак и&nbsp;стиль перешли без&nbsp;пересборки.</div></div>
+    <div><span>03</span><div>В&nbsp;2026&nbsp;форум сменил имя на&nbsp;«Петербургский цифровой хаб»&nbsp;— знак перешёл в&nbsp;новую айдентику без&nbsp;единой правки, хотя&nbsp;типографику имени рядом с&nbsp;ним уже делали не&nbsp;мы.</div></div>
   </div>
 </section>
 
@@ -878,7 +908,7 @@ footer.site-foot{display:block}
 
 <section class="cta" id="cta">
   <div class="sec-head rv">
-    <div><span class="sec-idx">05 — связь</span><h2 class="sec-title">будем на связи</h2></div>
+    <div><span class="sec-idx">06 — связь</span><h2 class="sec-title">будем на связи</h2></div>
     <span class="mono">похожая задача?</span>
   </div>
   <div class="cta-contacts rv">

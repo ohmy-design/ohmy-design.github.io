@@ -495,6 +495,14 @@ footer.site-foot{display:block}
   .facts[data-n="3"],.facts[data-n="4"]{grid-template-columns:1fr 1fr}
 }
 
+/* Начертаний знака бывает меньше трёх — например, когда клиент отдал
+   в работу только сам знак, а не полный набор начертаний */
+.marks[data-n="1"]{grid-template-columns:1fr}
+.marks[data-n="2"]{grid-template-columns:repeat(2,1fr)}
+@media(max-width:760px){
+  .marks[data-n="1"],.marks[data-n="2"]{grid-template-columns:1fr}
+}
+
 /* Ссылка на работающий сайт. Раньше карточка каталога уводила на сторонний
    адрес — теперь путь всегда через страницу проекта, а сам сайт открывается
    отсюда, явной строкой */

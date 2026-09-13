@@ -495,6 +495,14 @@ footer.site-foot{display:block}
   .facts[data-n="3"],.facts[data-n="4"]{grid-template-columns:1fr 1fr}
 }
 
+/* Начертаний знака бывает меньше трёх — например, когда клиент отдал
+   в работу только сам знак, а не полный набор начертаний */
+.marks[data-n="1"]{grid-template-columns:1fr}
+.marks[data-n="2"]{grid-template-columns:repeat(2,1fr)}
+@media(max-width:760px){
+  .marks[data-n="1"],.marks[data-n="2"]{grid-template-columns:1fr}
+}
+
 /* Ссылка на работающий сайт. Раньше карточка каталога уводила на сторонний
    адрес — теперь путь всегда через страницу проекта, а сам сайт открывается
    отсюда, явной строкой */
@@ -823,7 +831,7 @@ footer.site-foot{display:block}
 
   <p class="lead rv" style="max-width:64ch">Знак читается как&nbsp;фундамент: две плоскости, на&nbsp;которые опирается всё остальное. Диагонали взяты из&nbsp;чертежа&nbsp;— это язык отрасли, а&nbsp;не&nbsp;украшение. Три цвета и&nbsp;три начертания закрывают всё, от&nbsp;сайта до&nbsp;ленты на&nbsp;бейдже.</p>
 
-  <div class="marks rv">
+  <div class="marks rv" data-n="3">
     <div class="mark" style="background:#1E1E1E"><img src="/img/cases/gck/stack-white.svg" alt="Знак ГЦК в белом" loading="lazy"><span style="color:#FCFCFC;opacity:0.6">вертикальный</span></div>
     <div class="mark" style="background:#E4BF8A"><img src="/img/cases/gck/line-black.svg" alt="Горизонтальное начертание знака" loading="lazy"><span style="color:#1E1E1E;opacity:0.55">горизонтальный</span></div>
     <div class="mark" style="background:#FCFCFC"><img src="/img/cases/gck/lockup-gold.svg" alt="Знак ГЦК с золотым элементом" loading="lazy"><span style="color:#1E1E1E;opacity:0.55">основной</span></div>

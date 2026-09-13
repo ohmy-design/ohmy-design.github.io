@@ -112,15 +112,17 @@ def ident(c, n):
                  f'<div class="frame-i"><img src="img/cases/{c["slug"]}/{src}" '
                  f'alt="{esc(alt)}" loading="lazy"></div>'
                  f'<figcaption>{cap}<i>{kind}</i></figcaption></figure>')
+    n_marks = len(d['marks'])
+    word = 'начертание' if n_marks == 1 else 'начертания' if n_marks < 5 else 'начертаний'
     return f'''<section id="ident">
   <div class="sec-head rv">
     <div><span class="sec-idx">{n:02d} — знак</span><h2 class="sec-title">фирменный стиль</h2></div>
-    <span class="mono">{len(d["marks"])} начертания</span>
+    <span class="mono">{n_marks} {word}</span>
   </div>
 
   <p class="lead rv" style="max-width:64ch">{typo(d["lead"])}</p>
 
-  <div class="marks rv">{marks}
+  <div class="marks rv" data-n="{n_marks}">{marks}
   </div>
 
   <div class="pal">{cols}
