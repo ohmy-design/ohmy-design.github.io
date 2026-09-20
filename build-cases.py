@@ -108,9 +108,10 @@ def ident(c, n):
     photo = ''
     if d.get('photo'):
         src, alt, cap, kind = d['photo']
+        ratio = f' style="aspect-ratio:{d["ratio"]}"' if d.get('ratio') else ''
         photo = (f'\n\n  <figure class="frame full rv" style="margin-top:clamp(38px,4.5vw,66px)">'
                  f'<div class="frame-i"><img src="img/cases/{c["slug"]}/{src}" '
-                 f'alt="{esc(alt)}" loading="lazy"></div>'
+                 f'alt="{esc(alt)}" loading="lazy"{ratio}></div>'
                  f'<figcaption>{cap}<i>{kind}</i></figcaption></figure>')
     note = ''
     if d.get('note'):
