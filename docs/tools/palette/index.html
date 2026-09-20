@@ -31,7 +31,7 @@
   --bg:#131317; --bg-2:#1A1A20;
   --ink:#F2F0EC; --muted:#84848E;
   --line:rgba(242,240,236,.11); --line-strong:rgba(242,240,236,.30);
-  --accent:#8B6CFF;
+  --accent:#FF4A1C;
   --img-b:.72; --img-b-hover:.95;
   --blend:difference;
 }
@@ -39,7 +39,7 @@
   --bg:#FCFCFB; --bg-2:#F0F0EE;
   --ink:#141418; --muted:#71717A;
   --line:rgba(20,20,24,.12); --line-strong:rgba(20,20,24,.28);
-  --accent:#6A45E8;
+  --accent:#E5350B;
   --img-b:.96; --img-b-hover:1.03;
   --blend:normal;
 }
@@ -263,7 +263,7 @@ footer.site-foot{display:block}
   display:inline-block}
 .foot-req div b{overflow-wrap:anywhere}
 .foot-req a.req-link{font-size:13px;color:var(--accent);
-  border-bottom:1px solid rgba(139,108,255,.4);display:inline-block;margin-top:6px}
+  border-bottom:1px solid rgba(255,74,28,.4);display:inline-block;margin-top:6px}
 
 .foot-bottom{display:flex;justify-content:space-between;align-items:center;
   gap:18px;flex-wrap:wrap;padding-top:clamp(20px,2.4vw,30px);
@@ -659,7 +659,7 @@ footer.site-foot{display:block}
              inputmode="text" aria-label="базовый цвет в hex">
       <span class="pg-chip-color">
         <i id="pgDot"></i>
-        <input id="pgPick" type="color" value="#8B6CFF" aria-label="выбрать цвет">
+        <input id="pgPick" type="color" value="#FF4A1C" aria-label="выбрать цвет">
       </span>
     </span>
 
@@ -857,7 +857,7 @@ footer.site-foot{display:block}
   };
 
   /* ---------- состояние ---------- */
-  let base = '#8B6CFF', scheme = 'analog', fmt = 'css', colors = [];
+  let base = '#FF4A1C', scheme = 'analog', fmt = 'css', colors = [];
 
   function build(){
     const hsl = rgb2hsl(hex2rgb(base));
