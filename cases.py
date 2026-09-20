@@ -533,7 +533,7 @@ CASES = [
         'Сравнение с аналогами построено на функциях, а не на импортозамещении.']},
 
 {'slug':'odinhub','tint':True,'n':'ОдинХаб','y':2025,'s':'it','t':['web','brand','care'],
- 'img':'img/cases/odinhub/after-hero.jpg','url':'https://xn--80achqzd6c.xn--p1ai/',
+ 'img':'img/cases/odinhub/cover.jpg','url':'https://xn--80achqzd6c.xn--p1ai/',
  'title':'ОдинХаб — логотип и редизайн сайта IPAM-платформы',
  'desc':'Логотип и полный редизайн сайта платформы инвентаризации ИТ-активов ОдинХаб — '
         'российского форка NetBox в реестре ПО. Кейс студии ohmy.design.',
