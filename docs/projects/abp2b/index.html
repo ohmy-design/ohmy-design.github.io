@@ -22,7 +22,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>АБП2Б — кейс ohmy.design</title>
-<meta name="description" content="Экосистема сайтов российской ИБ-компании АБП2Б и трёх её продуктов: редизайн, развитие и сопровождение пятый год подряд. Кейс студии ohmy.design.">
+<meta name="description" content="Экосистема сайтов российской ИБ-компании АБП2Б и трёх её продуктов: редизайн, развитие и сопровождение с 2024 года. Кейс студии ohmy.design.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -270,7 +270,7 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
 .shot-cap{padding:14px 2px 0;font-size:13px;color:var(--muted)}
 .wide{aspect-ratio:16/9}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.4vw,22px)}
-.pair .shot{aspect-ratio:4/3}
+.pair .shot{aspect-ratio:16/9}
 @media(max-width:760px){.pair{grid-template-columns:1fr}}
 
 /* ---------- РЕЗУЛЬТАТ ---------- */
@@ -538,6 +538,10 @@ section.cta .fc:hover{background:var(--bg)}
 .site i{position:absolute;top:clamp(18px,2vw,26px);right:clamp(18px,2vw,26px);
   font-style:normal;color:var(--muted);transition:transform .6s var(--ease),color .45s var(--ease)}
 .site:hover i{transform:translate(4px,-4px);color:var(--accent)}
+/* ритм страницы: два раздела на серо-белой подложке */
+#work,#result{background:var(--bg-2)}
+#work .site:hover,#result .live:hover{background:var(--bg)}
+#result .live{margin:clamp(28px,3.4vw,52px) 0 0}
 </style>
 
 <script>
@@ -684,7 +688,7 @@ section.cta .fc:hover{background:var(--bg)}
 <meta property="og:site_name" content="ohmy.design">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:title" content="АБП2Б — кейс ohmy.design">
-<meta property="og:description" content="Экосистема сайтов российской ИБ-компании АБП2Б и трёх её продуктов: редизайн, развитие и сопровождение пятый год подряд. Кейс студии ohmy.design.">
+<meta property="og:description" content="Экосистема сайтов российской ИБ-компании АБП2Б и трёх её продуктов: редизайн, развитие и сопровождение с 2024 года. Кейс студии ohmy.design.">
 <meta property="og:url" content="https://ohmy.design/projects/abp2b">
 <meta property="og:image" content="https://ohmy.design/og/projects-abp2b.png">
 <meta property="og:image:width" content="1200">
@@ -692,7 +696,7 @@ section.cta .fc:hover{background:var(--bg)}
 <meta property="og:image:alt" content="АБП2Б — кейс ohmy.design">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="АБП2Б — кейс ohmy.design">
-<meta name="twitter:description" content="Экосистема сайтов российской ИБ-компании АБП2Б и трёх её продуктов: редизайн, развитие и сопровождение пятый год подряд. Кейс студии ohmy.design.">
+<meta name="twitter:description" content="Экосистема сайтов российской ИБ-компании АБП2Б и трёх её продуктов: редизайн, развитие и сопровождение с 2024 года. Кейс студии ohmy.design.">
 <meta name="twitter:image" content="https://ohmy.design/og/projects-abp2b.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#131317">
@@ -740,7 +744,7 @@ section.cta .fc:hover{background:var(--bg)}
     <div class="cover-tags">
       <span class="tag on">веб</span>
       <span class="tag">сопровождение</span>
-      <span class="tag">2021 — 2026</span>
+      <span class="tag">2024 — 2026</span>
     </div>
   </div>
 </header>
@@ -785,7 +789,7 @@ section.cta .fc:hover{background:var(--bg)}
 <section id="work">
   <div class="sec-head rv">
     <div><span class="sec-idx">02 — работа</span><h2 class="sec-title">что сделали</h2></div>
-    <span class="mono">пять лет, четыре сайта</span>
+    <span class="mono">четыре сайта</span>
   </div>
 
   <div class="steps">
@@ -859,26 +863,14 @@ section.cta .fc:hover{background:var(--bg)}
     <div><span>04</span><div>Компания быстро растёт: разрабатываем сайты новых продуктов и регулярно дорабатываем их.</div></div>
     <div><span>05</span><div>Сотрудничаем с 2024 года.</div></div>
   </div>
-</section>
 
-<!-- ============ ОТЗЫВ ============ -->
-<section class="quote">
-  <div class="q-wrap">
-    <blockquote class="rv">Для&nbsp;любого маркетолога&nbsp;— большая удача найти «своего» подрядчика
-      по&nbsp;работе с&nbsp;сайтами.</blockquote>
-    <div class="q-author rv">
-      <img src="/img/lib/photo-2025-12-10-150-3037.jpeg" alt="">
-      <div><b>Вячеслав Макович</b>
-        <span>Предприниматель, директор по маркетингу АБП2Б</span></div>
-    </div>
-  </div>
+  <a class="live rv" href="https://abp2b.com/" target="_blank" rel="noopener">
+    <div class="live-l"><span>смотреть работу</span><b>abp2b.com</b></div>
+    <span class="live-a">↗</span>
+  </a>
 </section>
 
 <!-- ============ СЛЕДУЮЩИЙ КЕЙС ============ -->
-<a class="live rv" href="https://abp2b.com/" target="_blank" rel="noopener">
-  <div class="live-l"><span>смотреть работу</span><b>abp2b.com</b></div>
-  <span class="live-a">↗</span>
-</a>
 
 <a class="next" href="/projects/tish/">
   <img src="/img/lib/49060229-3435.jpg" alt="">
