@@ -112,6 +112,10 @@ def ident(c, n):
                  f'<div class="frame-i"><img src="img/cases/{c["slug"]}/{src}" '
                  f'alt="{esc(alt)}" loading="lazy"></div>'
                  f'<figcaption>{cap}<i>{kind}</i></figcaption></figure>')
+    note = ''
+    if d.get('note'):
+        note = ('\n\n  <p class="body rv" style="margin-top:clamp(18px,2vw,28px);'
+                f'max-width:64ch">{typo(d["note"])}</p>')
     n_marks = len(d['marks'])
     word = 'начертание' if n_marks == 1 else 'начертания' if n_marks < 5 else 'начертаний'
     return f'''<section id="ident">
@@ -120,7 +124,7 @@ def ident(c, n):
     <span class="mono">{n_marks} {word}</span>
   </div>
 
-  <p class="lead rv" style="max-width:64ch">{typo(d["lead"])}</p>
+  <p class="lead rv" style="max-width:64ch;margin-top:clamp(28px,3.4vw,48px)">{typo(d["lead"])}</p>{note}
 
   <div class="marks rv" data-n="{n_marks}">{marks}
   </div>
