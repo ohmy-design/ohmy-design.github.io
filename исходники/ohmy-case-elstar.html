@@ -21,8 +21,8 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ELSTAR — логотип и фирменный стиль автосервиса</title>
-<meta name="description" content="Логотип и фирменный стиль премиального автосервиса по диагностике и дооснащению BMW. Кейс студии ohmy.design.">
+<title>ELSTAR — логотип и фирменный стиль автосервиса BMW</title>
+<meta name="description" content="Пять концептов, один выбор: логотип, фирменный стиль и брендбук независимого сервиса автоэлектрики и диагностики BMW. Кейс студии ohmy.design.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -572,6 +572,24 @@ footer.site-foot{display:block}
 .tile:hover img{transform:scale(1.04)}
 .tile figcaption{margin-top:12px;font-size:13px;color:var(--muted)}
 /* motion:end */
+/* concepts:begin — все концепты, а не только утверждённый */
+.cpts{margin-top:clamp(34px,4vw,60px);border-bottom:1px solid var(--line)}
+.cpt{display:grid;grid-template-columns:minmax(220px,.75fr) 2fr;gap:clamp(20px,3vw,48px);
+  padding:clamp(26px,3vw,44px) 0;border-top:1px solid var(--line)}
+.cpt-t{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.cpt-n{font-size:13px;color:var(--accent)}
+.cpt-t h3{font-size:clamp(20px,2vw,28px);font-weight:300;letter-spacing:-.025em;line-height:1.2}
+.cpt-t p{font-size:14.5px;color:var(--muted);line-height:1.65}
+.cpt-m{margin-top:auto;font-size:12px;letter-spacing:.02em;color:var(--muted);opacity:.85}
+.cpt-ok{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);
+  border:1px solid var(--accent);border-radius:100px;padding:3px 10px}
+.cpt-i{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1vw,16px);min-width:0;align-items:start;align-content:start}
+.cpt-i figure{margin:0;overflow:hidden;background:var(--bg-2);box-shadow:inset 0 0 0 1px rgba(128,128,132,.2)}
+.cpt-i img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;transition:transform 1.1s var(--ease)}
+.cpt-i figure:hover img{transform:scale(1.03)}
+@media(max-width:900px){.cpt{grid-template-columns:1fr}}
+@media(max-width:560px){.cpt-i{grid-template-columns:1fr}}
+/* concepts:end */
 /* case-extra:end */
 
 
@@ -585,6 +603,8 @@ footer.site-foot{display:block}
 .cta .sec-head{margin-bottom:clamp(30px,3.4vw,46px)}
 /* cta-head:end */
 </style>
+<!-- seo:start -->
+<!-- seo:end -->
 
 
 
@@ -779,25 +799,6 @@ section.cta .fc:hover{background:var(--bg)}
 </script>
 <!-- motion:end -->
 
-<!-- seo:start -->
-<link rel="canonical" href="https://ohmy.design/projects/elstar">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="ohmy.design">
-<meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="ELSTAR — логотип и фирменный стиль автосервиса">
-<meta property="og:description" content="Логотип и фирменный стиль премиального автосервиса по диагностике и дооснащению BMW. Кейс студии ohmy.design.">
-<meta property="og:url" content="https://ohmy.design/projects/elstar">
-<meta property="og:image" content="https://ohmy.design/og/projects-elstar.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="ELSTAR — логотип и фирменный стиль автосервиса">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ELSTAR — логотип и фирменный стиль автосервиса">
-<meta name="twitter:description" content="Логотип и фирменный стиль премиального автосервиса по диагностике и дооснащению BMW. Кейс студии ohmy.design.">
-<meta name="twitter:image" content="https://ohmy.design/og/projects-elstar.png">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#131317">
-<!-- seo:end -->
 </head>
 <body>
 
@@ -832,22 +833,31 @@ section.cta .fc:hover{background:var(--bg)}
 </nav>
 <div class="menu" id="menu"></div>
 
+<style>
+#work,#result{background:var(--bg-2)}
+#result{padding-bottom:clamp(70px,9vw,150px)}
+#result .live{margin:clamp(28px,3.4vw,52px) 0 0}
+#result .live:hover{background:var(--bg)}
+</style>
+
 <header class="cover">
-  <img src="img/lib/0f7feef4efdf4f1061ca-6465.jpg" alt="ELSTAR">
+  <img src="img/cases/elstar/cover.jpg" alt="ELSTAR">
   <div class="cover-in">
     <a class="crumb" href="ohmy-projects.html">← все проекты</a>
     <h1>ELSTAR</h1>
     <div class="cover-tags">
       <span class="tag on">айдентика</span>
+      <span class="tag">брендбук</span>
       <span class="tag">2025</span>
     </div>
   </div>
 </header>
 
-<div class="facts" data-n="3">
-  <div class="fact"><span>клиент</span><b>ELSTAR, диагностика и&nbsp;дооснащение&nbsp;BMW</b></div>
+<div class="facts" data-n="4">
+  <div class="fact"><span>клиент</span><b>ELSTAR, автоэлектрика и&nbsp;диагностика&nbsp;BMW</b></div>
   <div class="fact"><span>направление</span><b>Айдентика</b></div>
-  <div class="fact"><span>роль студии</span><b>Знак, стиль, носители</b></div>
+  <div class="fact"><span>роль студии</span><b>Логотип, фирменный стиль, брендбук, носители</b></div>
+  <div class="fact"><span>особенность</span><b>Независимый сервис, специализируется на&nbsp;BMW</b></div>
 </div>
 
 <section id="task">
@@ -860,49 +870,121 @@ section.cta .fc:hover{background:var(--bg)}
     <p class="lead rv">Не&nbsp;гаражный сервис, а&nbsp;инженерная мастерская для&nbsp;одной марки. <em>Стиль должен был отделить одно от&nbsp;другого с&nbsp;первого взгляда</em>.</p>
     <div class="rv">
       <p class="body">Рынок обслуживания премиальных автомобилей визуально устроен просто: либо&nbsp;агрессия и&nbsp;карбон, либо&nbsp;дилерская стерильность. Первое отпугивает владельца, который относится к&nbsp;машине всерьёз, второе не&nbsp;отличается ни&nbsp;от&nbsp;чего.</p>
-      <p class="body">Сервис работает с&nbsp;одной маркой и&nbsp;делает то, чего не&nbsp;делает дилер: диагностику и&nbsp;дооснащение. Это ближе к&nbsp;инженерии, чем&nbsp;к&nbsp;сервисной услуге,&nbsp;— и&nbsp;стиль строился от&nbsp;неё.</p>
+      <p class="body">ELSTAR&nbsp;— независимый сервис, который специализируется на&nbsp;автоэлектрике и&nbsp;диагностике BMW. Это ближе к&nbsp;инженерии, чем&nbsp;к&nbsp;сервисной услуге,&nbsp;— и&nbsp;стиль строился от&nbsp;неё.</p>
     </div>
+  </div>
+</section>
+
+<section id="concepts">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">02 — поиск</span><h2 class="sec-title">пять концептов</h2></div>
+    <span class="mono">утверждён третий</span>
+  </div>
+
+  <p class="lead rv" style="max-width:64ch;margin-top:clamp(28px,3.4vw,48px)">Клиенту предложили пять разных образов сервиса: от&nbsp;электрики и&nbsp;звезды до&nbsp;прямой отсылки к&nbsp;BMW Motorsport. Каждый&nbsp;— со&nbsp;своей палитрой, шрифтом и&nbsp;примерами на&nbsp;носителях.</p>
+
+  <div class="cpts">
+    <article class="cpt rv"><div class="cpt-t"><span class="cpt-n">01</span><h3>Молния в&nbsp;круге</h3><p>Круг с&nbsp;молнией&nbsp;— про&nbsp;электронику. Левая половина синяя, правая белая: связь с&nbsp;технологией и&nbsp;чистота работы. Строчные буквы, гротеск без&nbsp;засечек.</p><span class="cpt-m">Ibrand · Inter · тёмно-синий, синий, белый</span></div><div class="cpt-i"><figure><img src="img/cases/elstar/a1.jpg" alt="Концепт 1: логотип elstar с молнией в круге" loading="lazy"></figure><figure><img src="img/cases/elstar/a2.jpg" alt="Концепт 1: вывеска и пилон" loading="lazy"></figure></div></article>
+    <article class="cpt rv"><div class="cpt-t"><span class="cpt-n">02</span><h3>Звезда внутри&nbsp;слова</h3><p>Минимализм и&nbsp;футуризм: геометричный шрифт с&nbsp;закруглёнными углами, а&nbsp;буква A&nbsp;заменена звездой, символом энергии и&nbsp;света. Металлический градиент.</p><span class="cpt-m">Lato · тёмно-серый, серый, белый</span></div><div class="cpt-i"><figure><img src="img/cases/elstar/b1.jpg" alt="Концепт 2: логотип ELST☆R" loading="lazy"></figure><figure><img src="img/cases/elstar/b2.jpg" alt="Концепт 2: афиша с логотипом" loading="lazy"></figure></div></article>
+    <article class="cpt rv is-final"><div class="cpt-t"><span class="cpt-n">03</span><span class="cpt-ok">утверждён</span><h3>Три полосы BMW Motorsport</h3><p>Прямая отсылка к&nbsp;классической айдентике BMW Motorsport: красная, тёмно-синяя и&nbsp;голубая полосы повторяют цвета BMW M. Строгий геометричный гротеск с&nbsp;лёгким наклоном. Владелец BMW считывает марку&nbsp;сразу.</p><span class="cpt-m">Brinova · Helvetica Neue · красный, синий, голубой</span></div><div class="cpt-i"><figure><img src="img/cases/elstar/c1.jpg" alt="Концепт 3: логотип ELSTAR с тремя полосами" loading="lazy"></figure><figure><img src="img/cases/elstar/c2.jpg" alt="Концепт 3: вывеска на фасаде" loading="lazy"></figure></div></article>
+    <article class="cpt rv"><div class="cpt-t"><span class="cpt-n">04</span><h3>Курсив со&nbsp;звездой</h3><p>Звезда в&nbsp;центре слова, наклон и&nbsp;острые углы букв: скорость, энергия, точность. Выделенная часть слова контрастным&nbsp;цветом.</p><span class="cpt-m">Power Torque · Roboto · голубой, чёрный, белый</span></div><div class="cpt-i"><figure><img src="img/cases/elstar/d1.jpg" alt="Концепт 4: логотип elst☆r курсивом" loading="lazy"></figure><figure><img src="img/cases/elstar/d2.jpg" alt="Концепт 4: брелок и карта" loading="lazy"></figure></div></article>
+    <article class="cpt rv"><div class="cpt-t"><span class="cpt-n">05</span><h3>Круговая эмблема&nbsp;70-х</h3><p>Переосмысление концепта BMW Motorsport 1970-х: круговая композиция, молния внутри, голубой, синий и&nbsp;розовый. Настроение классической гоночной&nbsp;школы.</p><span class="cpt-m">Sakana · Inter · голубой, синий, розовый</span></div><div class="cpt-i"><figure><img src="img/cases/elstar/e1.jpg" alt="Концепт 5: круговая эмблема с молнией" loading="lazy"></figure><figure><img src="img/cases/elstar/e2.jpg" alt="Концепт 5: стена с афишей" loading="lazy"></figure></div></article>
+  </div>
+</section>
+
+<section id="ident">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">03 — знак</span><h2 class="sec-title">утверждённый стиль</h2></div>
+    <span class="mono">2 начертания</span>
+  </div>
+
+  <p class="lead rv" style="max-width:64ch;margin-top:clamp(28px,3.4vw,48px)">Три наклонные полосы&nbsp;— красная, тёмно-синяя и&nbsp;голубая&nbsp;— складываются в&nbsp;динамичный знак: направление вперёд и&nbsp;инженерная точность. Контраст цветных полос с&nbsp;лаконичным чёрным шрифтом даёт премиальный и&nbsp;уверенный&nbsp;тон.</p>
+
+  <p class="body rv" style="margin-top:clamp(18px,2vw,28px);max-width:64ch">Логотип есть в&nbsp;двух вариантах: со&nbsp;знаком и&nbsp;только словом&nbsp;— для&nbsp;подписей и&nbsp;мелкой полиграфии. Шрифт логотипа&nbsp;— Brinova, основной шрифт&nbsp;— Helvetica Neue. Охранное поле равно высоте&nbsp;знака.</p>
+
+  <div class="marks rv" data-n="2" style="--mark-w:55%">
+    <div class="mark" style="background:#F3F3F3"><img src="img/cases/elstar/logo.svg" alt="Логотип ELSTAR: знак из трёх полос и слово" loading="lazy"><span style="color:#1E1E1E;opacity:0.55">основной</span></div>
+    <div class="mark" style="background:#F3F3F3"><img src="img/cases/elstar/symbol.svg" alt="Знак ELSTAR: три наклонные полосы" loading="lazy"><span style="color:#1E1E1E;opacity:0.55">знак</span></div>
+  </div>
+
+  <div class="pal" data-n="5">
+    <div class="pal-i"><div class="pal-c" style="background:#B7151A"></div><div class="pal-h">#B7151A</div><div class="pal-n">красный</div><p class="pal-t">Верхняя полоса знака,&nbsp;акцент.</p></div>
+    <div class="pal-i"><div class="pal-c" style="background:#352871"></div><div class="pal-h">#352871</div><div class="pal-n">тёмно-синий</div><p class="pal-t">Средняя полоса, основной цвет носителей.</p></div>
+    <div class="pal-i"><div class="pal-c" style="background:#18C4F4"></div><div class="pal-h">#18C4F4</div><div class="pal-n">голубой</div><p class="pal-t">Нижняя полоса, цвет навигации.</p></div>
+    <div class="pal-i"><div class="pal-c" style="background:#2B2B2B"></div><div class="pal-h">#2B2B2B</div><div class="pal-n">графитовый</div><p class="pal-t">Текст и&nbsp;тёмные&nbsp;поля.</p></div>
+    <div class="pal-i"><div class="pal-c" style="background:#FFFFFF"></div><div class="pal-h">#FFFFFF</div><div class="pal-n">белый</div><p class="pal-t">Фон и&nbsp;инверсия&nbsp;знака.</p></div>
+  </div>
+
+  <div class="tiles rv" data-n="4">
+    <figure class="tile"><img src="img/cases/elstar/post-1.jpg" alt="Аватар ELSTAR в фирменных цветах" loading="lazy"><figcaption>Соцсети: аватар</figcaption></figure>
+    <figure class="tile"><img src="img/cases/elstar/post-2.jpg" alt="Пост ELSTAR с тремя полосами" loading="lazy"><figcaption>Соцсети: полосы</figcaption></figure>
+    <figure class="tile"><img src="img/cases/elstar/post-3.jpg" alt="Пост ELSTAR с автомобилем" loading="lazy"><figcaption>Соцсети: автомобиль</figcaption></figure>
+    <figure class="tile"><img src="img/cases/elstar/post-4.jpg" alt="Пост ELSTAR на фирменном градиенте" loading="lazy"><figcaption>Соцсети: градиент</figcaption></figure>
   </div>
 </section>
 
 <section id="work">
   <div class="sec-head rv">
-    <div><span class="sec-idx">02 — работа</span><h2 class="sec-title">что сделали</h2></div>
-    <span class="mono">4 решения</span>
+    <div><span class="sec-idx">04 — работа</span><h2 class="sec-title">что сделали</h2></div>
+    <span class="mono">6 решений</span>
   </div>
 
   <div class="steps">
     <div class="step rv"><span class="step-n">01</span>
-      <h3>Построили знак на&nbsp;точности</h3>
-      <p>Геометрия вместо&nbsp;динамики: сервис измеряет и&nbsp;настраивает, а&nbsp;не&nbsp;гоняет.</p></div>
+      <h3>Предложили пять направлений</h3>
+      <p>Молния в&nbsp;круге, звезда в&nbsp;слове, полосы BMW Motorsport, курсив со&nbsp;звездой и&nbsp;круговая эмблема 70-х. У&nbsp;каждого&nbsp;— палитра, шрифт и&nbsp;примеры на&nbsp;носителях, чтобы выбирать по&nbsp;образу, а&nbsp;не&nbsp;по&nbsp;картинке логотипа.</p></div>
     <div class="step rv"><span class="step-n">02</span>
-      <h3>Ушли от&nbsp;карбона и&nbsp;агрессии</h3>
-      <p>Сдержанная палитра и&nbsp;много воздуха. Владелец такой машины уже ничего никому не&nbsp;доказывает.</p></div>
+      <h3>Выбрали язык&nbsp;марки</h3>
+      <p>Заказчик утвердил концепт с&nbsp;тремя наклонными полосами: это цвета BMW M, и&nbsp;сервис сразу говорит владельцу, с&nbsp;какой маркой работает.</p></div>
     <div class="step rv"><span class="step-n">03</span>
-      <h3>Собрали носители под&nbsp;сервис</h3>
-      <p>Документы, бланки заказ-нарядов, навигация в&nbsp;цехе, оформление зоны приёмки&nbsp;— там, где клиент проводит время ожидания.</p></div>
+      <h3>Довели знак до&nbsp;системы</h3>
+      <p>Логотип со&nbsp;знаком и&nbsp;без, охранное поле, пять цветов, шрифты Brinova и&nbsp;Helvetica Neue, фирменная диагональная полоса как&nbsp;графический элемент.</p></div>
     <div class="step rv"><span class="step-n">04</span>
-      <h3>Задали правила для&nbsp;мелких форматов</h3>
-      <p>Знак работает на&nbsp;наклейке, на&nbsp;бирке ключа и&nbsp;в&nbsp;подписи мастера.</p></div>
+      <h3>Собрали носители</h3>
+      <p>Вывеска, стойка регистрации, визитки, поло и&nbsp;кепка, реклама на&nbsp;остановке, рамки номерного знака&nbsp;— как&nbsp;система, а&nbsp;не&nbsp;набор отдельных макетов.</p></div>
+    <div class="step rv"><span class="step-n">05</span>
+      <h3>Подготовили&nbsp;соцсети</h3>
+      <p>Аватары и&nbsp;посты в&nbsp;фирменных цветах: с&nbsp;полосами, с&nbsp;автомобилем, на&nbsp;градиенте.</p></div>
+    <div class="step rv"><span class="step-n">06</span>
+      <h3>Прописали юридические уточнения</h3>
+      <p>В&nbsp;брендбуке отдельно сказано, что&nbsp;ELSTAR&nbsp;— независимый сервис и&nbsp;не&nbsp;является официальным дилером BMW, а&nbsp;товарные знаки принадлежат владельцам.</p></div>
+  </div>
+</section>
+
+<section id="shots">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">05 — носители</span><h2 class="sec-title">как это живёт</h2></div>
+    <span class="mono">7 примеров из брендбука</span>
+  </div>
+
+  <div class="frames">
+    <figure class="frame rv full"><div class="frame-i"><img src="img/cases/elstar/facade.jpg" alt="Вывеска ELSTAR на фасаде сервиса" loading="lazy" style="aspect-ratio:16/9"></div><figcaption>Вывеска на фасаде<i>макет</i></figcaption></figure>
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/elstar/reception.jpg" alt="Табличка «Регистрация» с логотипом ELSTAR" loading="lazy" style="aspect-ratio:16/9"></div><figcaption>Стойка регистрации<i>макет</i></figcaption></figure>
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/elstar/busstop.jpg" alt="Реклама ELSTAR на автобусной остановке" loading="lazy" style="aspect-ratio:16/9"></div><figcaption>Реклама на остановке<i>макет</i></figcaption></figure>
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/elstar/screen.jpg" alt="Экран с логотипом ELSTAR" loading="lazy" style="aspect-ratio:16/9"></div><figcaption>Экран в зоне ожидания<i>макет</i></figcaption></figure>
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/elstar/card.jpg" alt="Визитка ELSTAR на тёмно-синем фоне" loading="lazy" style="aspect-ratio:16/9"></div><figcaption>Визитная карточка<i>макет</i></figcaption></figure>
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/elstar/polo.jpg" alt="Поло сотрудника со знаком ELSTAR" loading="lazy" style="aspect-ratio:16/9"></div><figcaption>Форма персонала<i>макет</i></figcaption></figure>
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/elstar/frames.jpg" alt="Рамки номерного знака с логотипом ELSTAR" loading="lazy" style="aspect-ratio:16/9"></div><figcaption>Рамки номерного знака<i>макет</i></figcaption></figure>
   </div>
 </section>
 
 <section id="result">
   <div class="sec-head rv">
-    <div><span class="sec-idx">03 — итог</span><h2 class="sec-title">результат</h2></div>
+    <div><span class="sec-idx">06 — итог</span><h2 class="sec-title">результат</h2></div>
     <span class="mono">что можно проверить</span>
   </div>
 
   <div class="outcome rv">
-    <div><span>01</span><div>Стиль отделяет инженерную мастерскую от&nbsp;гаражного сервиса без&nbsp;единого&nbsp;слова.</div></div>
-    <div><span>02</span><div>Носители собраны под&nbsp;реальные точки контакта: приёмка, документы,&nbsp;цех.</div></div>
-    <div><span>03</span><div>Знак сохраняется в&nbsp;размерах от&nbsp;вывески до&nbsp;бирки на&nbsp;ключах.</div></div>
+    <div><span>01</span><div>Клиент выбирал из&nbsp;пяти образов, а&nbsp;не&nbsp;соглашался на&nbsp;единственный: утверждённый концепт прошёл сравнение с&nbsp;четырьмя альтернативами.</div></div>
+    <div><span>02</span><div>Стиль отделяет инженерную мастерскую от&nbsp;гаражного сервиса без&nbsp;единого слова: полосы BMW M&nbsp;считываются владельцем&nbsp;сразу.</div></div>
+    <div><span>03</span><div>Логотип и&nbsp;стиль работают на&nbsp;вывеске, форме, рекламе, документах и&nbsp;в&nbsp;соцсетях&nbsp;— от&nbsp;фасада до&nbsp;рамки номерного&nbsp;знака.</div></div>
+    <div><span>04</span><div>Брендбук передан сервису: знак, цвета, шрифты, охранное поле и&nbsp;юридические уточнения.</div></div>
   </div>
-</section>
 
-<div class="live off rv">
+  <div class="live off rv">
   <div class="live-l"><span>публичной ссылки нет</span><b>Стиль живёт в офлайне — в сервисе, документах и на технике. Полную презентацию покажем по запросу.</b></div>
 </div>
+</section>
 
 <a class="next" href="ohmy-case-bastion.html">
   <img src="img/lib/cover-slide-6334.jpg" alt="" loading="lazy">
@@ -914,7 +996,7 @@ section.cta .fc:hover{background:var(--bg)}
 
 <section class="cta" id="cta">
   <div class="sec-head rv">
-    <div><span class="sec-idx">04 — связь</span><h2 class="sec-title">будем на связи</h2></div>
+    <div><span class="sec-idx">07 — связь</span><h2 class="sec-title">будем на связи</h2></div>
     <span class="mono">похожая задача?</span>
   </div>
   <div class="cta-contacts rv">

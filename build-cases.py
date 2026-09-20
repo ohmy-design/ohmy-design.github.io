@@ -195,6 +195,34 @@ def ident(c, n):
 </section>"""
 
 
+def concepts(c, n):
+    """Все направления, которые студия предложила клиенту, а не только
+       утверждённое. Каждое — логотип, описание и пример на носителе;
+       выбранное помечено."""
+    d = c['concepts']
+    rows = ''
+    for k, it in enumerate(d['items']):
+        imgs = ''.join(f'<figure><img src="img/cases/{c["slug"]}/{src}" alt="{esc(alt)}" loading="lazy"></figure>'
+                       for src, alt in it['imgs'])
+        pill = '<span class="cpt-ok">утверждён</span>' if it.get('final') else ''
+        rows += (f'\n    <article class="cpt rv{" is-final" if it.get("final") else ""}">'
+                 f'<div class="cpt-t"><span class="cpt-n">{k+1:02d}</span>{pill}'
+                 f'<h3>{typo(it["name"])}</h3><p>{typo(it["note"])}</p>'
+                 f'<span class="cpt-m">{it["meta"]}</span></div>'
+                 f'<div class="cpt-i">{imgs}</div></article>')
+    return f'''<section id="concepts">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">{n:02d} — {d.get('idx', 'поиск')}</span><h2 class="sec-title">{d['title']}</h2></div>
+    <span class="mono">{d['mono']}</span>
+  </div>
+
+  <p class="lead rv" style="max-width:64ch;margin-top:clamp(28px,3.4vw,48px)">{typo(d["lead"])}</p>
+
+  <div class="cpts">{rows}
+  </div>
+</section>'''
+
+
 def shots(c, n):
     """Носители. Фотографию и макет подписываем по-разному: выдавать
        рендер за напечатанное — то же самое, что придумать цифру.
@@ -330,6 +358,8 @@ def main():
         # Разделы нумеруются по факту: у проекта с фотографиями их пять,
         # у обычного — три, и подписи не должны разъезжаться
         chain = [task]
+        if c.get('concepts'):
+            chain.append(concepts)
         if c.get('ident'):
             chain.append(ident)
         chain.append(work)
