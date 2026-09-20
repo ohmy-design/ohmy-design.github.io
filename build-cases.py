@@ -149,7 +149,8 @@ def ident(c, n):
             marks += (f'\n    <div class="mark" style="background:{bg}">'
                       f'<img src="img/cases/{c["slug"]}/{src}" alt="{esc(alt)}" loading="lazy">'
                       f'<span style="color:{col};opacity:{op}">{label}</span></div>')
-        marks_html = f'\n\n  <div class="marks rv" data-n="{len(d["marks"])}">{marks}\n  </div>'
+        mw = f' style="--mark-w:{d["mark_w"]}"' if d.get('mark_w') else ''
+        marks_html = f'\n\n  <div class="marks rv" data-n="{len(d["marks"])}"{mw}>{marks}\n  </div>'
     cols = ''
     for hexc, name, note in d.get('colors', []):
         cols += (f'\n    <div class="pal-i"><div class="pal-c" style="background:{hexc}"></div>'
@@ -201,7 +202,10 @@ def shots(c, n):
        которые нельзя резать под общую рамку."""
     items = ''
     for src, alt, cap, kind, size, *rest in c['shots']:
-        ratio = f' style="aspect-ratio:{rest[0]}"' if rest else ''
+        ratio = ''
+        if rest:
+            r, _, fit = rest[0].partition(' ')
+            ratio = f' style="aspect-ratio:{r}{";object-fit:contain" if fit == "contain" else ""}"'
         items += (f'\n    <figure class="frame rv{" full" if size == "full" else ""}">'
                   f'<div class="frame-i"><img src="img/cases/{c["slug"]}/{src}" '
                   f'alt="{esc(alt)}" loading="lazy"{ratio}></div>'

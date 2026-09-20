@@ -303,7 +303,7 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
 /* Картинка — элемент флексбокса, у неё min-width:auto тоже равен
    натуральной ширине. Минимум сильнее максимума, поэтому без нуля
    max-width:100% ничего не решает */
-.mark img{max-width:100%;max-height:var(--logo);width:auto;height:auto;
+.mark img{max-width:var(--mark-w,100%);max-height:var(--logo);width:auto;height:auto;
   min-width:0;object-fit:contain}
 .mark span{position:absolute;left:clamp(14px,1.6vw,22px);bottom:clamp(12px,1.4vw,18px);
   font-size:12px;letter-spacing:.02em}

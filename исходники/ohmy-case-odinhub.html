@@ -303,7 +303,7 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
 /* Картинка — элемент флексбокса, у неё min-width:auto тоже равен
    натуральной ширине. Минимум сильнее максимума, поэтому без нуля
    max-width:100% ничего не решает */
-.mark img{max-width:100%;max-height:var(--logo);width:auto;height:auto;
+.mark img{max-width:var(--mark-w,100%);max-height:var(--logo);width:auto;height:auto;
   min-width:0;object-fit:contain}
 .mark span{position:absolute;left:clamp(14px,1.6vw,22px);bottom:clamp(12px,1.4vw,18px);
   font-size:12px;letter-spacing:.02em}
@@ -879,15 +879,14 @@ section.cta .fc:hover{background:var(--bg)}
 <section id="ident">
   <div class="sec-head rv">
     <div><span class="sec-idx">02 — знак</span><h2 class="sec-title">фирменный стиль</h2></div>
-    <span class="mono">4 начертания</span>
+    <span class="mono">3 начертания</span>
   </div>
 
   <p class="lead rv" style="max-width:64ch;margin-top:clamp(28px,3.4vw,48px)">Знак&nbsp;— изометрический куб: он&nbsp;читается и&nbsp;в&nbsp;шапке сайта, и&nbsp;в&nbsp;маленькой иконке. Название набрано в&nbsp;два цвета: ОДИН тёмным, ХАБ голубым&nbsp;— цвет бренда достаётся второму&nbsp;слову.</p>
 
-  <div class="marks rv" data-n="4">
+  <div class="marks rv" data-n="3" style="--mark-w:64%">
     <div class="mark" style="background:#F3F6FB"><img src="img/cases/odinhub/OH-4.svg" alt="Логотип ОдинХаб: чёрное и голубое на светлом" loading="lazy"><span style="color:#1E1E1E;opacity:0.55">основной</span></div>
     <div class="mark" style="background:#0A0A0A"><img src="img/cases/odinhub/OH-3.svg" alt="Логотип ОдинХаб: голубое и белое на тёмном" loading="lazy"><span style="color:#FCFCFC;opacity:0.6">на тёмном</span></div>
-    <div class="mark" style="background:#FFFFFF"><img src="img/cases/odinhub/OH-2.svg" alt="Логотип ОдинХаб в чёрном" loading="lazy"><span style="color:#1E1E1E;opacity:0.55">чёрный</span></div>
     <div class="mark" style="background:#43A6DE"><img src="img/cases/odinhub/OH-1.svg" alt="Логотип ОдинХаб в белом на голубом" loading="lazy"><span style="color:#FCFCFC;opacity:0.6">белый</span></div>
   </div>
 
@@ -933,11 +932,11 @@ section.cta .fc:hover{background:var(--bg)}
   </div>
 
   <div class="frames">
-    <figure class="frame rv"><div class="frame-i"><img src="img/cases/odinhub/before-1.jpg" alt="Сайт ОдинХаб до редизайна: первая версия главного экрана" loading="lazy" style="aspect-ratio:1280/600"></div><figcaption>Сайт до: главный экран<i>до</i></figcaption></figure>
-    <figure class="frame rv"><div class="frame-i"><img src="img/cases/odinhub/before-2.jpg" alt="Сайт ОдинХаб до редизайна: другая версия главного экрана" loading="lazy" style="aspect-ratio:1280/600"></div><figcaption>Сайт до: другая версия<i>до</i></figcaption></figure>
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/odinhub/before-1.jpg" alt="Сайт ОдинХаб до редизайна: первая версия главного экрана" loading="lazy" style="aspect-ratio:16/9;object-fit:contain"></div><figcaption>Сайт до: главный экран<i>до</i></figcaption></figure>
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/odinhub/before-2.jpg" alt="Сайт ОдинХаб до редизайна: другая версия главного экрана" loading="lazy" style="aspect-ratio:16/9;object-fit:contain"></div><figcaption>Сайт до: другая версия<i>до</i></figcaption></figure>
     <figure class="frame rv full"><div class="frame-i"><img src="img/cases/odinhub/after-hero.jpg" alt="Сайт ОдинХаб после редизайна: главный экран" loading="lazy"></div><figcaption>Сайт сейчас: главный экран<i>после</i></figcaption></figure>
-    <figure class="frame rv"><div class="frame-i"><img src="img/cases/odinhub/after-compare.jpg" alt="Сайт ОдинХаб: сравнение «как обычно» и «с ОдинХаб»" loading="lazy"></div><figcaption>Сравнение «как обычно» и «с ОдинХаб»<i>после</i></figcaption></figure>
-    <figure class="frame rv"><div class="frame-i"><img src="img/cases/odinhub/after-netbox.jpg" alt="Сайт ОдинХаб: блок для тех, кто уже использует NetBox" loading="lazy"></div><figcaption>Блок для тех, кто уже на NetBox<i>после</i></figcaption></figure>
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/odinhub/after-compare.jpg" alt="Сайт ОдинХаб: сравнение «как обычно» и «с ОдинХаб»" loading="lazy" style="aspect-ratio:16/9"></div><figcaption>Сравнение «как обычно» и «с ОдинХаб»<i>после</i></figcaption></figure>
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/odinhub/after-netbox.jpg" alt="Сайт ОдинХаб: блок для тех, кто уже использует NetBox" loading="lazy" style="aspect-ratio:16/9"></div><figcaption>Блок для тех, кто уже на NetBox<i>после</i></figcaption></figure>
   </div>
 </section>
 
