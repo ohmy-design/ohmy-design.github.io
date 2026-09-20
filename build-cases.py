@@ -145,10 +145,11 @@ def shots(c, n):
                   f'alt="{esc(alt)}" loading="lazy"></div>'
                   f'<figcaption>{cap}<i>{kind}</i></figcaption></figure>')
     live = sum(1 for *_, k, _s in c['shots'] if k == 'фото')
+    mono = f'{live} с площадки' if live else f'{len(c["shots"])} примеров из брендбука'
     return f'''<section id="shots">
   <div class="sec-head rv">
     <div><span class="sec-idx">{n:02d} — носители</span><h2 class="sec-title">как это живёт</h2></div>
-    <span class="mono">{live} с площадки</span>
+    <span class="mono">{mono}</span>
   </div>
 
   <div class="frames">{items}
