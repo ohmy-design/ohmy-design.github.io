@@ -90,21 +90,85 @@ def ink(hexc):
     return ('#1E1E1E', .55) if lum > .35 else ('#FCFCFC', .6)
 
 
+MOTION_JS = """<script>
+(function(){
+  var fig=document.currentScript.previousElementSibling; if(!fig) return;
+  var cv=fig.querySelector('canvas'); if(!cv) return;
+  var still=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var gl=!still&&(cv.getContext('webgl',{antialias:false,alpha:false})||null);
+  if(!gl){fig.classList.add('is-still');return}
+  var vs='attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
+  var fs='precision highp float;uniform vec2 uR;uniform float uT;uniform vec2 uM;'+
+  'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}'+
+  'float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);'+
+  'return mix(mix(h(i),h(i+vec2(1.,0.)),f.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),f.x),f.y);}'+
+  'float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<3;i++){v+=a*n(p);p=p*2.02+vec2(3.1,1.7);a*=.5;}return v;}'+
+  'void main(){vec2 uv=gl_FragCoord.xy/uR;vec2 p=(uv-.5)*vec2(uR.x/uR.y,1.)*1.05+(uM-.5)*.3;float t=uT*.05;'+
+  'vec2 q=vec2(fbm(p+vec2(0.,t)),fbm(p+vec2(5.2,1.3)-t));'+
+  'vec2 r=vec2(fbm(p+2.*q+vec2(1.7,9.2)+t*1.3),fbm(p+2.*q+vec2(8.3,2.8)-t));'+
+  'float f=fbm(p+2.4*r);'+
+  'vec3 peri=vec3(.58,.55,.83),deep=vec3(.50,.46,.68),cream=vec3(.925,.898,.863),shade=vec3(.33,.31,.53),peach=vec3(.94,.85,.80);'+
+  'vec3 c=mix(peri,deep,smoothstep(.3,.6,f));'+
+  'c=mix(c,cream,smoothstep(.5,.72,r.x*1.15));'+
+  'c=mix(c,shade,smoothstep(.55,.95,q.y)*.5*(1.-smoothstep(.4,.9,r.x)));'+
+  'c=mix(c,peach,smoothstep(.0,.6,1.-uv.y)*smoothstep(.5,.9,f)*.55);'+
+  'float g=h(gl_FragCoord.xy+floor(uT*10.)*17.)-.5;c+=g*.14;gl_FragColor=vec4(c,1.);}';
+  function sh(t,src){var o=gl.createShader(t);gl.shaderSource(o,src);gl.compileShader(o);return gl.getShaderParameter(o,gl.COMPILE_STATUS)?o:null}
+  var v=sh(gl.VERTEX_SHADER,vs),f=sh(gl.FRAGMENT_SHADER,fs); if(!v||!f){fig.classList.add('is-still');return}
+  var pr=gl.createProgram();gl.attachShader(pr,v);gl.attachShader(pr,f);gl.linkProgram(pr);
+  if(!gl.getProgramParameter(pr,gl.LINK_STATUS)){fig.classList.add('is-still');return}
+  gl.useProgram(pr);var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  var a=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
+  var uR=gl.getUniformLocation(pr,'uR'),uT=gl.getUniformLocation(pr,'uT'),uM=gl.getUniformLocation(pr,'uM');
+  var mx=.5,my=.5,cx=.5,cy=.5,on=false,t0=performance.now();
+  function size(){var k=Math.min(window.devicePixelRatio||1,1.5),w=Math.min(fig.clientWidth*k,1600);
+    cv.width=Math.round(w);cv.height=Math.round(w*fig.clientHeight/fig.clientWidth);gl.viewport(0,0,cv.width,cv.height)}
+  function frame(now){if(!on)return;cx+=(mx-cx)*.04;cy+=(my-cy)*.04;
+    gl.uniform2f(uR,cv.width,cv.height);gl.uniform1f(uT,(now-t0)/1000);gl.uniform2f(uM,cx,cy);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);requestAnimationFrame(frame)}
+  fig.addEventListener('pointermove',function(e){var r=fig.getBoundingClientRect();mx=(e.clientX-r.left)/r.width;my=1-(e.clientY-r.top)/r.height});
+  size();window.addEventListener('resize',size);
+  fig.classList.add('is-live');
+  new IntersectionObserver(function(es){on=es[0].isIntersecting;if(on)requestAnimationFrame(frame)}).observe(fig);
+})();
+</script>"""
+
+
 def ident(c, n):
     """Знак и палитра. Показываем цвета клиента как они есть, поэтому
-       плашки не зависят от темы сайта — иначе это была бы наша палитра."""
+       плашки не зависят от темы сайта — иначе это была бы наша палитра.
+       Раздел гибкий: знаков может не быть (сайт без логотипа), а к палитре
+       добавляются плитки визуалов и анимированный блок."""
     d = c['ident']
-    marks = ''
-    for bg, src, alt, label in d['marks']:
-        col, op = ink(bg)
-        marks += (f'\n    <div class="mark" style="background:{bg}">'
-                  f'<img src="img/cases/{c["slug"]}/{src}" alt="{esc(alt)}" loading="lazy">'
-                  f'<span style="color:{col};opacity:{op}">{label}</span></div>')
+    marks_html = ''
+    if d.get('marks'):
+        marks = ''
+        for bg, src, alt, label in d['marks']:
+            col, op = ink(bg)
+            marks += (f'\n    <div class="mark" style="background:{bg}">'
+                      f'<img src="img/cases/{c["slug"]}/{src}" alt="{esc(alt)}" loading="lazy">'
+                      f'<span style="color:{col};opacity:{op}">{label}</span></div>')
+        marks_html = f'\n\n  <div class="marks rv" data-n="{len(d["marks"])}">{marks}\n  </div>'
     cols = ''
-    for hexc, name, note in d['colors']:
+    for hexc, name, note in d.get('colors', []):
         cols += (f'\n    <div class="pal-i"><div class="pal-c" style="background:{hexc}"></div>'
                  f'<div class="pal-h">{hexc}</div><div class="pal-n">{name}</div>'
                  f'<p class="pal-t">{typo(note)}</p></div>')
+    pal = f'\n\n  <div class="pal" data-n="{len(d["colors"])}">{cols}\n  </div>' if cols else ''
+    motion = ''
+    if d.get('motion'):
+        m = d['motion']
+        motion = (f'\n\n  <figure class="motion rv"><canvas class="motion-cv"></canvas>'
+                  f'<img class="motion-poster" src="img/cases/{c["slug"]}/{m["poster"]}" alt="" loading="lazy">'
+                  f'<div class="motion-word" aria-hidden="true">{m["word"]}</div>'
+                  f'<figcaption>{m["caption"]}<i>анимация</i></figcaption></figure>\n  {MOTION_JS}')
+    tiles = ''
+    if d.get('tiles'):
+        items = ''.join(f'\n    <figure class="tile"><img src="img/cases/{c["slug"]}/{src}" '
+                        f'alt="{esc(alt)}" loading="lazy"><figcaption>{cap}</figcaption></figure>'
+                        for src, alt, cap in d['tiles'])
+        tiles = f'\n\n  <div class="tiles rv" data-n="{len(d["tiles"])}">{items}\n  </div>'
     photo = ''
     if d.get('photo'):
         src, alt, cap, kind = d['photo']
@@ -117,22 +181,17 @@ def ident(c, n):
     if d.get('note'):
         note = ('\n\n  <p class="body rv" style="margin-top:clamp(18px,2vw,28px);'
                 f'max-width:64ch">{typo(d["note"])}</p>')
-    n_marks = len(d['marks'])
+    n_marks = len(d.get('marks', []))
     word = 'начертание' if n_marks == 1 else 'начертания' if n_marks < 5 else 'начертаний'
-    return f'''<section id="ident">
+    mono = d.get('mono') or f'{n_marks} {word}'
+    return f"""<section id="ident">
   <div class="sec-head rv">
-    <div><span class="sec-idx">{n:02d} — знак</span><h2 class="sec-title">фирменный стиль</h2></div>
-    <span class="mono">{n_marks} {word}</span>
+    <div><span class="sec-idx">{n:02d} — {d.get('idx', 'знак')}</span><h2 class="sec-title">{d.get('title', 'фирменный стиль')}</h2></div>
+    <span class="mono">{mono}</span>
   </div>
 
-  <p class="lead rv" style="max-width:64ch;margin-top:clamp(28px,3.4vw,48px)">{typo(d["lead"])}</p>{note}
-
-  <div class="marks rv" data-n="{n_marks}">{marks}
-  </div>
-
-  <div class="pal" data-n="{len(d["colors"])}">{cols}
-  </div>{photo}
-</section>'''
+  <p class="lead rv" style="max-width:64ch;margin-top:clamp(28px,3.4vw,48px)">{typo(d["lead"])}</p>{note}{marks_html}{motion}{pal}{tiles}{photo}
+</section>"""
 
 
 def shots(c, n):

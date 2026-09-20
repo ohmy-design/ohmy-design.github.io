@@ -544,6 +544,34 @@ footer.site-foot{display:block}
 #shots,#result{padding-top:clamp(35px,4.5vw,75px)}
 /* ссылка «смотреть работу» — тоже часть итога, держим её рядом с последним пунктом */
 #result{padding-bottom:clamp(28px,3.4vw,52px)}
+/* motion:begin — анимированный блок и плитки визуалов */
+.motion{position:relative;margin:clamp(38px,4.5vw,66px) 0 0;aspect-ratio:2/1;overflow:hidden;
+  background:#958CD4}
+.motion-cv,.motion-poster{position:absolute;inset:0;width:100%;height:100%;display:block}
+.motion-poster{object-fit:cover;opacity:1;transition:opacity 1s var(--ease)}
+.motion.is-live .motion-poster{opacity:0;pointer-events:none}
+.motion-cv{opacity:0;transition:opacity 1s var(--ease)}
+.motion.is-live .motion-cv{opacity:1}
+.motion-word{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;
+  font-size:clamp(90px,26vw,420px);font-weight:600;letter-spacing:-.05em;line-height:1;
+  text-transform:uppercase;color:transparent;
+  background:linear-gradient(180deg,rgba(255,255,255,.96) 15%,rgba(226,218,244,.55) 100%);
+  -webkit-background-clip:text;background-clip:text}
+.motion figcaption{position:absolute;left:clamp(14px,1.6vw,22px);bottom:clamp(12px,1.4vw,18px);
+  margin:0;display:flex;align-items:baseline;gap:12px;font-size:13px;color:rgba(20,20,24,.72)}
+.motion figcaption i{font-style:normal;font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid rgba(20,20,24,.25);border-radius:100px;padding:3px 9px}
+@media(max-width:600px){.motion{aspect-ratio:4/3}}
+.tiles{margin-top:clamp(28px,3.4vw,48px);display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(10px,1.4vw,22px)}
+.tiles[data-n="3"]{grid-template-columns:repeat(3,1fr)}
+@media(max-width:760px){.tiles,.tiles[data-n="3"]{grid-template-columns:1fr 1fr}}
+.tile{margin:0;min-width:0}
+.tile img{display:block;width:100%;aspect-ratio:1;object-fit:cover;transition:transform 1.1s var(--ease)}
+.tile{overflow:hidden}
+.tile:hover img{transform:scale(1.04)}
+.tile figcaption{margin-top:12px;font-size:13px;color:var(--muted)}
+/* motion:end */
 /* case-extra:end */
 
 
@@ -557,6 +585,8 @@ footer.site-foot{display:block}
 .cta .sec-head{margin-bottom:clamp(30px,3.4vw,46px)}
 /* cta-head:end */
 </style>
+<!-- seo:start -->
+<!-- seo:end -->
 
 
 
@@ -751,25 +781,6 @@ section.cta .fc:hover{background:var(--bg)}
 </script>
 <!-- motion:end -->
 
-<!-- seo:start -->
-<link rel="canonical" href="https://ohmy.design/projects/ieae">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="ohmy.design">
-<meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="IEAE — сайт международной выставки потребительской электроники">
-<meta property="og:description" content="Сайт международной выставки потребительской электроники и умной бытовой техники IEAE. Кейс студии ohmy.design.">
-<meta property="og:url" content="https://ohmy.design/projects/ieae">
-<meta property="og:image" content="https://ohmy.design/og/projects-ieae.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="IEAE — сайт международной выставки потребительской электроники">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="IEAE — сайт международной выставки потребительской электроники">
-<meta name="twitter:description" content="Сайт международной выставки потребительской электроники и умной бытовой техники IEAE. Кейс студии ohmy.design.">
-<meta name="twitter:image" content="https://ohmy.design/og/projects-ieae.png">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#131317">
-<!-- seo:end -->
 </head>
 <body>
 
