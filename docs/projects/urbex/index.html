@@ -21,8 +21,8 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>URBEX — сайт и бренд архитектурного бюро</title>
-<meta name="description" content="Сайт и фирменный стиль московского архитектурного бюро URBEX. Кейс студии ohmy.design.">
+<title>URBEX — сайт и фирменный стиль архитектурного бюро</title>
+<meta name="description" content="Сайт, логотип, фирменный стиль и брендбук московского архитектурного бюро URBEX Architects. Кейс студии ohmy.design.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -316,7 +316,8 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
   font-variant-numeric:tabular-nums}
 .pal-n{margin-top:2px;font-size:13px;color:var(--muted)}
 .pal-t{margin-top:12px;font-size:14px;line-height:1.6;color:var(--muted)}
-@media(max-width:760px){.pal{grid-template-columns:1fr;gap:26px}}
+.pal[data-n="4"]{grid-template-columns:repeat(4,1fr)}
+@media(max-width:760px){.pal,.pal[data-n="4"]{grid-template-columns:1fr;gap:26px}}
 
 /* ---------- НОСИТЕЛИ ----------
    Отдельно от .gallery: та сетка осталась от собранной руками страницы
@@ -755,16 +756,16 @@ section.cta .fc:hover{background:var(--bg)}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ohmy.design">
 <meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="URBEX — сайт и бренд архитектурного бюро">
-<meta property="og:description" content="Сайт и фирменный стиль московского архитектурного бюро URBEX. Кейс студии ohmy.design.">
+<meta property="og:title" content="URBEX — сайт и фирменный стиль архитектурного бюро">
+<meta property="og:description" content="Сайт, логотип, фирменный стиль и брендбук московского архитектурного бюро URBEX Architects. Кейс студии ohmy.design.">
 <meta property="og:url" content="https://ohmy.design/projects/urbex">
 <meta property="og:image" content="https://ohmy.design/og/projects-urbex.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="URBEX — сайт и бренд архитектурного бюро">
+<meta property="og:image:alt" content="URBEX — сайт и фирменный стиль архитектурного бюро">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="URBEX — сайт и бренд архитектурного бюро">
-<meta name="twitter:description" content="Сайт и фирменный стиль московского архитектурного бюро URBEX. Кейс студии ohmy.design.">
+<meta name="twitter:title" content="URBEX — сайт и фирменный стиль архитектурного бюро">
+<meta name="twitter:description" content="Сайт, логотип, фирменный стиль и брендбук московского архитектурного бюро URBEX Architects. Кейс студии ohmy.design.">
 <meta name="twitter:image" content="https://ohmy.design/og/projects-urbex.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#131317">
@@ -803,23 +804,32 @@ section.cta .fc:hover{background:var(--bg)}
 </nav>
 <div class="menu" id="menu"></div>
 
+<style>
+#work,#result{background:var(--bg-2)}
+#result{padding-bottom:clamp(70px,9vw,150px)}
+#result .live{margin:clamp(28px,3.4vw,52px) 0 0}
+#result .live:hover{background:var(--bg)}
+</style>
+
 <header class="cover">
-  <img src="/img/lib/18217832-6438.jpg" alt="URBEX">
+  <img src="/img/cases/urbex/banner.jpg" alt="URBEX">
   <div class="cover-in">
     <a class="crumb" href="/projects/">← все проекты</a>
     <h1>URBEX</h1>
     <div class="cover-tags">
       <span class="tag on">сайт</span>
-      <span class="tag">айдентика</span>
+      <span class="tag">логотип и фирменный стиль</span>
+      <span class="tag">брендбук</span>
       <span class="tag">2025</span>
     </div>
   </div>
 </header>
 
-<div class="facts" data-n="3">
-  <div class="fact"><span>клиент</span><b>URBEX, архитектурное бюро,&nbsp;Москва</b></div>
+<div class="facts" data-n="4">
+  <div class="fact"><span>клиент</span><b>URBEX Architects, архитектурное бюро,&nbsp;Москва</b></div>
   <div class="fact"><span>направление</span><b>Веб · айдентика</b></div>
-  <div class="fact"><span>роль студии</span><b>Знак, стиль, структура, дизайн,&nbsp;сборка</b></div>
+  <div class="fact"><span>роль студии</span><b>Логотип, фирменный стиль, брендбук,&nbsp;сайт</b></div>
+  <div class="fact"><span>сайт</span><b><a href="https://urbex-architects.tilda.ws/" target="_blank" rel="noopener" class="fact-live">urbex-architects.tilda.ws<i>↗</i></a></b></div>
 </div>
 
 <section id="task">
@@ -829,52 +839,93 @@ section.cta .fc:hover{background:var(--bg)}
   </div>
 
   <div class="two">
-    <p class="lead rv">Архитектурному бюро сайт нужен не&nbsp;для&nbsp;того, чтобы объяснять услуги. <em>Он&nbsp;нужен, чтобы показывать работу</em>&nbsp;— и&nbsp;не&nbsp;мешать&nbsp;ей.</p>
+    <p class="lead rv">Бюро, которое проектирует города, должно выглядеть так&nbsp;же&nbsp;точно, как&nbsp;его чертежи. <em>Бренд и&nbsp;сайт нужны, чтобы показывать работу</em>&nbsp;— и&nbsp;не&nbsp;мешать&nbsp;ей.</p>
     <div class="rv">
-      <p class="body">У&nbsp;бюро есть проекты, и&nbsp;они говорят сами за&nbsp;себя. Задача сайта&nbsp;— убрать всё, что&nbsp;стоит между&nbsp;посетителем и&nbsp;проектом: лишние экраны, описания процесса, разговоры о&nbsp;подходе.</p>
-      <p class="body">Вторая задача&nbsp;— портфолио, которое бюро сможет пополнять само. Архитектурная студия сдаёт проекты годами, и&nbsp;сайт, который каждый раз требует дизайнера, устаревает в&nbsp;первый&nbsp;же&nbsp;месяц.</p>
+      <p class="body">У&nbsp;бюро полный цикл: градостроительство, архитектура, дизайн, консультации&nbsp;— от&nbsp;аналитики до&nbsp;проекта. Ключевые ценности&nbsp;— инновационность и&nbsp;функциональность, а&nbsp;на&nbsp;главной&nbsp;— цифры: 23&nbsp;проекта и&nbsp;2 190 000&nbsp;м² спроектированной площади.</p>
+      <p class="body">Бренду нужно было выразить точность, эстетику и&nbsp;прогрессивность без&nbsp;декора. Знак, цвета, шрифты и&nbsp;паттерн должны работать вместе&nbsp;— от&nbsp;сайта до&nbsp;визитки и&nbsp;деловой документации.</p>
     </div>
   </div>
 </section>
 
+<section id="ident">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">02 — знак</span><h2 class="sec-title">фирменный стиль</h2></div>
+    <span class="mono">2 начертания</span>
+  </div>
+
+  <p class="lead rv" style="max-width:64ch;margin-top:clamp(28px,3.4vw,48px)">Знак&nbsp;— название бюро, набранное в&nbsp;чётком лаконичном шрифте. Геометрия букв и&nbsp;строгие линии говорят о&nbsp;точности и&nbsp;технологичности, а&nbsp;жирная X&nbsp;читается как&nbsp;самостоятельный&nbsp;акцент.</p>
+
+  <p class="body rv" style="margin-top:clamp(18px,2vw,28px);max-width:64ch">Логотип есть в&nbsp;трёх начертаниях: с&nbsp;подписью ARCHITECTS, с&nbsp;подписью «Архитектурное бюро» и&nbsp;без&nbsp;подписи. Охранное поле равно высоте квадрата вокруг&nbsp;X.</p>
+
+  <div class="marks rv" data-n="2">
+    <div class="mark" style="background:#060606"><img src="/img/cases/urbex/logo-black.svg" alt="Логотип URBEX в белом на чёрном" loading="lazy"><span style="color:#FCFCFC;opacity:0.6">на чёрном</span></div>
+    <div class="mark" style="background:#CBE270"><img src="/img/cases/urbex/logo-lime.svg" alt="Логотип URBEX в чёрном на лаймовом" loading="lazy"><span style="color:#1E1E1E;opacity:0.55">на лаймовом</span></div>
+  </div>
+
+  <div class="pal" data-n="4">
+    <div class="pal-i"><div class="pal-c" style="background:#FFFFFF"></div><div class="pal-h">#FFFFFF</div><div class="pal-n">белый</div><p class="pal-t">Чистота. Основной&nbsp;фон.</p></div>
+    <div class="pal-i"><div class="pal-c" style="background:#060606"></div><div class="pal-h">#060606</div><div class="pal-n">чёрный</div><p class="pal-t">Точность и&nbsp;глубина. Текст и&nbsp;графика.</p></div>
+    <div class="pal-i"><div class="pal-c" style="background:#CBE270"></div><div class="pal-h">#CBE270</div><div class="pal-n">лаймовый</div><p class="pal-t">Энергия. Акценты и&nbsp;градиент.</p></div>
+    <div class="pal-i"><div class="pal-c" style="background:#F1F4FF"></div><div class="pal-h">#F1F4FF</div><div class="pal-n">светло-голубой</div><p class="pal-t">Технологичность. Подложки.</p></div>
+  </div>
+
+  <figure class="frame full rv" style="margin-top:clamp(38px,4.5vw,66px)"><div class="frame-i"><img src="/img/cases/urbex/posters.jpg" alt="Паттерн из буквы X на печатной продукции URBEX" loading="lazy"></div><figcaption>Паттерн из знака на печатной продукции<i>макет</i></figcaption></figure>
+</section>
+
 <section id="work">
   <div class="sec-head rv">
-    <div><span class="sec-idx">02 — работа</span><h2 class="sec-title">что сделали</h2></div>
-    <span class="mono">4 решения</span>
+    <div><span class="sec-idx">03 — работа</span><h2 class="sec-title">что сделали</h2></div>
+    <span class="mono">5 решений</span>
   </div>
 
   <div class="steps">
     <div class="step rv"><span class="step-n">01</span>
-      <h3>Отдали первый экран проекту, а&nbsp;не&nbsp;бюро</h3>
-      <p>Посетитель попадает сразу в&nbsp;работу. Кто мы&nbsp;и&nbsp;как&nbsp;работаем&nbsp;— ниже, для&nbsp;тех, кому это понадобится&nbsp;после.</p></div>
+      <h3>Собрали знак из&nbsp;названия, а&nbsp;не&nbsp;из&nbsp;иконки</h3>
+      <p>Бюро называется URBEX, знаком стало само слово: чёткий лаконичный шрифт и&nbsp;строгие линии. Жирная X&nbsp;даёт акцент и&nbsp;становится основой паттерна.</p></div>
     <div class="step rv"><span class="step-n">02</span>
-      <h3>Собрали сетку под&nbsp;разные форматы&nbsp;подачи</h3>
-      <p>У&nbsp;архитектурных проектов материал неровный: где-то&nbsp;серия визуализаций, где-то&nbsp;один план. Сетка принимает и&nbsp;то&nbsp;и&nbsp;другое, не&nbsp;ломаясь.</p></div>
+      <h3>Дали каждому цвету свою&nbsp;роль</h3>
+      <p>Белый&nbsp;— фон, светло-голубой&nbsp;— подложки, лаймовый&nbsp;— акценты, чёрный&nbsp;— текст и&nbsp;графика. Четыре цвета вместо&nbsp;палитры на&nbsp;все&nbsp;случаи.</p></div>
     <div class="step rv"><span class="step-n">03</span>
-      <h3>Сделали типографику&nbsp;тихой</h3>
-      <p>Один шрифт, минимум размеров, много воздуха. Всё внимание&nbsp;— изображению.</p></div>
+      <h3>Вырастили паттерн из&nbsp;знака</h3>
+      <p>Повторяющийся элемент из&nbsp;буквы X&nbsp;усиливает узнаваемость: он&nbsp;работает на&nbsp;печатной продукции, в&nbsp;упаковке и&nbsp;цифровых материалах.</p></div>
     <div class="step rv"><span class="step-n">04</span>
-      <h3>Оставили бюро возможность пополнять портфолио</h3>
-      <p>Новый проект добавляется по&nbsp;шаблону, без&nbsp;вёрстки.</p></div>
+      <h3>Собрали брендбук</h3>
+      <p>Логотип и&nbsp;охранное поле, цвета и&nbsp;градиент, шрифты Manrope и&nbsp;Montserrat, деловая документация, паттерн и&nbsp;примеры носителей&nbsp;— в&nbsp;одном руководстве.</p></div>
+    <div class="step rv"><span class="step-n">05</span>
+      <h3>Собрали сайт&nbsp;бюро</h3>
+      <p>Услуги, проекты, команда, новости и&nbsp;документы в&nbsp;одной структуре. На&nbsp;главной&nbsp;— преимущества бюро, цифры и&nbsp;избранные проекты.</p></div>
+  </div>
+</section>
+
+<section id="shots">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">04 — носители</span><h2 class="sec-title">как это живёт</h2></div>
+    <span class="mono">2 примера из брендбука</span>
+  </div>
+
+  <div class="frames">
+    <figure class="frame rv full"><div class="frame-i"><img src="/img/cases/urbex/merch.jpg" alt="Визитки, худи, шапка, наклейки и футболка со знаком URBEX" loading="lazy"></div><figcaption>Визитки и мерч<i>макет</i></figcaption></figure>
+    <figure class="frame rv full"><div class="frame-i"><img src="/img/cases/urbex/docs.jpg" alt="Деловая документация URBEX: блокнот, бланк и кружка" loading="lazy"></div><figcaption>Деловая документация<i>макет</i></figcaption></figure>
   </div>
 </section>
 
 <section id="result">
   <div class="sec-head rv">
-    <div><span class="sec-idx">03 — итог</span><h2 class="sec-title">результат</h2></div>
+    <div><span class="sec-idx">05 — итог</span><h2 class="sec-title">результат</h2></div>
     <span class="mono">что можно проверить</span>
   </div>
 
   <div class="outcome rv">
-    <div><span>01</span><div>Портфолио пополняется силами бюро, без&nbsp;участия&nbsp;студии.</div></div>
-    <div><span>02</span><div>Сетка принимает проекты с&nbsp;разным объёмом материала.</div></div>
-    <div><span>03</span><div>Айдентика и&nbsp;сайт собраны одним заходом и&nbsp;говорят на&nbsp;одном&nbsp;языке.</div></div>
+    <div><span>01</span><div>Логотип и&nbsp;стиль одинаково хорошо работают в&nbsp;вебе, на&nbsp;печатных носителях, в&nbsp;деловой документации и&nbsp;на&nbsp;мерче&nbsp;— от&nbsp;визитки до&nbsp;худи.</div></div>
+    <div><span>02</span><div>Брендбук передан бюро: логотип, цвета, шрифты, паттерн и&nbsp;правила оформления документов собраны в&nbsp;одном руководстве.</div></div>
+    <div><span>03</span><div>Для&nbsp;деловых документов заданы правила: шрифты, цвет и&nbsp;структура заголовков&nbsp;— договоры и&nbsp;презентации выглядят частью одного&nbsp;стиля.</div></div>
   </div>
-</section>
 
-<div class="live off rv">
-  <div class="live-l"><span>публичной ссылки нет</span><b>Сайт бюро сейчас недоступен по своему адресу — показать рабочую ссылку не можем. Материалы проекта покажем по запросу.</b></div>
-</div>
+  <a class="live rv" href="https://urbex-architects.tilda.ws/" target="_blank" rel="noopener">
+  <div class="live-l"><span>смотреть работу</span><b>urbex-architects.tilda.ws</b></div>
+  <span class="live-a">↗</span>
+</a>
+</section>
 
 <a class="next" href="/projects/odinkluch/">
   <img src="/img/lib/86982290-6230.jpg" alt="" loading="lazy">
@@ -886,7 +937,7 @@ section.cta .fc:hover{background:var(--bg)}
 
 <section class="cta" id="cta">
   <div class="sec-head rv">
-    <div><span class="sec-idx">04 — связь</span><h2 class="sec-title">будем на связи</h2></div>
+    <div><span class="sec-idx">06 — связь</span><h2 class="sec-title">будем на связи</h2></div>
     <span class="mono">похожая задача?</span>
   </div>
   <div class="cta-contacts rv">

@@ -316,7 +316,8 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
   font-variant-numeric:tabular-nums}
 .pal-n{margin-top:2px;font-size:13px;color:var(--muted)}
 .pal-t{margin-top:12px;font-size:14px;line-height:1.6;color:var(--muted)}
-@media(max-width:760px){.pal{grid-template-columns:1fr;gap:26px}}
+.pal[data-n="4"]{grid-template-columns:repeat(4,1fr)}
+@media(max-width:760px){.pal,.pal[data-n="4"]{grid-template-columns:1fr;gap:26px}}
 
 /* ---------- НОСИТЕЛИ ----------
    Отдельно от .gallery: та сетка осталась от собранной руками страницы
@@ -860,7 +861,7 @@ section.cta .fc:hover{background:var(--bg)}
     <div class="mark" style="background:#0E0B14"><img src="img/cases/it-tech-hub/lockup.svg" alt="Лок-ап 2025 года: знак и первое имя IT-TECH HUB" loading="lazy"><span style="color:#FCFCFC;opacity:0.6">лок-ап 2025 года</span></div>
   </div>
 
-  <div class="pal">
+  <div class="pal" data-n="3">
     <div class="pal-i"><div class="pal-c" style="background:#5C1CB2"></div><div class="pal-h">#5C1CB2</div><div class="pal-n">фиолетовый</div><p class="pal-t">Нижняя, самая холодная точка градиента&nbsp;— с&nbsp;неё начинается переход.</p></div>
     <div class="pal-i"><div class="pal-c" style="background:#FF00C1"></div><div class="pal-h">#FF00C1</div><div class="pal-n">маджента</div><p class="pal-t">Пиковая точка перехода, самая насыщенная&nbsp;— её&nbsp;видно даже в&nbsp;мелком размере, на&nbsp;иконке или&nbsp;бейдже.</p></div>
     <div class="pal-i"><div class="pal-c" style="background:#F4AC24"></div><div class="pal-h">#F4AC24</div><div class="pal-n">оранжевый</div><p class="pal-t">Верхняя точка&nbsp;— единственный цвет, которым знак заканчивается и&nbsp;одновременно начинается название. Он&nbsp;сшивает обе половины лок-апа в&nbsp;одну&nbsp;ленту.</p></div>
@@ -924,7 +925,7 @@ section.cta .fc:hover{background:var(--bg)}
 </section>
 
 <a class="next" href="ohmy-case-urbex.html">
-  <img src="img/lib/18217832-6438.jpg" alt="" loading="lazy">
+  <img src="img/cases/urbex/banner.jpg" alt="" loading="lazy">
   <div class="next-in">
     <span class="mono">следующий проект</span>
     <h2>URBEX <span class="next-arrow">↗</span></h2>

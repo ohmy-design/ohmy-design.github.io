@@ -316,7 +316,8 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
   font-variant-numeric:tabular-nums}
 .pal-n{margin-top:2px;font-size:13px;color:var(--muted)}
 .pal-t{margin-top:12px;font-size:14px;line-height:1.6;color:var(--muted)}
-@media(max-width:760px){.pal{grid-template-columns:1fr;gap:26px}}
+.pal[data-n="4"]{grid-template-columns:repeat(4,1fr)}
+@media(max-width:760px){.pal,.pal[data-n="4"]{grid-template-columns:1fr;gap:26px}}
 
 /* ---------- НОСИТЕЛИ ----------
    Отдельно от .gallery: та сетка осталась от собранной руками страницы
@@ -870,7 +871,7 @@ section.cta .fc:hover{background:var(--bg)}
     <div class="mark" style="background:#F3EEE5"><img src="img/cases/evromed/logo-green.svg" alt="Логотип ЕвроМеда в фирменном зелёном" loading="lazy"><span style="color:#1E1E1E;opacity:0.55">основной</span></div>
   </div>
 
-  <div class="pal">
+  <div class="pal" data-n="6">
     <div class="pal-i"><div class="pal-c" style="background:#5D982D"></div><div class="pal-h">#5D982D</div><div class="pal-n">зелёный</div><p class="pal-t">Основной цвет: здоровье, спокойствие и&nbsp;чистота. Им&nbsp;набран знак и&nbsp;ключевые носители.</p></div>
     <div class="pal-i"><div class="pal-c" style="background:#F3EEE5"></div><div class="pal-h">#F3EEE5</div><div class="pal-n">светлый нейтральный</div><p class="pal-t">Тёплый фон вместо&nbsp;больничной белизны. Второй основной цвет, на&nbsp;нём знак держится в&nbsp;зелёном.</p></div>
     <div class="pal-i"><div class="pal-c" style="background:#5D91E8"></div><div class="pal-h">#5D91E8</div><div class="pal-n">голубой</div><p class="pal-t">Вспомогательный. Акценты, навигация и&nbsp;служебные элементы, без&nbsp;доминирования над&nbsp;основными цветами.</p></div>

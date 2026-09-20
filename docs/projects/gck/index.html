@@ -316,7 +316,8 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
   font-variant-numeric:tabular-nums}
 .pal-n{margin-top:2px;font-size:13px;color:var(--muted)}
 .pal-t{margin-top:12px;font-size:14px;line-height:1.6;color:var(--muted)}
-@media(max-width:760px){.pal{grid-template-columns:1fr;gap:26px}}
+.pal[data-n="4"]{grid-template-columns:repeat(4,1fr)}
+@media(max-width:760px){.pal,.pal[data-n="4"]{grid-template-columns:1fr;gap:26px}}
 
 /* ---------- НОСИТЕЛИ ----------
    Отдельно от .gallery: та сетка осталась от собранной руками страницы
@@ -860,7 +861,7 @@ section.cta .fc:hover{background:var(--bg)}
     <div class="mark" style="background:#FCFCFC"><img src="/img/cases/gck/lockup-gold.svg" alt="Знак ГЦК с золотым элементом" loading="lazy"><span style="color:#1E1E1E;opacity:0.55">основной</span></div>
   </div>
 
-  <div class="pal">
+  <div class="pal" data-n="3">
     <div class="pal-i"><div class="pal-c" style="background:#E4BF8A"></div><div class="pal-h">#E4BF8A</div><div class="pal-n">бледное золото</div><p class="pal-t">Фундаментальность инженерных знаний и&nbsp;надёжность. Мягкий тон связывает центр с&nbsp;материальной средой производства.</p></div>
     <div class="pal-i"><div class="pal-c" style="background:#FCFCFC"></div><div class="pal-h">#FCFCFC</div><div class="pal-n">белый</div><p class="pal-t">Чистота идей и&nbsp;ясность инженерного мышления. Даёт контраст и&nbsp;делает знак лёгким для&nbsp;восприятия.</p></div>
     <div class="pal-i"><div class="pal-c" style="background:#1E1E1E"></div><div class="pal-h">#1E1E1E</div><div class="pal-n">чёрный</div><p class="pal-t">Фон, который держит строгость и&nbsp;академическую значимость&nbsp;центра.</p></div>

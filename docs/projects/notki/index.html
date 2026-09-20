@@ -316,7 +316,8 @@ section{padding:clamp(70px,9vw,150px) var(--pad);position:relative}
   font-variant-numeric:tabular-nums}
 .pal-n{margin-top:2px;font-size:13px;color:var(--muted)}
 .pal-t{margin-top:12px;font-size:14px;line-height:1.6;color:var(--muted)}
-@media(max-width:760px){.pal{grid-template-columns:1fr;gap:26px}}
+.pal[data-n="4"]{grid-template-columns:repeat(4,1fr)}
+@media(max-width:760px){.pal,.pal[data-n="4"]{grid-template-columns:1fr;gap:26px}}
 
 /* ---------- НОСИТЕЛИ ----------
    Отдельно от .gallery: та сетка осталась от собранной руками страницы

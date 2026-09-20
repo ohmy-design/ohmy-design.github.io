@@ -130,7 +130,7 @@ def ident(c, n):
   <div class="marks rv" data-n="{n_marks}">{marks}
   </div>
 
-  <div class="pal">{cols}
+  <div class="pal" data-n="{len(d["colors"])}">{cols}
   </div>{photo}
 </section>'''
 
@@ -145,7 +145,9 @@ def shots(c, n):
                   f'alt="{esc(alt)}" loading="lazy"></div>'
                   f'<figcaption>{cap}<i>{kind}</i></figcaption></figure>')
     live = sum(1 for *_, k, _s in c['shots'] if k == 'фото')
-    mono = f'{live} с площадки' if live else f'{len(c["shots"])} примеров из брендбука'
+    k = len(c['shots'])
+    ex = 'пример' if k % 10 == 1 and k != 11 else 'примера' if k % 10 in (2, 3, 4) and k not in (12, 13, 14) else 'примеров'
+    mono = f'{live} с площадки' if live else f'{k} {ex} из брендбука'
     return f'''<section id="shots">
   <div class="sec-head rv">
     <div><span class="sec-idx">{n:02d} — носители</span><h2 class="sec-title">как это живёт</h2></div>
