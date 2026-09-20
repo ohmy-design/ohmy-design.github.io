@@ -32,7 +32,7 @@
   --ink:#F2F0EC; --muted:#84848E;
   --line:rgba(242,240,236,.11); --line-strong:rgba(242,240,236,.30);
   --veil:19,19,23; --glass:rgba(19,19,23,.62);
-  --accent:#FF4A1C;
+  --accent:#8B6CFF;
   --img-b:.66; --img-b-hover:.82;
   --logo-filter:brightness(0) invert(1);
   --blend:difference;
@@ -42,7 +42,7 @@
   --ink:#141418; --muted:#71717A;
   --line:rgba(20,20,24,.12); --line-strong:rgba(20,20,24,.28);
   --veil:252,252,251; --glass:rgba(252,252,251,.65);
-  --accent:#E5350B;
+  --accent:#6A45E8;
   --img-b:.92; --img-b-hover:1.02;
   --logo-filter:brightness(0);
   --blend:normal;
@@ -225,7 +225,7 @@ section{position:relative;z-index:4;background:var(--bg);
   background:none;border-left:0;border-right:0;border-top:0;color:inherit;font:inherit;
   text-align:left;cursor:pointer;position:relative;transition:.6s var(--ease)}
 .dir::before{content:'';position:absolute;left:calc(var(--pad)*-1);right:0;top:0;bottom:0;
-  background:linear-gradient(90deg,rgba(255,74,28,.08),transparent 60%);
+  background:linear-gradient(90deg,rgba(139,108,255,.08),transparent 60%);
   opacity:0;transition:opacity .6s var(--ease);pointer-events:none}
 .dir:hover::before,.dir[aria-expanded="true"]::before{opacity:1}
 .dir:hover{padding-left:16px}
@@ -470,7 +470,7 @@ footer.site-foot{display:block}
   display:inline-block}
 .foot-req div b{overflow-wrap:anywhere}
 .foot-req a.req-link{font-size:13px;color:var(--accent);
-  border-bottom:1px solid rgba(255,74,28,.4);display:inline-block;margin-top:6px}
+  border-bottom:1px solid rgba(139,108,255,.4);display:inline-block;margin-top:6px}
 
 .foot-bottom{display:flex;justify-content:space-between;align-items:center;
   gap:18px;flex-wrap:wrap;padding-top:clamp(20px,2.4vw,30px);
@@ -1080,8 +1080,8 @@ const FILL = .60;                  // wordmark width as a share of the viewport
 const MAX_ROLL = 0.13;             // deliberate cursor tilt, radians (~7.5°)
 
 const PALETTE = {
-  dark : {warm:0xFFF1E6, hot:0xFF4A1C, cold:0x3E3E4A, clear:0x131317, light:0},
-  light: {warm:0x15151A, hot:0xE5350B, cold:0xC6C3BC, clear:0xF3F1ED, light:1}
+  dark : {warm:0xFFF1E6, hot:0x8B6CFF, cold:0x3E3E4A, clear:0x131317, light:0},
+  light: {warm:0x15151A, hot:0x6A45E8, cold:0xC6C3BC, clear:0xF3F1ED, light:1}
 };
 
 const scene = new THREE.Scene();

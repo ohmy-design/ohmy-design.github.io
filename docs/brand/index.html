@@ -31,7 +31,7 @@
   --bg:#131317; --bg-2:#1A1A20;
   --ink:#F2F0EC; --muted:#84848E;
   --line:rgba(242,240,236,.11); --line-strong:rgba(242,240,236,.30);
-  --accent:#FF4A1C;
+  --accent:#8B6CFF;
   --img-b:.7; --img-b-hover:.95;
   --blend:difference;
 }
@@ -39,7 +39,7 @@
   --bg:#FCFCFB; --bg-2:#F0F0EE;
   --ink:#141418; --muted:#71717A;
   --line:rgba(20,20,24,.12); --line-strong:rgba(20,20,24,.28);
-  --accent:#E5350B;
+  --accent:#6A45E8;
   --img-b:.96; --img-b-hover:1.03;
   --blend:normal;
 }
@@ -455,7 +455,7 @@ footer.site-foot{display:block}
   display:inline-block}
 .foot-req div b{overflow-wrap:anywhere}
 .foot-req a.req-link{font-size:13px;color:var(--accent);
-  border-bottom:1px solid rgba(255,74,28,.4);display:inline-block;margin-top:6px}
+  border-bottom:1px solid rgba(139,108,255,.4);display:inline-block;margin-top:6px}
 
 .foot-bottom{display:flex;justify-content:space-between;align-items:center;
   gap:18px;flex-wrap:wrap;padding-top:clamp(20px,2.4vw,30px);
@@ -1153,7 +1153,7 @@ const EVERY = 7000;
 
 /* [глубокий, средний, яркий, светлый] — порядок задаёт ступени поля */
 const PALETTES = [
-  {n:'коралл',     c:['#1A0F0A','#B3300F','#FF4A1C','#FFD9C2']},
+  {n:'коралл',     c:['#1A0F0A','#B3300F','#8B6CFF','#FFD9C2']},
   {n:'мята',       c:['#07211E','#0E7A66','#23D3B0','#DFF7F0']},
   {n:'ультрамарин',c:['#0A1330','#2452C9','#4D9DFF','#E2ECFF']},
   {n:'фуксия',     c:['#21071A','#A31159','#FF3D80','#FFE0EC']},
@@ -1196,8 +1196,8 @@ const uni = {
   uRes:{value:new THREE.Vector2(1,1)},
   uTime:{value:0}, uMix:{value:0}, uPulse:{value:0},
   uMouse:{value:new THREE.Vector2(0,0)},
-  uA0:{value:C('#1A0F0A')},uA1:{value:C('#B3300F')},uA2:{value:C('#FF4A1C')},uA3:{value:C('#FFD9C2')},
-  uB0:{value:C('#1A0F0A')},uB1:{value:C('#B3300F')},uB2:{value:C('#FF4A1C')},uB3:{value:C('#FFD9C2')}
+  uA0:{value:C('#1A0F0A')},uA1:{value:C('#B3300F')},uA2:{value:C('#8B6CFF')},uA3:{value:C('#FFD9C2')},
+  uB0:{value:C('#1A0F0A')},uB1:{value:C('#B3300F')},uB2:{value:C('#8B6CFF')},uB3:{value:C('#FFD9C2')}
 };
 
 const mat = new THREE.ShaderMaterial({
