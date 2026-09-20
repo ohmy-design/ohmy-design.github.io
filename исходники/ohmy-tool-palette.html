@@ -449,6 +449,10 @@ footer.site-foot{display:block}
   ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){
     animation:none !important}
 }
+/* Блок связи сливается с подвалом: тот же фон, без отступа и линии между ними */
+section.cta{background:var(--bg-2);padding-block:clamp(60px,7vw,100px) clamp(36px,4vw,56px)}
+section.cta + footer.site-foot{border-top:0;margin-top:0}
+section.cta .fc:hover{background:var(--bg)}
 </style>
 
 <script>
