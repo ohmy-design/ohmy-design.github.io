@@ -37,7 +37,7 @@
   --blend:difference;
 }
 [data-theme="light"]{
-  --bg:#FCFCFB; --bg-2:#F0F0EE;
+  --bg:#F3F1ED; --bg-2:#E9E6E0;
   --ink:#141418; --muted:#71717A;
   --line:rgba(20,20,24,.12); --line-strong:rgba(20,20,24,.28);
   --accent:#E5350B;
@@ -99,6 +99,11 @@ nav{border-bottom:1px solid transparent;
 nav.stuck{mix-blend-mode:normal;background:var(--bg);
   border-bottom-color:var(--line)}
 [data-menu="on"] nav{mix-blend-mode:normal}
+
+/* Над обложкой проекта шапка светлая даже в светлой теме: фон там —
+   фотография, а тёмный текст на ней не читается */
+:root[data-theme="light"] nav:not(.stuck):not(:has(.sub-wrap:hover)):not(:has(.sub-wrap:focus-within)):not([data-menu="on"] *){
+  --ink:#F2F0EC;--line-strong:rgba(242,240,236,.35);--bg:#131317;color:#F2F0EC}
 
 /* Бургер. Две черты складываются в крест — третья не нужна, читается и так */
 .burger{display:none;width:40px;height:40px;flex-shrink:0;padding:0;border:0;

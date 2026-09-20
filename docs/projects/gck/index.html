@@ -37,7 +37,7 @@
   --blend:difference;
 }
 [data-theme="light"]{
-  --bg:#FCFCFB; --bg-2:#F0F0EE;
+  --bg:#F3F1ED; --bg-2:#E9E6E0;
   --ink:#141418; --muted:#71717A;
   --line:rgba(20,20,24,.12); --line-strong:rgba(20,20,24,.28);
   --accent:#E5350B;
@@ -99,6 +99,11 @@ nav{border-bottom:1px solid transparent;
 nav.stuck{mix-blend-mode:normal;background:var(--bg);
   border-bottom-color:var(--line)}
 [data-menu="on"] nav{mix-blend-mode:normal}
+
+/* Над обложкой проекта шапка светлая даже в светлой теме: фон там —
+   фотография, а тёмный текст на ней не читается */
+:root[data-theme="light"] nav:not(.stuck):not(:has(.sub-wrap:hover)):not(:has(.sub-wrap:focus-within)):not([data-menu="on"] *){
+  --ink:#F2F0EC;--line-strong:rgba(242,240,236,.35);--bg:#131317;color:#F2F0EC}
 
 /* Бургер. Две черты складываются в крест — третья не нужна, читается и так */
 .burger{display:none;width:40px;height:40px;flex-shrink:0;padding:0;border:0;
@@ -815,7 +820,7 @@ footer.site-foot{display:block}
   </div>
 
   <div class="two">
-    <p class="lead rv">Отраслевой центр при&nbsp;МГТУ «СТАНКИН», созданный, чтобы собрать станкостроение в&nbsp;одну систему. <em>Сайт должен был говорить с&nbsp;тремя аудиториями одновременно</em>&nbsp;— и&nbsp;не&nbsp;сорваться ни&nbsp;в&nbsp;вузовскую страницу, ни&nbsp;в&nbsp;министерский&nbsp;портал.</p>
+    <p class="lead rv">Отраслевой центр при&nbsp;МГТУ «СТАНКИН», созданный, чтобы собрать станкоинструментальную промышленность в&nbsp;одну систему. <em>Сайт создавался под&nbsp;несколько аудиторий одновременно.</em></p>
     <div class="rv">
       <p class="body">ГЦК объединяет предприятия отрасли, исследовательские институты и&nbsp;экспертов. Отсюда четыре направления работы: испытания оборудования, подготовка инженерных кадров, разработка технологий обработки и&nbsp;развитие ИТ. Каждое обращено к&nbsp;своей аудитории, но&nbsp;все четыре должны читаться как&nbsp;одно&nbsp;целое.</p>
       <p class="body">Второй слой&nbsp;— документы. Нормативные акты, отраслевые стандарты, конструкторское бюро: то, ради чего на&nbsp;сайт приходят специалисты. Такие разделы легко превращаются в&nbsp;свалку файлов, и&nbsp;тогда сайт перестаёт работать на&nbsp;всех остальных.</p>
@@ -883,7 +888,6 @@ footer.site-foot{display:block}
     <figure class="frame rv"><div class="frame-i"><img src="/img/cases/gck/notepads.jpg" alt="Блокноты со знаком ГЦК" loading="lazy"></div><figcaption>Блокноты участника<i>фото</i></figcaption></figure>
     <figure class="frame rv"><div class="frame-i"><img src="/img/cases/gck/cards.jpg" alt="Визитные карточки ГЦК" loading="lazy"></div><figcaption>Визитные карточки<i>макет</i></figcaption></figure>
     <figure class="frame rv"><div class="frame-i"><img src="/img/cases/gck/posters.jpg" alt="Афиши форума ГЦК на стене" loading="lazy"></div><figcaption>Афиши форума<i>макет</i></figcaption></figure>
-    <figure class="frame rv"><div class="frame-i"><img src="/img/cases/gck/bag.jpg" alt="Пакет со знаком ГЦК" loading="lazy"></div><figcaption>Пакет<i>макет</i></figcaption></figure>
   </div>
 </section>
 
@@ -894,13 +898,11 @@ footer.site-foot{display:block}
   </div>
 
   <div class="outcome rv">
-    <div><span>01</span><div>Сайт центра и&nbsp;площадки его мероприятий живут в&nbsp;одном домене и&nbsp;одном&nbsp;стиле.</div></div>
-    <div><span>02</span><div>Нормативные документы вынесены в&nbsp;отдельный контур и&nbsp;не&nbsp;мешают остальным разделам.</div></div>
-    <div><span>03</span><div>Логотип и&nbsp;стиль работают за&nbsp;пределами сайта&nbsp;— в&nbsp;документах, на&nbsp;бейджах, лентах и&nbsp;стендах форумов.</div></div>
-    <div><span>04</span><div>Новости и&nbsp;анонсы центра ведём мы, редакция клиенту не&nbsp;нужна.</div></div>
+    <div><span>01</span><div>Логотип и&nbsp;фирменный стиль одинаково хорошо работают в&nbsp;вебе, на&nbsp;печатных носителях и&nbsp;на&nbsp;мероприятиях&nbsp;— от&nbsp;сайта до&nbsp;бейджей, лент и&nbsp;стендов форумов.</div></div>
+    <div><span>02</span><div>Продолжаем развивать сайт: обновления, новые разделы, страницы под&nbsp;каждый новый форум&nbsp;центра.</div></div>
+    <div><span>03</span><div>Полностью ведём ленту новостей: пишем и&nbsp;публикуем новости и&nbsp;анонсы.</div></div>
+    <div><span>04</span><div>Разрабатываем графические материалы для&nbsp;центра.</div></div>
   </div>
-
-  <p class="body rv" style="margin-top:clamp(34px,4vw,54px);max-width:62ch">Проект продолжается: под&nbsp;каждый новый форум центра собирается своя страница внутри той&nbsp;же&nbsp;системы. Ближайшая&nbsp;— «День заказчика».</p>
 </section>
 
 <a class="live rv" href="https://xn-----dlcdmbaydghgtidfebcgwr9bh3gn.xn--p1ai/" target="_blank" rel="noopener">
