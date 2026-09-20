@@ -191,7 +191,7 @@ def work(c, n):
 </section>'''
 
 
-def result(c, n):
+def result(c, n, extra=''):
     if c.get('res'):
         items = ''.join(f'\n    <div class="res-i"><b>{v}</b><span>{t}</span></div>'
                         for v, t in c['res'])
@@ -210,7 +210,7 @@ def result(c, n):
     <div><span class="sec-idx">{n:02d} — итог</span><h2 class="sec-title">результат</h2></div>
     <span class="mono">что можно проверить</span>
   </div>
-{block}{tail}
+{block}{tail}{extra}
 </section>'''
 
 
@@ -237,6 +237,14 @@ def nxt(c):
 </a>'''
 
 
+TINT = '''<style>
+#work,#result{background:var(--bg-2)}
+#result{padding-bottom:clamp(70px,9vw,150px)}
+#result .live{margin:clamp(28px,3.4vw,52px) 0 0}
+#result .live:hover{background:var(--bg)}
+</style>'''
+
+
 def main():
     made = 0
     for i, c in enumerate(CASES):
@@ -252,8 +260,14 @@ def main():
             chain.append(shots)
         chain.append(result)
         mid = [f(c, k + 1) for k, f in enumerate(chain)]
-        body = '\n\n'.join([cover(c), facts(c)] + mid +
-                            [live(c), nxt(CASES[(i + 1) % len(CASES)])])
+        tail_blocks = [live(c), nxt(CASES[(i + 1) % len(CASES)])]
+        head_blocks = [cover(c), facts(c)]
+        if c.get('tint'):
+            # ритм страницы: «что сделали» и «результат» на серо-белой подложке,
+            # ссылка на сайт уходит внутрь итога и остаётся на его подложке
+            mid[-1] = result(c, len(chain), '\n\n  ' + tail_blocks.pop(0))
+            head_blocks.insert(0, TINT)
+        body = '\n\n'.join(head_blocks + mid + tail_blocks)
         # Блок связи в оболочке подписан «04 — связь». Разделов на странице
         # теперь бывает и пять, поэтому номер досчитываем здесь
         page = (SHELL.replace('{{TITLE}}', esc(c['title']))

@@ -68,7 +68,7 @@ CASES = [
  'seo':('ТИШЬ','кейс · интернет-магазин')},
 
 # ---------------------------------------------------------------- собраны генератором
-{'slug':'gck','n':'ГЦК','y':2025,'s':'industry','t':['web','brand','care'],
+{'slug':'gck','tint':True,'n':'ГЦК','y':2025,'s':'industry','t':['web','brand','care'],
  'img':'img/lib/cover-slide-1-6333.jpg',
  'url':'https://xn-----dlcdmbaydghgtidfebcgwr9bh3gn.xn--p1ai/',
  'title':'ГЦК — сайт и фирменный стиль центра компетенций станкостроения',
