@@ -196,20 +196,26 @@ def ident(c, n):
 
 def shots(c, n):
     """Носители. Фотографию и макет подписываем по-разному: выдавать
-       рендер за напечатанное — то же самое, что придумать цифру."""
+       рендер за напечатанное — то же самое, что придумать цифру.
+       Кадр может нести свою пропорцию шестым элементом — для скриншотов,
+       которые нельзя резать под общую рамку."""
     items = ''
-    for src, alt, cap, kind, size in c['shots']:
+    for src, alt, cap, kind, size, *rest in c['shots']:
+        ratio = f' style="aspect-ratio:{rest[0]}"' if rest else ''
         items += (f'\n    <figure class="frame rv{" full" if size == "full" else ""}">'
                   f'<div class="frame-i"><img src="img/cases/{c["slug"]}/{src}" '
-                  f'alt="{esc(alt)}" loading="lazy"></div>'
+                  f'alt="{esc(alt)}" loading="lazy"{ratio}></div>'
                   f'<figcaption>{cap}<i>{kind}</i></figcaption></figure>')
-    live = sum(1 for *_, k, _s in c['shots'] if k == 'фото')
+    live = sum(1 for it in c['shots'] if it[3] == 'фото')
     k = len(c['shots'])
     ex = 'пример' if k % 10 == 1 and k != 11 else 'примера' if k % 10 in (2, 3, 4) and k not in (12, 13, 14) else 'примеров'
     mono = f'{live} с площадки' if live else f'{k} {ex} из брендбука'
+    idx, title = 'носители', 'как это живёт'
+    if c.get('shots_head'):
+        idx, title, mono = c['shots_head']
     return f'''<section id="shots">
   <div class="sec-head rv">
-    <div><span class="sec-idx">{n:02d} — носители</span><h2 class="sec-title">как это живёт</h2></div>
+    <div><span class="sec-idx">{n:02d} — {idx}</span><h2 class="sec-title">{title}</h2></div>
     <span class="mono">{mono}</span>
   </div>
 

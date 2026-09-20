@@ -21,8 +21,8 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ОдинХаб — редизайн и сопровождение сайта IPAM-платформы</title>
-<meta name="description" content="Редизайн и сопровождение сайта платформы инвентаризации ИТ-активов ОдинХаб — российского форка NetBox в реестре ПО. Кейс студии ohmy.design.">
+<title>ОдинХаб — логотип и редизайн сайта IPAM-платформы</title>
+<meta name="description" content="Логотип и полный редизайн сайта платформы инвентаризации ИТ-активов ОдинХаб — российского форка NetBox в реестре ПО. Кейс студии ohmy.design.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -504,9 +504,9 @@ footer.site-foot{display:block}
 /* Начертаний знака бывает меньше трёх — например, когда клиент отдал
    в работу только сам знак, а не полный набор начертаний */
 .marks[data-n="1"]{grid-template-columns:1fr}
-.marks[data-n="2"]{grid-template-columns:repeat(2,1fr)}
+.marks[data-n="2"],.marks[data-n="4"]{grid-template-columns:repeat(2,1fr)}
 @media(max-width:760px){
-  .marks[data-n="1"],.marks[data-n="2"]{grid-template-columns:1fr}
+  .marks[data-n="1"],.marks[data-n="2"],.marks[data-n="4"]{grid-template-columns:1fr}
 }
 
 /* Ссылка на работающий сайт. Раньше карточка каталога уводила на сторонний
@@ -585,8 +585,6 @@ footer.site-foot{display:block}
 .cta .sec-head{margin-bottom:clamp(30px,3.4vw,46px)}
 /* cta-head:end */
 </style>
-<!-- seo:start -->
-<!-- seo:end -->
 
 
 
@@ -781,6 +779,25 @@ section.cta .fc:hover{background:var(--bg)}
 </script>
 <!-- motion:end -->
 
+<!-- seo:start -->
+<link rel="canonical" href="https://ohmy.design/projects/odinhub">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ohmy.design">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="ОдинХаб — логотип и редизайн сайта IPAM-платформы">
+<meta property="og:description" content="Логотип и полный редизайн сайта платформы инвентаризации ИТ-активов ОдинХаб — российского форка NetBox в реестре ПО. Кейс студии ohmy.design.">
+<meta property="og:url" content="https://ohmy.design/projects/odinhub">
+<meta property="og:image" content="https://ohmy.design/og/projects-odinhub.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ОдинХаб — логотип и редизайн сайта IPAM-платформы">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ОдинХаб — логотип и редизайн сайта IPAM-платформы">
+<meta name="twitter:description" content="Логотип и полный редизайн сайта платформы инвентаризации ИТ-активов ОдинХаб — российского форка NetBox в реестре ПО. Кейс студии ohmy.design.">
+<meta name="twitter:image" content="https://ohmy.design/og/projects-odinhub.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#131317">
+<!-- seo:end -->
 </head>
 <body>
 
@@ -815,24 +832,33 @@ section.cta .fc:hover{background:var(--bg)}
 </nav>
 <div class="menu" id="menu"></div>
 
+<style>
+#work,#result{background:var(--bg-2)}
+#result{padding-bottom:clamp(70px,9vw,150px)}
+#result .live{margin:clamp(28px,3.4vw,52px) 0 0}
+#result .live:hover{background:var(--bg)}
+</style>
+
 <header class="cover">
-  <img src="img/lib/cover-slide-6630.jpg" alt="ОдинХаб">
+  <img src="img/cases/odinhub/after-hero.jpg" alt="ОдинХаб">
   <div class="cover-in">
     <a class="crumb" href="ohmy-projects.html">← все проекты</a>
     <h1>ОдинХаб</h1>
     <div class="cover-tags">
       <span class="tag on">сайт</span>
-      <span class="tag">поддержка</span>
+      <span class="tag">логотип</span>
+      <span class="tag">сопровождение</span>
       <span class="tag">2025</span>
     </div>
   </div>
 </header>
 
-<div class="facts" data-n="4">
+<div class="facts" data-n="5">
   <div class="fact"><span>клиент</span><b>ОдинХаб, платформа инвентаризации ИТ-активов</b></div>
-  <div class="fact"><span>направление</span><b>Веб · сопровождение</b></div>
-  <div class="fact"><span>роль студии</span><b>Структура, дизайн, сборка, развитие</b></div>
+  <div class="fact"><span>направление</span><b>Веб · айдентика · сопровождение</b></div>
+  <div class="fact"><span>роль студии</span><b>Логотип, редизайн сайта, сборка, развитие</b></div>
   <div class="fact"><span>особенность</span><b>Лицензии бесплатны&nbsp;— продаются внедрение и&nbsp;поддержка</b></div>
+  <div class="fact"><span>сайт</span><b><a href="https://xn--80achqzd6c.xn--p1ai/" target="_blank" rel="noopener" class="fact-live">одинхаб.рф<i>↗</i></a></b></div>
 </div>
 
 <section id="task">
@@ -850,48 +876,89 @@ section.cta .fc:hover{background:var(--bg)}
   </div>
 </section>
 
+<section id="ident">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">02 — знак</span><h2 class="sec-title">фирменный стиль</h2></div>
+    <span class="mono">4 начертания</span>
+  </div>
+
+  <p class="lead rv" style="max-width:64ch;margin-top:clamp(28px,3.4vw,48px)">Знак&nbsp;— изометрический куб: он&nbsp;читается и&nbsp;в&nbsp;шапке сайта, и&nbsp;в&nbsp;маленькой иконке. Название набрано в&nbsp;два цвета: ОДИН тёмным, ХАБ голубым&nbsp;— цвет бренда достаётся второму&nbsp;слову.</p>
+
+  <div class="marks rv" data-n="4">
+    <div class="mark" style="background:#F3F6FB"><img src="img/cases/odinhub/OH-4.svg" alt="Логотип ОдинХаб: чёрное и голубое на светлом" loading="lazy"><span style="color:#1E1E1E;opacity:0.55">основной</span></div>
+    <div class="mark" style="background:#0A0A0A"><img src="img/cases/odinhub/OH-3.svg" alt="Логотип ОдинХаб: голубое и белое на тёмном" loading="lazy"><span style="color:#FCFCFC;opacity:0.6">на тёмном</span></div>
+    <div class="mark" style="background:#FFFFFF"><img src="img/cases/odinhub/OH-2.svg" alt="Логотип ОдинХаб в чёрном" loading="lazy"><span style="color:#1E1E1E;opacity:0.55">чёрный</span></div>
+    <div class="mark" style="background:#43A6DE"><img src="img/cases/odinhub/OH-1.svg" alt="Логотип ОдинХаб в белом на голубом" loading="lazy"><span style="color:#FCFCFC;opacity:0.6">белый</span></div>
+  </div>
+
+  <div class="pal" data-n="3">
+    <div class="pal-i"><div class="pal-c" style="background:#43A6DE"></div><div class="pal-h">#43A6DE</div><div class="pal-n">голубой</div><p class="pal-t">Слово ХАБ и&nbsp;грани куба. Цвет&nbsp;бренда.</p></div>
+    <div class="pal-i"><div class="pal-c" style="background:#000000"></div><div class="pal-h">#000000</div><div class="pal-n">чёрный</div><p class="pal-t">Слово ОДИН и&nbsp;верх&nbsp;куба.</p></div>
+    <div class="pal-i"><div class="pal-c" style="background:#FFFFFF"></div><div class="pal-h">#FFFFFF</div><div class="pal-n">белый</div><p class="pal-t">Знак на&nbsp;тёмном и&nbsp;на&nbsp;голубом.</p></div>
+  </div>
+</section>
+
 <section id="work">
   <div class="sec-head rv">
-    <div><span class="sec-idx">02 — работа</span><h2 class="sec-title">что сделали</h2></div>
-    <span class="mono">5 решений</span>
+    <div><span class="sec-idx">03 — работа</span><h2 class="sec-title">что сделали</h2></div>
+    <span class="mono">6 решений</span>
   </div>
 
   <div class="steps">
     <div class="step rv"><span class="step-n">01</span>
-      <h3>Начали с&nbsp;вопроса, а&nbsp;не&nbsp;с&nbsp;продукта</h3>
-      <p>«Где сейчас лежит правда о&nbsp;вашей инфраструктуре»&nbsp;— первый содержательный экран. Читатель узнаёт свою ситуацию раньше, чем&nbsp;название системы.</p></div>
+      <h3>Нарисовали&nbsp;логотип</h3>
+      <p>Изометрический куб как&nbsp;знак и&nbsp;двухцветное название. Он&nbsp;работает в&nbsp;шапке сайта, в&nbsp;иконке и&nbsp;на&nbsp;тёмном фоне, и&nbsp;отличает продукт от&nbsp;NetBox, из&nbsp;которого платформа выросла.</p></div>
     <div class="step rv"><span class="step-n">02</span>
-      <h3>Поставили «как&nbsp;обычно» и&nbsp;«как&nbsp;с&nbsp;системой»&nbsp;рядом</h3>
-      <p>Две колонки: разъезжающиеся таблицы отделов против единого источника данных. Сравнение убеждает быстрее описания.</p></div>
+      <h3>Пересобрали главный&nbsp;экран</h3>
+      <p>Крупный заголовок, четыре факта одной строкой&nbsp;— основа, лицензии, модули, статус&nbsp;— и&nbsp;изометрическая сетка кубов с&nbsp;карточками стоек, которая живёт за&nbsp;текстом.</p></div>
     <div class="step rv"><span class="step-n">03</span>
-      <h3>Ответили на&nbsp;вопрос про&nbsp;NetBox&nbsp;прямо</h3>
-      <p>У&nbsp;платформы есть предшественник, и&nbsp;умалчивать о&nbsp;нём бессмысленно. Отдельный блок объясняет, что&nbsp;даёт переход: реестровый статус, обновления, закрытые уязвимости.</p></div>
+      <h3>Начали с&nbsp;вопроса, а&nbsp;не&nbsp;с&nbsp;продукта</h3>
+      <p>«Где сейчас лежит правда о&nbsp;вашей инфраструктуре»&nbsp;— первый содержательный экран. Две колонки, «как&nbsp;обычно» и&nbsp;«с&nbsp;ОдинХаб», убеждают быстрее описания.</p></div>
     <div class="step rv"><span class="step-n">04</span>
-      <h3>Разложили состав системы по&nbsp;модулям</h3>
-      <p>IPAM, DCIM, виртуальные машины, топология, DHCP, DNS, Zabbix, журнал ИБ&nbsp;— каждый модуль карточкой с&nbsp;назначением.</p></div>
+      <h3>Ответили на&nbsp;вопрос про&nbsp;NetBox&nbsp;прямо</h3>
+      <p>У&nbsp;платформы есть предшественник, и&nbsp;умалчивать о&nbsp;нём бессмысленно. Отдельный тёмный блок объясняет, что&nbsp;даёт переход: реестровый статус, обновления, закрытые уязвимости.</p></div>
     <div class="step rv"><span class="step-n">05</span>
+      <h3>Разложили состав системы по&nbsp;модулям</h3>
+      <p>Шесть разделов базовой системы и&nbsp;десять дополнительных модулей: Сонар, Атлас, ITAM, DHCP, DNS, Zabbix, журнал ИБ. Каждый карточкой с&nbsp;назначением, плюс подборка из&nbsp;десяти видеообзоров.</p></div>
+    <div class="step rv"><span class="step-n">06</span>
       <h3>Объяснили, на&nbsp;чём зарабатывает компания</h3>
       <p>Лицензии бесплатны, платные&nbsp;— доработка, внедрение и&nbsp;поддержка. Сказано прямо: иначе бесплатность вызывает подозрение.</p></div>
   </div>
 </section>
 
+<section id="shots">
+  <div class="sec-head rv">
+    <div><span class="sec-idx">04 — до и после</span><h2 class="sec-title">было и стало</h2></div>
+    <span class="mono">2 экрана до, 3 после</span>
+  </div>
+
+  <div class="frames">
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/odinhub/before-1.jpg" alt="Сайт ОдинХаб до редизайна: первая версия главного экрана" loading="lazy" style="aspect-ratio:1280/600"></div><figcaption>Сайт до: главный экран<i>до</i></figcaption></figure>
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/odinhub/before-2.jpg" alt="Сайт ОдинХаб до редизайна: другая версия главного экрана" loading="lazy" style="aspect-ratio:1280/600"></div><figcaption>Сайт до: другая версия<i>до</i></figcaption></figure>
+    <figure class="frame rv full"><div class="frame-i"><img src="img/cases/odinhub/after-hero.jpg" alt="Сайт ОдинХаб после редизайна: главный экран" loading="lazy"></div><figcaption>Сайт сейчас: главный экран<i>после</i></figcaption></figure>
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/odinhub/after-compare.jpg" alt="Сайт ОдинХаб: сравнение «как обычно» и «с ОдинХаб»" loading="lazy"></div><figcaption>Сравнение «как обычно» и «с ОдинХаб»<i>после</i></figcaption></figure>
+    <figure class="frame rv"><div class="frame-i"><img src="img/cases/odinhub/after-netbox.jpg" alt="Сайт ОдинХаб: блок для тех, кто уже использует NetBox" loading="lazy"></div><figcaption>Блок для тех, кто уже на NetBox<i>после</i></figcaption></figure>
+  </div>
+</section>
+
 <section id="result">
   <div class="sec-head rv">
-    <div><span class="sec-idx">03 — итог</span><h2 class="sec-title">результат</h2></div>
+    <div><span class="sec-idx">05 — итог</span><h2 class="sec-title">результат</h2></div>
     <span class="mono">что можно проверить</span>
   </div>
 
   <div class="outcome rv">
-    <div><span>01</span><div>Сайт начинается с&nbsp;задачи читателя, а&nbsp;не&nbsp;с&nbsp;описания платформы.</div></div>
-    <div><span>02</span><div>Переход с&nbsp;NetBox разобран открытым блоком, а&nbsp;не&nbsp;обойдён молчанием.</div></div>
-    <div><span>03</span><div>Бесплатные лицензии и&nbsp;платные услуги разделены явно&nbsp;— вопрос снят до&nbsp;его появления.</div></div>
+    <div><span>01</span><div>Продукт получил собственное лицо: логотип, цвета и&nbsp;сайт собраны как&nbsp;одна система.</div></div>
+    <div><span>02</span><div>Сайт начинается с&nbsp;задачи читателя, а&nbsp;не&nbsp;с&nbsp;описания платформы.</div></div>
+    <div><span>03</span><div>Переход с&nbsp;NetBox разобран открытым блоком, бесплатные лицензии и&nbsp;платные услуги разделены явно&nbsp;— вопрос снят до&nbsp;его появления.</div></div>
+    <div><span>04</span><div>Продолжаем развивать сайт вместе с&nbsp;продуктом: новые модули, разделы и&nbsp;материалы.</div></div>
   </div>
-</section>
 
-<a class="live rv" href="https://xn--80achqzd6c.xn--p1ai/" target="_blank" rel="noopener">
+  <a class="live rv" href="https://xn--80achqzd6c.xn--p1ai/" target="_blank" rel="noopener">
   <div class="live-l"><span>смотреть работу</span><b>одинхаб.рф</b></div>
   <span class="live-a">↗</span>
 </a>
+</section>
 
 <a class="next" href="ohmy-case-elstar.html">
   <img src="img/lib/0f7feef4efdf4f1061ca-6465.jpg" alt="" loading="lazy">
@@ -903,7 +970,7 @@ section.cta .fc:hover{background:var(--bg)}
 
 <section class="cta" id="cta">
   <div class="sec-head rv">
-    <div><span class="sec-idx">04 — связь</span><h2 class="sec-title">будем на связи</h2></div>
+    <div><span class="sec-idx">06 — связь</span><h2 class="sec-title">будем на связи</h2></div>
     <span class="mono">похожая задача?</span>
   </div>
   <div class="cta-contacts rv">

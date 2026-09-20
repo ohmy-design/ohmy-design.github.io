@@ -504,9 +504,9 @@ footer.site-foot{display:block}
 /* Начертаний знака бывает меньше трёх — например, когда клиент отдал
    в работу только сам знак, а не полный набор начертаний */
 .marks[data-n="1"]{grid-template-columns:1fr}
-.marks[data-n="2"]{grid-template-columns:repeat(2,1fr)}
+.marks[data-n="2"],.marks[data-n="4"]{grid-template-columns:repeat(2,1fr)}
 @media(max-width:760px){
-  .marks[data-n="1"],.marks[data-n="2"]{grid-template-columns:1fr}
+  .marks[data-n="1"],.marks[data-n="2"],.marks[data-n="4"]{grid-template-columns:1fr}
 }
 
 /* Ссылка на работающий сайт. Раньше карточка каталога уводила на сторонний
