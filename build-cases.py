@@ -160,10 +160,15 @@ def ident(c, n):
     motion = ''
     if d.get('motion'):
         m = d['motion']
-        motion = (f'\n\n  <figure class="motion rv"><canvas class="motion-cv"></canvas>'
-                  f'<img class="motion-poster" src="img/cases/{c["slug"]}/{m["poster"]}" alt="" loading="lazy">'
-                  f'<div class="motion-word" aria-hidden="true">{m["word"]}</div>'
-                  f'<figcaption>{m["caption"]}<i>анимация</i></figcaption></figure>\n  {MOTION_JS}')
+        if m.get('custom'):
+            # у эффекта нет общей палитры с другими кейсами (это не
+            # градиент+зерно) — кейс сам приносит готовую разметку и скрипт
+            motion = f'\n\n  {m["custom"]}'
+        else:
+            motion = (f'\n\n  <figure class="motion rv"><canvas class="motion-cv"></canvas>'
+                      f'<img class="motion-poster" src="img/cases/{c["slug"]}/{m["poster"]}" alt="" loading="lazy">'
+                      f'<div class="motion-word" aria-hidden="true">{m["word"]}</div>'
+                      f'<figcaption>{m["caption"]}<i>анимация</i></figcaption></figure>\n  {MOTION_JS}')
     tiles = ''
     if d.get('tiles'):
         items = ''.join(f'\n    <figure class="tile"><img src="img/cases/{c["slug"]}/{src}" '

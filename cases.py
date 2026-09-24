@@ -46,6 +46,70 @@
 
 W, B, C = 'сайт', 'дизайн', 'поддержка'
 
+# живой фон hero МС22: тот же приём, что на сайте — падающие символы
+# под мягкой дымкой. Эффект однажды используется только здесь, поэтому
+# кейс приносит готовую разметку сам, через ident.motion.custom
+MC22_MATRIX_HTML = """<figure class="frame full rv" style="margin-top:clamp(38px,4.5vw,66px)">
+  <div class="frame-i" style="position:relative;aspect-ratio:2/1;background:#0B0B10">
+    <div class="ms22-matrix" aria-hidden="true"></div>
+  </div>
+  <figcaption>Тот же фон, что и в hero сайта — живой, с падающими символами<i>анимация</i></figcaption>
+</figure>
+
+<style>
+.ms22-matrix{position:absolute;inset:0;overflow:hidden;pointer-events:none;
+  font:13px/1.4 ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#8777E0;opacity:.32;
+  -webkit-mask-image:radial-gradient(70% 70% at 50% 42%,#000,transparent 86%);
+          mask-image:radial-gradient(70% 70% at 50% 42%,#000,transparent 86%)}
+.ms22-matrix span{position:absolute;white-space:pre;line-height:1.4}
+@media(prefers-reduced-motion:reduce){.ms22-matrix{opacity:.16}}
+</style>
+<script>
+(function(){
+  var box=document.querySelector('.ms22-matrix'); if(!box) return;
+  var reduced=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var GL='01{}[]()<>/\\\\|-_=+*#$&%~^;:.,!?abcdefxyz'.split('');
+  var cols=[],raf=null,last=0;
+  function paint(c){var s='';for(var i=0;i<c.len;i++) s+=GL[(Math.random()*GL.length)|0]+'\\n';c.el.textContent=s}
+  function build(){
+    box.innerHTML='';cols=[];
+    var w=box.clientWidth,h=box.clientHeight; if(!w) return;
+    var step=26,n=Math.ceil(w/step),len=Math.ceil(h/18)+4;
+    for(var i=0;i<n;i++){
+      var el=document.createElement('span');
+      el.style.left=(i*step)+'px'; el.style.top=(-Math.random()*200)+'px';
+      box.appendChild(el);
+      cols.push({el:el,len:len,speed:.25+Math.random()*.5,y:-Math.random()*h});
+      paint(cols[i]);
+    }
+  }
+  function frame(t){
+    if(t-last>90){
+      last=t; var h=box.clientHeight;
+      cols.forEach(function(c){
+        c.y+=c.speed*6;
+        if(c.y>h+60){c.y=-220-Math.random()*200;paint(c);}
+        c.el.style.transform='translateY('+c.y+'px)';
+        if(Math.random()<.06) paint(c);
+      });
+    }
+    raf=requestAnimationFrame(frame);
+  }
+  build();
+  var rt; window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(build,300)});
+  if(!reduced){
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if(e.isIntersecting){ if(!raf) raf=requestAnimationFrame(frame); }
+          else if(raf){ cancelAnimationFrame(raf); raf=null; }
+        });
+      },{threshold:.05}).observe(box);
+    } else { raf=requestAnimationFrame(frame); }
+  }
+})();
+</script>"""
+
 CASES = [
 
 # ---------------------------------------------------------------- собраны руками
@@ -552,16 +616,18 @@ CASES = [
         'Реестровый статус и результаты Bug Bounty работают с первого экрана.',
         'Сайт развивается вместе с продуктом — это сопровождение, а не разовый запуск.']},
 
-{'slug':'ms22','n':'МС22','y':2025,'s':'it','t':['web','care'],
- 'img':'img/lib/cover-slide-6633.jpg','url':'https://xn--22-7lcu.xn--p1ai/',
+{'slug':'ms22','tint':True,'n':'МС22','y':2025,'s':'it','t':['web','care'],
+ 'img':'img/cases/ms22/cover.jpg','url':'https://xn--22-7lcu.xn--p1ai/',
  'title':'МС22 — редизайн и сопровождение сайта менеджера соединений',
  'desc':'Редизайн и сопровождение сайта российского SSH/SFTP/RDP/VNC-клиента МС22 '
-        'от АБП2Б. Кейс студии ohmy.design.',
- 'tags':['сайт','поддержка','2025'],
+        'от АБП2Б: живой фон hero, структура под инженера, сопровождение. '
+        'Кейс студии ohmy.design.',
+ 'tags':['сайт','сопровождение','2025'],
  'facts':[('клиент','МС22, менеджер соединений, АБП2Б'),
           ('направление','Веб · сопровождение'),
-          ('роль студии','Структура, дизайн, сборка, развитие'),
-          ('особенность','Сайт для инженеров — аудитория проверяет каждое слово')],
+          ('роль студии','Редизайн сайта, анимированный фон hero, сборка, развитие'),
+          ('особенность','Сайт для инженеров — аудитория проверяет каждое слово'),
+          ('сайт',None)],
  'lead':'Российский аналог PuTTY, MobaXterm и SecureCRT в одном окне. '
         '<em>Покупатель здесь — инженер</em>, и маркетинговый текст он закрывает '
         'быстрее, чем дочитывает.',
@@ -572,6 +638,23 @@ CASES = [
          'Вторая сложность — сравнение. Инженер приходит с вопросом «чем это лучше '
          'того, чем я пользуюсь сейчас», и уходит, если ответа нет. Импортозамещение '
          'само по себе аргументом не работает.'],
+
+ 'ident':{
+   'idx':'стиль','title':'живой фон','mono':'анимация из hero',
+   'lead':'Для интерфейса выбрали язык, знакомый инженеру: тёмная тема, '
+          'монотипный шрифт в окне приложения, фиолетовый акцент вместо '
+          'привычного корпоративного синего. Фон hero — не статичная картинка, '
+          'а медленно падающие символы под мягкой дымкой: деталь, которую '
+          'считывает именно та аудитория, для которой сделан продукт.',
+   'note':'Отдельного брендбука в проекте не было — фирменный стиль держится '
+          'на сайте: акцентный фиолетовый, тёмная тема по умолчанию и терминальная '
+          'эстетика в UI.',
+   'colors':[('#8777E0','фиолетовый','Кнопки, ссылки, акценты — цвет бренда.'),
+             ('#A79BFF','светло-фиолетовый','Хайлайт в заголовке и подсветка полей.'),
+             ('#62C584','мятный','Статус «активно» и индикаторы в интерфейсе.'),
+             ('#0B0B10','почти чёрный','Фон hero и окно приложения.')],
+   'motion':{'custom':MC22_MATRIX_HTML}},
+
  'steps':[('Начали с того, что заменяет пять программ',
            'Первый экран отвечает на главный вопрос инженера: что именно перестанет '
            'быть нужным после установки.'),
@@ -587,8 +670,21 @@ CASES = [
            'нулевого разглашения — блоком, а не сноской.'),
           ('Ведём сайт вместе с продуктом',
            'Новые утилиты и версии добавляются в существующую структуру.')],
- 'out':['Первый экран отвечает на вопрос «что это заменит», а не «кто мы такие».',
-        'Двенадцать утилит показаны поимённо — инженер ищет по названию.',
+
+ 'shots_head':('до и после','было и стало','2 версии до, 2 после'),
+ 'shots':[('before-1.jpg','Сайт МС22 до редизайна: версия с 3D-иллюстрацией',
+           'Сайт до: версия с 3D-иллюстрацией','до','','1271/587'),
+          ('before-2.jpg','Сайт МС22 до редизайна: более ранняя версия с сеткой',
+           'Сайт до: более ранняя версия','до','','1271/587'),
+          ('cover.jpg','Сайт МС22 после редизайна: главный экран с живым фоном',
+           'Сайт сейчас: главный экран','после','full'),
+          ('app.jpg','Сайт МС22: окно приложения на главном экране',
+           'Окно приложения на главном экране','после','','1800/1076')],
+
+ 'out':['Первый экран отвечает на вопрос «что это заменит», а не «кто мы такие», '
+        'и говорит с инженером на его языке — вплоть до фона.',
+        'Двенадцать утилит показаны поимённо — инженер ищет по названию, а не '
+        'по маркетинговой формулировке.',
         'Сравнение с аналогами построено на функциях, а не на импортозамещении.']},
 
 {'slug':'odinhub','tint':True,'n':'ОдинХаб','y':2025,'s':'it','t':['web','brand','care'],
