@@ -51,7 +51,7 @@ CASES = [
 # ---------------------------------------------------------------- собраны руками
 {'slug':'den-zakazchika','file':'ohmy-case.html','tint':True,
  'n':'День Заказчика','y':2025,'s':'event','t':['web','care'],
- 'img':'img/cases/den-zakazchika/badge-hand.jpg',
+ 'img':'img/cases/den-zakazchika/badge-hand-cover.jpg',
  'url':'https://xn-----dlcdmbaydghgtidfebcgwr9bh3gn.xn--p1ai/den-zakazchika',
  'title':'День Заказчика — лендинги и сопровождение форума ГЦК два года подряд',
  'desc':'Лендинги, регистрация участников, графические материалы, шаблоны презентаций '
