@@ -149,7 +149,15 @@ def ident(c, n):
             marks += (f'\n    <div class="mark" style="background:{bg}">'
                       f'<img src="img/cases/{c["slug"]}/{src}" alt="{esc(alt)}" loading="lazy">'
                       f'<span style="color:{col};opacity:{op}">{label}</span></div>')
-        mw = f' style="--mark-w:{d["mark_w"]}"' if d.get('mark_w') else ''
+        # --logo (потолок высоты знака) — это доля от --plate, поэтому
+        # широким горизонтальным знакам одного --mark-w мало: высота
+        # обрезает их раньше ширины. mark_h раздвигает сам плейт
+        vars_ = []
+        if d.get('mark_w'):
+            vars_.append(f'--mark-w:{d["mark_w"]}')
+        if d.get('mark_h'):
+            vars_.append(f'--plate:{d["mark_h"]}')
+        mw = f' style="{";".join(vars_)}"' if vars_ else ''
         marks_html = f'\n\n  <div class="marks rv" data-n="{len(d["marks"])}"{mw}>{marks}\n  </div>'
     cols = ''
     for hexc, name, note in d.get('colors', []):
